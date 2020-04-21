@@ -1,0 +1,6 @@
+external/_build/
+external/_lib/
+temp/
+projects/.vs/
+bin/
+*.user
