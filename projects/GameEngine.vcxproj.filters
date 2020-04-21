@@ -5,10 +5,60 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{315b3d0f-d0fc-49b0-a9d2-525bf8bfed93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui-sfml">
+      <UniqueIdentifier>{22a3469a-6da1-46c0-9bd5-d7a564c918a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\external\imgui-sfml\imgui-SFML.cpp">
+      <Filter>imgui-sfml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h">
+      <Filter>imgui-sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui-SFML.h">
+      <Filter>imgui-sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui-SFML_export.h">
+      <Filter>imgui-sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui\imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui\imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

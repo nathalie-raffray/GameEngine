@@ -59,19 +59,19 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\external\imgui-sfml\imgui;..\external\imgui-sfml;..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>..\external\_lib\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-main.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
       <Command>xcopy /Y /d ..\external\_lib\SFML\bin\*.dll ..\bin\$(Configuration)</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>Copying DLLs</Message>
-      <Outputs>coppyuginff</Outputs>
+      <Outputs>heehee</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -83,25 +83,41 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\external\imgui-sfml\imgui;..\external\imgui-sfml;..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\external\_lib\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-main.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
       <Command>xcopy /Y /d ..\external\_lib\SFML\bin\*.dll ..\bin\$(Configuration)</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>Copying DLLs</Message>
-      <Outputs>coppyuginff</Outputs>
+      <Outputs>heehee</Outputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\external\imgui-sfml\imgui-SFML.cpp" />
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui.cpp" />
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui-SFML.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui-SFML_export.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui\imconfig.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui\imgui.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui\imgui_internal.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui\imstb_rectpack.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui\imstb_textedit.h" />
+    <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
