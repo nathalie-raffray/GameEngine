@@ -59,12 +59,12 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>..\external\imgui-sfml\imgui;..\external\imgui-sfml;..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\external\imgui-sfml\imgui;..\external\imgui-sfml;..\external\json\single_include\nlohmann;..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>..\external\_lib\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-main.lib;sfml-window.lib;sfml-graphics.lib;sfml-system.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <CustomBuildStep>
       <Command>xcopy /Y /d ..\external\_lib\SFML\bin\*.dll ..\bin\$(Configuration)</Command>
@@ -106,7 +106,9 @@
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\src\AnimationSystem.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\SpriteComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h" />
@@ -118,6 +120,11 @@
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_textedit.h" />
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h" />
+    <ClInclude Include="..\src\AnimationSystem.h" />
+    <ClInclude Include="..\src\ImguiWindows.h" />
+    <ClInclude Include="..\src\Parser.h" />
+    <ClInclude Include="..\src\ResourceManager.h" />
+    <ClInclude Include="..\src\SpriteComponent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

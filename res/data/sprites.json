@@ -1,0 +1,142 @@
+[
+    {
+        "animations": [
+            {
+                "animName": "walk",
+                "loop": true,
+                "numFrames": 2,
+                "screenRect": [
+                    [
+                        20,
+                        20,
+                        100,
+                        100
+                    ],
+                    [
+                        20,
+                        20,
+                        100,
+                        100
+                    ]
+                ],
+                "speed": 100,
+                "texRect": [
+                    [
+                        1,
+                        16,
+                        16,
+                        16
+                    ],
+                    [
+                        19,
+                        16,
+                        16,
+                        16
+                    ]
+                ]
+            },
+            {
+                "animName": "swim",
+                "loop": false,
+                "numFrames": 4,
+                "screenRect": [
+                    [
+                        20,
+                        20,
+                        100,
+                        100
+                    ],
+                    [
+                        20,
+                        20,
+                        100,
+                        100
+                    ],
+                    [
+                        20,
+                        20,
+                        100,
+                        100
+                    ],
+                    [
+                        20,
+                        20,
+                        100,
+                        100
+                    ]
+                ],
+                "speed": 100,
+                "texRect": [
+                    [
+                        216,
+                        15,
+                        16,
+                        16
+                    ],
+                    [
+                        234,
+                        15,
+                        16,
+                        16
+                    ],
+                    [
+                        252,
+                        15,
+                        16,
+                        16
+                    ],
+                    [
+                        270,
+                        15,
+                        16,
+                        16
+                    ]
+                ]
+            }
+        ],
+        "enabled": true,
+        "spriteName": "littlemario",
+        "texName": "marioluigi"
+    },
+    {
+        "animations": [
+            {
+                "animName": "idle",
+                "loop": true,
+                "numFrames": 2,
+                "screenRect": [
+                    [
+                        10,
+                        10,
+                        100,
+                        100
+                    ],
+                    [
+                        10,
+                        10,
+                        100,
+                        100
+                    ]
+                ],
+                "speed": 261,
+                "texRect": [
+                    [
+                        50,
+                        50,
+                        20,
+                        20
+                    ],
+                    [
+                        100,
+                        100,
+                        20,
+                        20
+                    ]
+                ]
+            }
+        ],
+        "enabled": true,
+        "spriteName": "luigi",
+        "texName": "marioluigi"
+    }
+]

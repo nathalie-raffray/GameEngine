@@ -11,6 +11,9 @@
     <Filter Include="imgui-sfml">
       <UniqueIdentifier>{22a3469a-6da1-46c0-9bd5-d7a564c918a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{ccdb6efd-7c04-48b7-80a4-db7fdfbb500d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -30,6 +33,12 @@
     </ClCompile>
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpriteComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AnimationSystem.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +68,21 @@
     </ClInclude>
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SpriteComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ResourceManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AnimationSystem.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Parser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ImguiWindows.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,20 +1,51 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "ResourceManager.h"
+#include "SpriteComponent.h"	
+#include "Parser.h"
+#include "AnimationSystem.h"
+#include "ImguiWindows.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Texture.hpp>
+
+#include <iostream>
+#include <list>
+
+typedef sf::IntRect IntRect;
+typedef sf::Sprite Sprite;
+template <typename T>
+using Vector2 = sf::Vector2<T>; //Vector<2> is equivalent to sf::Vector2<T>
+typedef sf::Texture Texture;
+
+ResourceManager resManager;
+//std::vector<CAnimatedSprite*>sprites;
+ImguiWindows imguiWindows;
+Parser parser;
+AnimationSystem as;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "ImGui + SFML = <3");
-	window.setFramerateLimit(60);
+	
+	sf::RenderWindow window(sf::VideoMode(720, 640), "");
+	window.setVerticalSyncEnabled(true);
 	ImGui::SFML::Init(window);
 
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::Color bgColor;
 
+	float color[3] = { 0.f, 0.f, 0.f };
+
+	resManager.addTexture("marioluigi", "../res/marioluigi.png");
+	parser.parseSpriteFile("../res/data/sprites.json");
+
+	char windowTitle[255] = "ImGui + SFML = <3";
+	char test[255] = "test test";
+
+	window.setTitle(windowTitle);
+	window.resetGLStates(); // call it if you only draw ImGui. Otherwise not needed.
 	sf::Clock deltaClock;
 	while (window.isOpen()) {
 		sf::Event event;
@@ -27,16 +58,19 @@ int main()
 		}
 
 		ImGui::SFML::Update(window, deltaClock.restart());
+		
+		as.update();
+		imguiWindows.animationEditor();
 
-		ImGui::Begin("Hello, world!");
-		ImGui::Button("Look at this pretty button");
-		ImGui::End();
-
-		window.clear();
-		window.draw(shape);
+		window.clear(bgColor); // fill background with color
+		
+		//as.update();
+		as.draw(window);
+		
 		ImGui::SFML::Render(window);
 		window.display();
 	}
+	
 
 	ImGui::SFML::Shutdown();
 }
