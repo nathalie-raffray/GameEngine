@@ -15,11 +15,6 @@
 #include <iostream>
 #include <list>
 
-typedef sf::IntRect IntRect;
-typedef sf::Sprite Sprite;
-template <typename T>
-using Vector2 = sf::Vector2<T>; //Vector<2> is equivalent to sf::Vector2<T>
-typedef sf::Texture Texture;
 
 ResourceManager resManager;
 //std::vector<CAnimatedSprite*>sprites;

@@ -49,6 +49,7 @@ public:
 
 	void animationInit()
 	{
+        /*
 		//called after sprites and animations are parsed from sprites.json
 		//initialize spriteNames  
 		std::vector<const char*> vec;
@@ -77,11 +78,12 @@ public:
 		animInfo.spriteNames.push_back("New Sprite");
 
 		resManager.getTextureNames(textureNames);
+        */
 		
 	}
 
 	void animationEditor()
-	{
+	{/*
 		ImGui::Begin("Animation Editor");
 
 		static int i = 0;
@@ -352,5 +354,6 @@ public:
 		//json js;
 
 		ImGui::End();
+        */
 	}
 };

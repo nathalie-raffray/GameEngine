@@ -33,29 +33,34 @@ extern std::vector<CAnimatedSprite*>sprites;
 
 extern ImguiWindows imguiWindows;
 
+
 class Parser
 {
 private:
 
 public:
-	void parseSpriteFile(std::string filePath)
+    void parseSpriteFile(const std::string &filePath)
 	{
 		std::ifstream i(filePath);
 		i >> imguiWindows.jSprites;
 
-		CAnimatedSprite* currSprite;
 		//iterate array of sprites
+        for (json &j : imguiWindows.jSprites)
+        {
+            auto upCurrentSprite = std::make_unique<CAnimatedSprite>();
+            upCurrentSprite->parseSprite(j);
+
+			as.add(std::move(upCurrentSprite));
+        }
+        /*
 		for (json::iterator it = (imguiWindows.jSprites).begin(); it != (imguiWindows.jSprites).end(); ++it) {
 			//std::cout << *it << '\n';
 			//json curr = *it;
 			//currSprite = sprites.emplace_back(new CAnimatedSprite);
 			//currSprite->parseSprite(*it);
-			currSprite = new CAnimatedSprite;
-			currSprite->parseSprite(*it);
-			as.add(currSprite);
-			
 			
 		}
+        */
 		imguiWindows.animationInit();
 	}
 	void parseTextureFile(std::string filePath);

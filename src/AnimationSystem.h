@@ -27,30 +27,28 @@ class AnimationSystem
 {
 private:
 	//list of entities eventually
-	CAnimatedSprite* spriteComponent;
-	std::vector<CAnimatedSprite*> sprites;
+	std::vector<std::unique_ptr<CAnimatedSprite>> sprites;
 	
 	Clock clock; //int64
 public:
 	friend class ImguiWindows;
 
-	AnimationSystem(CAnimatedSprite* sc) : spriteComponent(sc) {}
-	AnimationSystem() {}
-	~AnimationSystem();
+    AnimationSystem()   = default;
+    ~AnimationSystem()  = default;
 
-	void add(CAnimatedSprite* sc);
+	void add(std::unique_ptr<CAnimatedSprite> &&upSC);
 	void remove(CAnimatedSprite* sc);
 
 	void playAnimation(std::string name);
 	void pauseAnimation();
 
 	void update();
-	void draw(sf::RenderWindow& window) { for (CAnimatedSprite* sprite : sprites) if(sprite->isEnabled()) window.draw(sprite->m_sprite);  }
+	void draw(sf::RenderWindow& window) { /*for (CAnimatedSprite* sprite : sprites) if(sprite->isEnabled()) window.draw(sprite->m_sprite);*/  }
 
-	inline void updateTextureRect(CAnimatedSprite* sc);
-	inline void updatePositionOffset(CAnimatedSprite* sc);
-	inline void updateScale(CAnimatedSprite* sc);
-	inline void updateRotation(CAnimatedSprite* sc, float angle);
+	inline void updateTextureRect(CAnimatedSprite &sc);
+	inline void updatePositionOffset(CAnimatedSprite &sc);
+	inline void updateScale(CAnimatedSprite &sc);
+	inline void updateRotation(CAnimatedSprite &sc, float angle);
 
 	void imguiAnimationEditor();
 
