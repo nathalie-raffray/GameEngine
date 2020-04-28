@@ -28,7 +28,7 @@ class AnimationSystem
 private:
 	//list of entities eventually
 	CAnimatedSprite* spriteComponent;
-	std::vector<CAnimatedSprite*> sprites;
+	std::vector<std::unique_ptr<CAnimatedSprite>> sprites;
 	
 	Clock clock; //int64
 public:
@@ -38,7 +38,9 @@ public:
 	AnimationSystem() {}
 	~AnimationSystem();
 
-	void add(CAnimatedSprite* sc);
+	//the unique pointer tells animation system that it takes ownership
+	//since its a //unique// pointer
+	void add(std::unique_ptr<CAnimatedSprite> sprite);
 	void remove(CAnimatedSprite* sc);
 
 	void playAnimation(std::string name);
