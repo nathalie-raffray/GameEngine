@@ -118,35 +118,50 @@ void AnimationSystem::imguiAnimationEditor()
 
 
 
-struct Frame
+using SpriteId = std::string;
+using TextureId = std::string;
+
+
+
+
+struct Sprite
 {
-    int offsetX, offsetY, width, height;
+    struct Rect
+    {
+        int offsetX, offsetY, width, height;
+    };
+
+    TextureId imageId;
+    Rect frame;
+
+    sf::Sprite sprite;
+};
+
+
+struct AnimationFrame
+{
+    SpriteId spriteId;
+    float duration;
 };
 
 struct Animation
 {
-
     enum animation_mode
     {
-        loop, 
-        single,
+        loop,
+        one_time,
         ping_pong
     };
 
-    std::vector<Frame> frames;
+    std::vector<AnimationFrame> frames;
     animation_mode mode;
 };
 
-struct Sprite
-{
-    TextureId imageId;
-    Frame frame;
-};
-
-
 struct AssetStorage
 {
-    map<string, unique_ptr<Sprite>> sprites;
+    map<string, unique_ptr<Texture>>    textures;
+    map<string, unique_ptr<Sprite>>     sprites;
+    map<string, unique_ptr<Animation>>  animations;
 
     void load(string spriteName)
     {
@@ -161,8 +176,63 @@ struct AssetStorage
     static Sprite get(SpriteId spriteId);
 };
 
-using SpriteId = std::string;
 
+struct Component
+{
+
+};
+
+struct Transform : Component
+{
+    float angle;
+    float x, y;
+};
+/*
+void from_json(const json &j, Transform &t)
+{
+    t.angle = j["angle"];
+    t.x = j["x"];
+}
+
+void to_json(json &j, const Transform &t)
+{
+    j["angle"] = t.angle;
+}
+
+struct Entity
+{
+    vector<Component*> comps;
+};
+
+#define COMP(Name) if (j["name"] == #Name##Component) { auto c = new NameComponent; *c = j; a = c; }
+
+void from_json(const json &js, Entity &e)
+{
+    for (auto j : js["components"])
+    {
+        Component *a = nullptr;
+        COMP(Transform);
+        COMP(Sprite);
+        COMP(...)
+        if (a)
+        {
+            e.comps.emplace_back(a);
+        }
+
+    }
+}
+
+void serialize()
+{
+    std::vector<Transform> trans;
+    std::ifstream i(filePath);
+
+    json j;
+    i >> j;
+
+    trans = j;
+}
+*/
 struct SpriteComponent
 {
     // Serializable attribute
@@ -176,6 +246,13 @@ struct AnimationComponent
     std::string currentAnimation = "Idle";
     int currentFrame = 0;
     float timeAccumulator = 0;
+};
+
+struct RenderingSystem
+{
+    void update()
+    {
+    }
 };
 
 struct AnimationSystem
