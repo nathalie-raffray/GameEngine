@@ -1,5 +1,6 @@
 #pragma once
 
+/*
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "json.hpp"
@@ -22,13 +23,14 @@
 using json = nlohmann::json;
 
 typedef sf::IntRect IntRect;
-typedef sf::Sprite Sprite;
+/*typedef sf::Sprite Sprite;
 template <typename T>
 using Vector2 = sf::Vector2<T>; //Vector<2> is equivalent to sf::Vector2<T>
-
-typedef sf::Texture Texture;
+typedef sf::Texture Texture;*/
 
 //extern CAnimatedSprite sprite;
+
+/*
 extern std::vector<CAnimatedSprite*>sprites;
 
 extern ImguiWindows imguiWindows;
@@ -51,6 +53,32 @@ public:
 	void parseSpriteFile(std::string filePath);
 
 	void parseSpriteFile(const std::string& filePath)
+	{
+		std::ifstream i(filePath);
+		i >> imguiWindows.jSprites;
+
+		//iterate array of sprites
+		for (json& j : imguiWindows.jSprites)
+		{
+			auto upCurrentSprite = std::make_unique<CAnimatedSprite>();
+			upCurrentSprite->parseSprite(j);
+
+			as.add(std::move(upCurrentSprite));
+		}
+		/*
+		for (json::iterator it = (imguiWindows.jSprites).begin(); it != (imguiWindows.jSprites).end(); ++it) {
+			//std::cout << *it << '\n';
+			//json curr = *it;
+			//currSprite = sprites.emplace_back(new CAnimatedSprite);
+			//currSprite->parseSprite(*it);
+
+		}
+		*//*
+		imguiWindows.animationInit();
+	}
+
+
+	/*void parseSpriteFile(const std::string& filePath)
 	{
 		std::ifstream i(filePath);
 		i >> imguiWindows.jSprites;
@@ -80,8 +108,9 @@ public:
 			
 		}
 		imguiWindows.animationInit();
-	}
+	}*//*
 	void parseTextureFile(std::string filePath);
 
 	
 };
+*/

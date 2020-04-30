@@ -15,16 +15,18 @@
 
 
 typedef sf::IntRect IntRect;
+/*
 typedef sf::Sprite Sprite;
 template <typename T>
 using Vector2 = sf::Vector2<T>; //Vector<2> is equivalent to sf::Vector2<T>
 
 typedef sf::Texture Texture;
-
+*/
 
 //this is where I keep track of all loaded textures, maybe make this a singleton (it will at least act like one)
 //map of textures map<std::string, Texture*> 
 
+/*
 class ResourceManager
 {
 private:
@@ -62,3 +64,4 @@ public:
 		m_texMap.clear();
 	}
 };
+*/

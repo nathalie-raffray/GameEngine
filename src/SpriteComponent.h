@@ -1,4 +1,19 @@
 #pragma once
+#include <string>
+
+using SpriteId = std::string;
+
+struct SpriteComponent
+{
+	// Serializable attribute
+	SpriteId spriteId;
+	bool isEnabled;
+	// Transient attributes
+};
+
+
+/*
+#pragma once
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "json.hpp"
@@ -144,4 +159,6 @@ public:
 	inline void setScale(float sx, float sy);
 
 	inline void setRotation(float angle);*/
-};
+/*};
+
+*/

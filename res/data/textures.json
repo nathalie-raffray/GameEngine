@@ -1,1 +1,9 @@
-[ {"texName" : "marioluigi", "filepath" : "../res/marioluigi.png"}]
+{
+	"textures":
+			[
+				{	
+					"texId" : "marioluigi", 
+					"filepath" : "../res/marioluigi.png"
+				}
+			]
+}

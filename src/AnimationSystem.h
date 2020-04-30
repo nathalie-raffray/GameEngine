@@ -1,4 +1,127 @@
+#pragma once
 
+#include <vector>
+#include <memory>
+#include <algorithm>
+
+#include "AnimationComponent.h"
+#include "Animation.h"
+#include "AnimationFrame.h"
+#include "AssetStorage.h"
+#include "Game.h"
+
+extern AssetStorage assets;
+
+class AnimationSystem
+{
+private:
+	std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
+
+public:
+	void add(std::shared_ptr<AnimationComponent>&& spA)
+	{
+		animatedSprites.emplace_back(std::move(spA)); //why move here?
+	}
+
+	void play(const AnimationId& newAnimation, std::shared_ptr<AnimationComponent>& spA)
+	{
+		spA->currentAnimation = newAnimation;
+		spA->clock.restart();
+	}
+
+	void update()
+	{
+		if (Game::paused) return;
+		
+		for (auto& animSprite : animatedSprites)
+		{
+			if (!animSprite->isEnabled) continue;
+			Animation* animation = Game::assets->getAnimation(animSprite->currentAnimation);
+			//assert(animation);
+			int currFrame = animSprite->currentFrame;
+			int totalFrames = static_cast<int>(animation->frames.size());
+			
+			AnimationFrame& frame = animation->frames[currFrame];
+
+			if (frame.duration >= animSprite->clock.getElapsedTime().asMilliseconds())
+			{
+				switch (animation->mode)
+				{
+				case Animation::loop:
+					animSprite->currentFrame = (currFrame + 1) % totalFrames;
+					break;
+
+				case Animation::one_time:
+					animSprite->currentFrame = std::min(currFrame + 1, totalFrames - 1);
+					break;
+
+				case Animation::ping_pong_forward:
+					if (currFrame == totalFrames - 1)
+					{
+						animation->mode = Animation::ping_pong_backward;
+						animSprite->currentFrame = (currFrame - 1) % totalFrames;
+					}
+					else animSprite->currentFrame = (currFrame + 1) % totalFrames;
+					break;
+
+				case Animation::ping_pong_backward:
+					if (currFrame == 0)
+					{
+						animation->mode = Animation::ping_pong_forward;
+						animSprite->currentFrame = (currFrame + 1) % totalFrames;
+					}
+					else animSprite->currentFrame = (currFrame - 1) % totalFrames;
+					break;
+				}
+
+			//	sf::Sprite& sprite = Game::assets->getSprite(frame.spriteId)->m_sprite;
+				
+			}
+
+			
+
+		}
+	}
+};
+
+/*
+struct AnimationSystem
+{
+	std::vector<SpriteComponent> sprites;
+
+	void play(SpriteComponent s, string animationName)
+	{
+		s.timeAccumulator = 0.0;
+	}
+
+	void update(float dt)
+	{
+		for (auto spriteComp : sprites)
+		{
+			Sprite sprite = AssetStorage::get(spriteComp.spriteId);
+
+			Animation currentAnim = sprite.animations[spriteComp.currentAnimation];
+
+			auto currentFrame = currentAnim.frames[spriteComp.currentFrame];
+			spriteComp.timeAccumulator += dt;
+
+			if (spriteComp.timeAccumulator > currentFrame.timestamp)
+			{
+				if (currentAnim.loop)
+				{
+					spriteComp.currentFrame = (spriteComp.currentFrame + 1) % currentAnim.frames.size();
+				}
+				else
+				{
+					spriteComp.currentFrame = std::min(spriteComp.currentFrame + 1, currentAnim.frames.size() - 1);
+				}
+			}
+		}
+	}
+};
+*/
+
+/*
 #pragma once
 #include "imgui.h"
 #include "imgui-SFML.h"
@@ -58,3 +181,4 @@ public:
 
 };
 
+*/

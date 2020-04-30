@@ -20,14 +20,22 @@
 using json = nlohmann::json;
 
 typedef sf::IntRect IntRect;
+
+class ImguiWindows
+{
+
+};
+/*
 typedef sf::Sprite Sprite;
 template <typename T>
 using Vector2 = sf::Vector2<T>; //Vector<2> is equivalent to sf::Vector2<T>
 
 typedef sf::Texture Texture;
-
+*/
 //extern CAnimatedSprite sprite;
 //extern std::vector<CAnimatedSprite*>sprites;
+
+/*
 extern AnimationSystem as; 
 
 extern ResourceManager resManager;
@@ -354,3 +362,5 @@ public:
 		ImGui::End();
 	}
 };
+
+*/

@@ -1,5 +1,6 @@
 #include "SpriteComponent.h"
 
+/*
 extern ResourceManager resManager;
 
 //----------------------------------------------------------------------------------------------
@@ -63,7 +64,7 @@ void CAnimatedSprite::setTexture(std::string texName)
 }
 
 //----------------------------------------------------------------------------------------------
-
+*/
 
 /*
 inline void CAnimatedSprite::setTextureRect(std::string animName) { //m_sprite.setTextureRect(animations[animName]
