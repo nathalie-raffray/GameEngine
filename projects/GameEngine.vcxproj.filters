@@ -61,6 +61,9 @@
     <ClCompile Include="..\src\Sprite.cpp">
       <Filter>animation</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ImguiWindows.cpp">
+      <Filter>imgui_debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h">
@@ -94,9 +97,6 @@
       <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="..\src\AssetStorage.h">
-      <Filter>asset_storage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ResourceManager.h">
       <Filter>asset_storage</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Animation.h">

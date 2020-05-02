@@ -3,11 +3,13 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <iostream>
 
 #include "AnimationComponent.h"
 #include "Animation.h"
 #include "AnimationFrame.h"
 #include "AssetStorage.h"
+#include "Sprite.h"
 #include "Game.h"
 
 extern AssetStorage assets;
@@ -18,9 +20,16 @@ private:
 	std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
 
 public:
-	void add(std::shared_ptr<AnimationComponent>&& spA)
+	
+	/*void add(std::shared_ptr<AnimationComponent>&& spA)
 	{
-		animatedSprites.emplace_back(std::move(spA)); //why move here?
+		animatedSprites.emplace_back(spA); // move here?
+		//im guessing shared_ptr has a move constructor that takes a rvalue
+	}*/
+
+	void add(const std::shared_ptr<AnimationComponent>& spA)
+	{
+		animatedSprites.emplace_back(spA); //pretty sure this will make a copie
 	}
 
 	void play(const AnimationId& newAnimation, std::shared_ptr<AnimationComponent>& spA)
@@ -35,16 +44,20 @@ public:
 		
 		for (auto& animSprite : animatedSprites)
 		{
-			if (!animSprite->isEnabled) continue;
+			//if (!animSprite->isEnabled) continue;
 			Animation* animation = Game::assets->getAnimation(animSprite->currentAnimation);
 			//assert(animation);
 			int currFrame = animSprite->currentFrame;
 			int totalFrames = static_cast<int>(animation->frames.size());
+
+			//std::cout << totalFrames;
+			if (totalFrames == 0) return; //for debug purposes
 			
 			AnimationFrame& frame = animation->frames[currFrame];
 
-			if (frame.duration >= animSprite->clock.getElapsedTime().asMilliseconds())
+			if (frame.duration <= animSprite->clock.getElapsedTime().asMilliseconds())
 			{
+				animSprite->clock.restart();
 				switch (animation->mode)
 				{
 				case Animation::loop:
@@ -72,13 +85,8 @@ public:
 					}
 					else animSprite->currentFrame = (currFrame - 1) % totalFrames;
 					break;
-				}
-
-			//	sf::Sprite& sprite = Game::assets->getSprite(frame.spriteId)->m_sprite;
-				
+				}		
 			}
-
-			
 
 		}
 	}

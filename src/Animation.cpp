@@ -1,8 +1,8 @@
-#include "AnimationFrame.h"
 #include "Animation.h"
-#include "Game.h"
 #include "AssetStorage.h"
-
+#include "Game.h"
+#include "AnimationFrame.h"
+#include "Sprite.h"
 
 void to_json(json& j, const Animation& p)
 {

@@ -392,9 +392,9 @@ void Update(const sf::Vector2i& mousePos, const sf::Vector2f& displaySize,
 
     if (s_windowHasFocus) {
         if (io.WantSetMousePos) {
-            sf::Vector2i mousePos(static_cast<int>(io.MousePos.x),
+            sf::Vector2i mousePos2(static_cast<int>(io.MousePos.x),
                                   static_cast<int>(io.MousePos.y));
-            sf::Mouse::setPosition(mousePos);
+            sf::Mouse::setPosition(mousePos2);
         } else {
             io.MousePos = mousePos;
         }

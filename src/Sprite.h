@@ -14,7 +14,7 @@ struct Sprite
 {
 	TextureId texId;
 	IntRect texRect;
-	//float scale; //this can eventually be stored in a transform
+	float scale; //this can eventually be stored in a transform
 
 	sf::Sprite m_sprite;
 };

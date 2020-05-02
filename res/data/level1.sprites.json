@@ -1,19 +1,15 @@
-{
-	"sprites":
-	[ 
-		{
-			"texRect": 
-                    [
-                        1,
-                        16,
-                        16,
-                        16
-                    ],
-			"texId": "marioluigi",
-			"spriteId" : "tree"
-		},
+[{
+		"texRect": [
+			1,
+			16,
+			16,
+			16
+		],
+		"texId": "marioluigi",
+		"scale" : 5,
+		"spriteId": "tree"
+	}
 
 
 
-	]
-}
+]

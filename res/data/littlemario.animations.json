@@ -1,100 +1,92 @@
-
 {
     "name": "littlemario",
-    "animations": [
-            {
-                "animationId": "littlemario_walk",
-                "mode": "ping pong",
-                "screenOffsets": [ [0, 0], [0, 0] ],
-                "scale": 5,
-                "sprites" :
-                [   {
-                        "texRect": 
-                                [
-                                    1,
-                                    16,
-                                    16,
-                                    16
-                            ],
-                        "screenOffset": [0, 0],
-                        "texId": "marioluigi",
-                        "spriteId" : "littlemario_walk0",
-                        "duration" : 100
-                    },
-                    {
-                        "texRect": 
-                                [
-                                    19,
-                                    16,
-                                    16,
-                                    16
-                            ],
-                        "screenOffset": [0, 0],
-                        "texId": "marioluigi",
-                        "spriteId" : "littlemario_walk1",
-                        "duration" : 100
-                    }
-                ],
-            },
-            {
-                "animationId": "littlemario_swim",
-                "mode": "loop",
-                "scale": 5,
-                "sprites" :
-                [   {
-                        "texRect": 
-                                [
-                                    216,
-                                    15,
-                                    16,
-                                    16
-                            ],
-                        "screenOffset": [20, 20],
-                        "texId": "marioluigi",
-                        "spriteId" : "littlemario_swim0",
-                        "duration" : 100
-                    },
-                    {
-                        "texRect": 
-                                [
-                                    234,
-                                    15,
-                                    16,
-                                    16
-                            ],
-                        "texId": "marioluigi",
-                        "screenOffset": [20, 20],
-                        "spriteId" : "littlemario_swim1",
-                        "duration" : 100
-                    },
-                    {
-                        "texRect": 
-                                [
-                                    252,
-                                    15,
-                                    16,
-                                    16
-                            ],
-                        "texId": "marioluigi",
-                        "screenOffset": [20, 20],
-                        "spriteId" : "littlemario_swim2",
-                        "duration" : 100
-                    },
-                    {
-                        "texRect": 
-                                [
-                                    270,
-                                    15,
-                                    16,
-                                    16
-                            ],
-                        "texId": "marioluigi",
-                        "screenOffset": [20, 20],
-                        "spriteId" : "littlemario_swim3",
-                        "duration" : 100
-                    }
-                ],
-            }
-        ]
+    "animations": [{
+            "animationId": "littlemario_walk",
+            "mode": "loop",
+            "sprites": [{
+                    "texRect": [
+                        1,
+                        16,
+                        16,
+                        16
+                    ],
+                    "screenOffset": [0, 0],
+                    "scale" : 15,
+                    "texId": "marioluigi",
+                    "spriteId": "littlemario_walk0",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        19,
+                        16,
+                        16,
+                        16
+                    ],
+                    "screenOffset": [0, 0],
+                    "scale" : 15,
+                    "texId": "marioluigi",
+                    "spriteId": "littlemario_walk1",
+                    "duration": 100
+                }
+            ]
+        },
+        {
+            "animationId": "littlemario_swim",
+            "mode": "ping pong",
+            "sprites": [{
+                    "texRect": [
+                        216,
+                        15,
+                        16,
+                        16
+                    ],
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "texId": "marioluigi",
+                    "spriteId": "littlemario_swim0",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        234,
+                        15,
+                        16,
+                        16
+                    ],
+                    "texId": "marioluigi",
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "spriteId": "littlemario_swim1",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        252,
+                        15,
+                        16,
+                        16
+                    ],
+                    "texId": "marioluigi",
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "spriteId": "littlemario_swim2",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        270,
+                        15,
+                        16,
+                        16
+                    ],
+                    "texId": "marioluigi",
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "spriteId": "littlemario_swim3",
+                    "duration": 100
+                }
+            ]
+        }
+    ]
 }
-    

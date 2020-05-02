@@ -47,7 +47,7 @@ public:
 	void parseSpriteFile(std::string * const filePath);
 	void parseSpriteFile(std::string const * const filePath); //dont use this one and the two above
 	void parseSpriteFile(std::string& filePath);
-	void parseSpriteFile(std::string filePath); //cant be null, but its a rvalue. now initial string passed will be gutted. very rarely passed. when you know
+	void parseSpriteFile(std::string&& filePath); //cant be null, but its a rvalue. now initial string passed will be gutted. very rarely passed. when you know
 
 
 	void parseSpriteFile(std::string filePath);

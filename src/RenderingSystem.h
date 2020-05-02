@@ -1,19 +1,12 @@
 #pragma once
-#include <SFML/Graphics/Sprite.hpp>
-
-#include <vector>
 #include <memory>
-
-#include "AnimationComponent.h"
-#include "SpriteComponent.h"
-#include "Animation.h"
-#include "Sprite.h"
-#include "AnimationFrame.h"
-#include "AssetStorage.h"
-#include "Game.h"
+#include <vector>
+#include <string>
 
 struct AnimationComponent;
 struct SpriteComponent;
+
+using SpriteId = std::string;
 
 class RenderingSystem
 {
@@ -24,37 +17,10 @@ private:
 
 public:
 
-	void add(std::shared_ptr<AnimationComponent>&& spA)
-	{
-		animatedSprites.emplace_back(std::move(spA)); //why move here?
-	}
-
-	void add(std::shared_ptr<SpriteComponent>&& spS)
-	{
-		staticSprites.emplace_back(std::move(spS)); //why move here?
-	}
+	void add(const std::shared_ptr<AnimationComponent>& spA);
 	
-	void update()
-	{
-		if (Game::paused) return;
-		for (auto& upAnimSpriteC : animatedSprites)
-		{
-			if (!upAnimSpriteC->isEnabled) continue;
-			drawSprite(Game::assets->getAnimation(upAnimSpriteC->currentAnimation)->frames[upAnimSpriteC->currentFrame].spriteId);
+	void update();
 
-		}
-		for (auto& upSpriteC : staticSprites)
-		{
-			if (!upSpriteC->isEnabled) continue;
-			drawSprite(upSpriteC->spriteId);
-		}
-
-	}
-
-	inline void drawSprite(const SpriteId& id)
-	{
-		sf::Sprite& sprite = Game::assets->getSprite(id)->m_sprite;
-		Game::window->draw(sprite);
-	}
+	void drawSprite(const SpriteId& id);
 
 };

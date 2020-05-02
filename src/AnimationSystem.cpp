@@ -140,7 +140,7 @@ struct Sprite
 
 	TextureId imageId;
 	Rect frame;
-	//float scale;
+	float scale;
 
 	sf::Sprite sprite;
 };
