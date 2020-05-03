@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include <iostream>
-#include <unordered_map>
 #include <iomanip>
+#include <fstream>
 
 #include "ImguiWindows.h"
 #include "AssetStorage.h"
@@ -33,9 +33,9 @@ void ImguiWindows::animationInit()
 	{
 		names.spriteNames.emplace_back(sprite.first.c_str());
 	}
-	for (auto& animation : Game::assets->animations)
+	for(auto& aa: names.associatedAnimations)
 	{
-		names.animationNames.emplace_back(animation.first.c_str());
+		names.filePaths.emplace_back(aa.first.c_str());
 	}
 	for (auto& texture : Game::assets->textures)
 	{
@@ -50,10 +50,9 @@ void ImguiWindows::animationInit()
 void ImguiWindows::animationEditor()
 {
 	ImGui::Begin("Animation Editor");
-	static int i = 0;
 
-	static std::string animationChosen = names.animationNames[0];
-	static int numFrames = static_cast<int>(Game::assets->getAnimation(animationChosen)->frames.size());
+
+	static int i = 0;
 
 	//Choose Animation
 	static char newAnimationName[50];
@@ -61,18 +60,35 @@ void ImguiWindows::animationEditor()
 
 	static bool creatingNewAnimation = false; //newSprite checks whether we are creating a new sprite
 
-	static std::vector<bool> creatingNewSprite(numFrames);
-
-	static Animation animationCopy;
+	//static std::vector<bool> creatingNewSprite(numFrames);
 
 	static bool init = false;
 
-	if (ImGui::Combo("animation", &i, names.animationNames.data(), static_cast<int>(names.animationNames.size())))
+	static int k = 0;
+
+	static auto animationNames = names.associatedAnimations[names.filePaths[k]];
+
+	static std::string animationChosen = animationNames[0];
+	static int numFrames = static_cast<int>(Game::assets->getAnimation(animationChosen)->frames.size());
+
+	static std::vector<bool> creatingNewSprite(numFrames);
+
+	static bool changeAnimation = false;
+	if (ImGui::Combo("file", &k, names.filePaths.data(), static_cast<int>(names.filePaths.size())))
 	{
+		animationNames = names.associatedAnimations[names.filePaths[k]];
+		i = 0;
+		changeAnimation = true;
+	}
+
+	if (ImGui::Combo("animation", &i, animationNames.data(), static_cast<int>(animationNames.size())) || changeAnimation)
+	{
+		changeAnimation = false;
+
 		if (creatingNewAnimation) {
 			creatingNewAnimation = false;
 		}
-		animationChosen = names.animationNames[i];
+		animationChosen = animationNames[i];
 		spLittleMario->currentAnimation = animationChosen;
 		numFrames = static_cast<int>(Game::assets->getAnimation(animationChosen)->frames.size());
 
@@ -92,15 +108,15 @@ void ImguiWindows::animationEditor()
 		if (ImGui::Button("enter"))
 		{
 			Game::assets->addAnimation(newAnimationName);
-			names.animationNames.emplace_back(newAnimationName);
+			animationNames.emplace_back(newAnimationName);
+			names.associatedAnimations[names.filePaths[k]].emplace_back(newAnimationName);
 			animationChosen = newAnimationName;
 			spLittleMario->currentAnimation = animationChosen;
 			spLittleMario->currentFrame = 0;
-			i = static_cast<int>(names.animationNames.size() - 1);
+			i = static_cast<int>(animationNames.size() - 1);
 
 			numFrames = 0;
 			Game::assets->getAnimation(animationChosen)->frames.resize(0);
-			//sprites.resize(0);
 		}
 		ImGui::NewLine();
 	}
@@ -108,10 +124,11 @@ void ImguiWindows::animationEditor()
 
 	if (ImGui::Button("Remove Animation"))
 	{
-		Game::assets->removeAnimation(names.animationNames[i]);
-		names.animationNames.erase(names.animationNames.begin() + i);
+		Game::assets->removeAnimation(animationNames[i]);
+		animationNames.erase(animationNames.begin() + i);
+		names.associatedAnimations[names.filePaths[k]].erase(names.associatedAnimations[names.filePaths[k]].begin() + i);
 		i = 0;
-		animationChosen = names.animationNames[0];
+		animationChosen = animationNames[0];
 		spLittleMario->currentAnimation = animationChosen;
 		memset(newAnimationName, 0, 50);
 		creatingNewAnimation = false;
@@ -171,6 +188,7 @@ void ImguiWindows::animationEditor()
 			{
 				frames.pop_back();
 				creatingNewSprite.pop_back();
+				spLittleMario->currentFrame = 0;
 			}
 		}
 		numFrames = newNumFrames;
@@ -179,9 +197,11 @@ void ImguiWindows::animationEditor()
 
 	ImGui::Separator();
 
-	static std::vector<int> k(numFrames);
+	//Chnage Sprites
+
+	static std::vector<int> spriteNameIndices(numFrames);
 	/*initialize k*/
-	k.resize(numFrames);
+	spriteNameIndices.resize(numFrames);
 	if (!init)
 	{
 		for (int n = 0; n < numFrames; ++n)
@@ -194,7 +214,7 @@ void ImguiWindows::animationEditor()
 				return false;
 			});
 			int index = static_cast<int>(std::distance(names.spriteNames.begin(), it));
-			k[n] = index;
+			spriteNameIndices[n] = index;
 		}
 		init = true;
 	}
@@ -208,9 +228,9 @@ void ImguiWindows::animationEditor()
 	{
 		if (ImGui::TreeNode(("Frame" + std::to_string(n)).c_str()))
 		{
-			if (ImGui::Combo("sprites", &k[n], names.spriteNames.data(), static_cast<int>(names.spriteNames.size())))
+			if (ImGui::Combo("sprites", &spriteNameIndices[n], names.spriteNames.data(), static_cast<int>(names.spriteNames.size())))
 			{
-				Game::assets->getAnimation(animationChosen)->frames[n].spriteId = names.spriteNames[k[n]];
+				Game::assets->getAnimation(animationChosen)->frames[n].spriteId = names.spriteNames[spriteNameIndices[n]];
 			}
 			if (ImGui::Button("New Sprite"))
 			{
@@ -229,7 +249,7 @@ void ImguiWindows::animationEditor()
 					newSprite->texId = names.textureNames[0];
 					l[n] = 0; //make the combo select the first texture
 					newSprite->m_sprite.setTexture(*Game::assets->getTexture(newSprite->texId));
-					k[n] = static_cast<int>(names.spriteNames.size() - 1); //make the combo select the new sprite.
+					spriteNameIndices[n] = static_cast<int>(names.spriteNames.size() - 1); //make the combo select the new sprite.
 
 					memset(newSpriteName, 0, 50);
 					creatingNewSprite[n] = false;
@@ -242,16 +262,16 @@ void ImguiWindows::animationEditor()
 			ImGui::SameLine();
 			if (ImGui::Button("Remove Sprite"))
 			{
-				Game::assets->removeSprite(names.spriteNames[k[n]]);
-				names.spriteNames.erase(names.spriteNames.begin() + k[n]);
-				for (int ii = 0; ii < k.size(); ++ii)
+				Game::assets->removeSprite(names.spriteNames[spriteNameIndices[n]]);
+				names.spriteNames.erase(names.spriteNames.begin() + spriteNameIndices[n]);
+				for (int m = 0; m < spriteNameIndices.size(); ++m)
 				{
-					if (k[ii] > k[n])
+					if (spriteNameIndices[m] > spriteNameIndices[n])
 					{
-						k[ii]--;
+						spriteNameIndices[m]--; 
 					}
 				}
-				k[n] = 0;
+				spriteNameIndices[n] = 0;
 				Game::assets->getAnimation(animationChosen)->frames[n].spriteId = names.spriteNames[0];
 
 				spLittleMario->currentFrame = 0;
@@ -283,9 +303,37 @@ void ImguiWindows::animationEditor()
 		/**/
 	}
 
+	//Save Changes 
+
 	if (ImGui::Button("Save?"))
 	{
+		json jout;
+		std::string str = std::string(names.filePaths[k]);
+		str.replace(str.begin(), std::find(str.rbegin(), str.rend(), '/').base(), "");
+		str.replace(std::find(str.begin(), str.end(), '.'), str.end(), "");
+		jout["name"] = str;
+		
+		int index = 0;
+		for (auto& an : animationNames)
+		{
+			Animation* animation = Game::assets->getAnimation(an);
+			jout["animations"][index] = *animation;
+			jout["animations"][index]["animationId"] = an;
+			int index2 = 0;
+			for (auto& s : jout["animations"][index]["sprites"])
+			{
+				s["spriteId"] = animation->frames[index2].spriteId;
+				index2++;
+			}
+			index++;
+		}
 
+		std::cout << jout.dump(4) << std::endl;
+
+		std::ofstream o;
+		o.open(names.filePaths[k]);
+		o << std::setw(4) << jout << std::endl;
+		o.close();
 	}
 
 	ImGui::End();
@@ -293,10 +341,9 @@ void ImguiWindows::animationEditor()
 
 //----------------------------------------------------------------------------------------------
 
-void ImguiWindows::addFilePath(std::string filePath)
+void ImguiWindows::addAssociatedAnimation(std::string filePath, const AnimationId& id)
 {
-	names.filePaths.emplace_back(filePath.c_str());
-	//names.animationJsons[filePath] = std::move(aj);
+	names.associatedAnimations[filePath].emplace_back(id.c_str());
 }
 
 //----------------------------------------------------------------------------------------------

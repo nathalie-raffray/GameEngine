@@ -6,6 +6,7 @@ void to_json(json& j, const Sprite& p)
 {
 	to_json(j["texRect"], p.texRect);
 	j["texId"] = p.texId;
+	j["scale"] = p.scale;
 }
 
 void from_json(const json& j, Sprite& p)

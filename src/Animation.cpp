@@ -22,12 +22,12 @@ void to_json(json& j, const Animation& p)
 		break;
 	}
 
-	std::size_t numFrames = p.frames.size();
-	for (std::size_t i = 0; i < numFrames; i++)
+	int numFrames = static_cast<int>(p.frames.size());
+	for (int i = 0; i < numFrames; i++)
 	{
-		j["sprites"]["screenOffset"][0] = p.frames[i].screenOffsetX;
-		j["sprites"]["screenOffset"][1] = p.frames[i].screenOffsetY;
 		j["sprites"][i] = *Game::assets->getSprite(p.frames[i].spriteId);
+		j["sprites"][i]["screenOffset"][0] = p.frames[i].screenOffsetX;
+		j["sprites"][i]["screenOffset"][1] = p.frames[i].screenOffsetY;
 		j["sprites"][i]["duration"] = p.frames[i].duration;
 	}
 	//j["scale"] = 

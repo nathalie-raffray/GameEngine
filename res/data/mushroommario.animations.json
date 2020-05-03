@@ -1,0 +1,92 @@
+{
+    "name": "mushroommario",
+    "animations": [{
+            "animationId": "mushroommario_walk",
+            "mode": "loop",
+            "sprites": [{
+                    "texRect": [
+                        1,
+                        16,
+                        16,
+                        16
+                    ],
+                    "screenOffset": [0, 0],
+                    "scale" : 15,
+                    "texId": "marioluigi",
+                    "spriteId": "mushroommario_walk0",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        19,
+                        16,
+                        16,
+                        16
+                    ],
+                    "screenOffset": [0, 0],
+                    "scale" : 15,
+                    "texId": "marioluigi",
+                    "spriteId": "mushroommario_walk1",
+                    "duration": 100
+                }
+            ]
+        },
+        {
+            "animationId": "mushroommario_swim",
+            "mode": "ping pong",
+            "sprites": [{
+                    "texRect": [
+                        216,
+                        15,
+                        16,
+                        16
+                    ],
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "texId": "marioluigi",
+                    "spriteId": "mushroommario_swim0",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        234,
+                        15,
+                        16,
+                        16
+                    ],
+                    "texId": "marioluigi",
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "spriteId": "mushroommario_swim1",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        252,
+                        15,
+                        16,
+                        16
+                    ],
+                    "texId": "marioluigi",
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "spriteId": "mushroommario_swim2",
+                    "duration": 100
+                },
+                {
+                    "texRect": [
+                        270,
+                        15,
+                        16,
+                        16
+                    ],
+                    "texId": "marioluigi",
+                    "screenOffset": [20, 20],
+                    "scale" : 5,
+                    "spriteId": "mushroommario_swim3",
+                    "duration": 100
+                }
+            ]
+        }
+    ]
+}

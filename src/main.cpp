@@ -23,16 +23,15 @@
 
 using IntRect = sf::IntRect;
 
-bool								Game::paused = false;
-std::unique_ptr<AssetStorage>		Game::assets = std::make_unique<AssetStorage>();
-std::unique_ptr<AnimationSystem>    Game::animationSystem = std::make_unique<AnimationSystem>();
-std::unique_ptr<RenderingSystem>    Game::renderingSystem = std::make_unique<RenderingSystem>();
-std::unique_ptr<ImguiWindows>	    Game::imguiWin = std::make_unique<ImguiWindows>();
-std::unique_ptr<sf::RenderWindow>   Game::window = std::make_unique<sf::RenderWindow>(sf::VideoMode(720, 640), "");
+bool								Game::paused			= false;
+std::unique_ptr<AssetStorage>		Game::assets			= std::make_unique<AssetStorage>();
+std::unique_ptr<AnimationSystem>    Game::animationSystem   = std::make_unique<AnimationSystem>();
+std::unique_ptr<RenderingSystem>    Game::renderingSystem   = std::make_unique<RenderingSystem>();
+std::unique_ptr<ImguiWindows>	    Game::imguiWin			= std::make_unique<ImguiWindows>();
+std::unique_ptr<sf::RenderWindow>   Game::window			= std::make_unique<sf::RenderWindow>(sf::VideoMode(720, 640), "");
 
 int main()
 {
-	//Game game;
 	Game::window->setVerticalSyncEnabled(true);
 
 	ImGui::SFML::Init(*Game::window);
@@ -43,10 +42,10 @@ int main()
 
 	Game::assets->load("../res/data/textures.json", AssetStorage::TEXTURES);
 	Game::assets->load("../res/data/littlemario.animations.json", AssetStorage::ANIMATIONS);
+	Game::assets->load("../res/data/mushroommario.animations.json", AssetStorage::ANIMATIONS);
 	Game::assets->load("../res/data/level1.sprites.json", AssetStorage::SPRITES);
 
-	ImguiWindows imguiEditors;
-	imguiEditors.animationInit();
+	Game::imguiWin->animationInit();
 
 	char windowTitle[255] = "ImGui + SFML = <3";
 
@@ -70,7 +69,7 @@ int main()
 		Game::animationSystem->update();
 		Game::renderingSystem->update();
 
-		imguiEditors.animationEditor();
+		Game::imguiWin->animationEditor();
 		
 		ImGui::SFML::Render(*Game::window);
 		Game::window->display();

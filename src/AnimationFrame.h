@@ -8,8 +8,8 @@ struct AnimationFrame
 {
 	SpriteId spriteId;
 
-	int screenOffsetX;
-	int screenOffsetY;
+	int screenOffsetX=0;
+	int screenOffsetY=0;
 
 	float duration;
 

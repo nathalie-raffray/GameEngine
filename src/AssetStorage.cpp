@@ -12,6 +12,7 @@
 #include "AnimationCollection.h"
 #include "AnimationFrame.h"
 #include "Game.h"
+#include "ImguiWindows.h"
 
 //----------------------------------------------------------------------------------------------
 
@@ -88,7 +89,7 @@ void AssetStorage::load(const std::string& filePath, const LoadType& type)
 		loadSprites(js);
 		break;
 	case ANIMATIONS:
-		loadAnimations(js);
+		loadAnimations(filePath, js);
 		//Game::imguiWin->addJson(filePath);
 		break;
 	}
@@ -96,7 +97,7 @@ void AssetStorage::load(const std::string& filePath, const LoadType& type)
 
 //----------------------------------------------------------------------------------------------
 
-void AssetStorage::loadAnimations(json& js)
+void AssetStorage::loadAnimations(const std::string& filePath, json& js)
 {
 	for (json& j : js["animations"])
 	{
@@ -107,6 +108,8 @@ void AssetStorage::loadAnimations(json& js)
 		*uA = j;
 
 		animations.emplace(j["animationId"].get<std::string>(), std::move(uA));
+
+		Game::imguiWin->addAssociatedAnimation(filePath, animations.find(j["animationId"].get<std::string>())->first); //only necessary for ImGui animation editor
 	}
 }
 

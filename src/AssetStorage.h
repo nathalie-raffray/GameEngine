@@ -55,7 +55,7 @@ public:
 
 	void load(const std::string& filePath, const LoadType& type);
 
-	void loadAnimations(json& js);
+	void loadAnimations(const std::string& filePath, json& js);
 	void loadSprites(json& js);
 	void loadTextures(json& js);
 
