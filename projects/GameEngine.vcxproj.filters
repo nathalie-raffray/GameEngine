@@ -1,23 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{315b3d0f-d0fc-49b0-a9d2-525bf8bfed93}</UniqueIdentifier>
     </Filter>
     <Filter Include="imgui-sfml">
       <UniqueIdentifier>{22a3469a-6da1-46c0-9bd5-d7a564c918a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="util">
-      <UniqueIdentifier>{ccdb6efd-7c04-48b7-80a4-db7fdfbb500d}</UniqueIdentifier>
+    <Filter Include="animation">
+      <UniqueIdentifier>{e6f1668f-0681-4f11-89aa-97c99909cdd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asset_storage">
+      <UniqueIdentifier>{4ced9c18-2412-4d55-aca3-15e47f86c364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui_debug">
+      <UniqueIdentifier>{b3823f54-13d4-4cfd-9fcf-c027fa2e5669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="serialization_json">
+      <UniqueIdentifier>{eedd4231-fe92-40f5-972c-6027a0141cf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
-      <Filter>src</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="..\external\imgui-sfml\imgui-SFML.cpp">
       <Filter>imgui-sfml</Filter>
@@ -34,11 +43,26 @@
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SpriteComponent.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\src\RenderingSystem.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AssetStorage.cpp">
+      <Filter>asset_storage</Filter>
     </ClCompile>
     <ClCompile Include="..\src\AnimationSystem.cpp">
-      <Filter>src</Filter>
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpriteComponent.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Animation.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Sprite.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ImguiWindows.cpp">
+      <Filter>imgui_debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -69,20 +93,44 @@
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\SpriteComponent.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\src\RenderingSystem.h">
+      <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ResourceManager.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\src\AssetStorage.h">
+      <Filter>asset_storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Animation.h">
+      <Filter>animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AnimationComponent.h">
+      <Filter>animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AnimationFrame.h">
+      <Filter>animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\AnimationSystem.h">
-      <Filter>src</Filter>
+      <Filter>animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Parser.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\src\SpriteComponent.h">
+      <Filter>animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Sprite.h">
+      <Filter>animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ImguiWindows.h">
-      <Filter>src</Filter>
+      <Filter>imgui_debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Parser.h">
+      <Filter>serialization_json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Game.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Texture.h">
+      <Filter>animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AnimationCollection.h">
+      <Filter>animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

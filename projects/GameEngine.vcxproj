@@ -54,12 +54,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>..\external\imgui-sfml\imgui;..\external\imgui-sfml;..\external\json\single_include\nlohmann;..\external\_lib\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -106,8 +107,13 @@
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_demo.cpp" />
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\src\Animation.cpp" />
     <ClCompile Include="..\src\AnimationSystem.cpp" />
+    <ClCompile Include="..\src\AssetStorage.cpp" />
+    <ClCompile Include="..\src\ImguiWindows.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\RenderingSystem.cpp" />
+    <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\SpriteComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -120,11 +126,19 @@
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_rectpack.h" />
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_textedit.h" />
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h" />
+    <ClInclude Include="..\src\Animation.h" />
+    <ClInclude Include="..\src\AnimationCollection.h" />
+    <ClInclude Include="..\src\AnimationComponent.h" />
+    <ClInclude Include="..\src\AnimationFrame.h" />
     <ClInclude Include="..\src\AnimationSystem.h" />
+    <ClInclude Include="..\src\AssetStorage.h" />
+    <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\ImguiWindows.h" />
     <ClInclude Include="..\src\Parser.h" />
-    <ClInclude Include="..\src\ResourceManager.h" />
+    <ClInclude Include="..\src\RenderingSystem.h" />
+    <ClInclude Include="..\src\Sprite.h" />
     <ClInclude Include="..\src\SpriteComponent.h" />
+    <ClInclude Include="..\src\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
