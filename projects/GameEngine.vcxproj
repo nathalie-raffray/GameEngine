@@ -108,9 +108,11 @@
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\Animation.cpp" />
+    <ClCompile Include="..\src\AnimationCollection.cpp" />
     <ClCompile Include="..\src\AnimationSystem.cpp" />
     <ClCompile Include="..\src\AssetStorage.cpp" />
     <ClCompile Include="..\src\ImguiWindows.cpp" />
+    <ClCompile Include="..\src\jsonSFML.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\RenderingSystem.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
@@ -134,6 +136,7 @@
     <ClInclude Include="..\src\AssetStorage.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\ImguiWindows.h" />
+    <ClInclude Include="..\src\jsonSFML.h" />
     <ClInclude Include="..\src\Parser.h" />
     <ClInclude Include="..\src\RenderingSystem.h" />
     <ClInclude Include="..\src\Sprite.h" />

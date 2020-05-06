@@ -15,25 +15,29 @@
 #include "ImguiWindows.h"
 
 //----------------------------------------------------------------------------------------------
-
+/*
 void AssetStorage::addAnimation(AnimationId id, std::unique_ptr<Animation> upA)
 {
 	animations.emplace(id, std::move(upA));
 }
+*/
 
 //----------------------------------------------------------------------------------------------
-
+/*
 void AssetStorage::addAnimation(AnimationId id)
 {
 	animations.emplace(id, std::make_unique<Animation>());
 }
+*/
 
 //----------------------------------------------------------------------------------------------
 
+/*
 void AssetStorage::removeAnimation(const AnimationId& id)
 {
 	animations.erase(id);
 }
+*/
 
 //----------------------------------------------------------------------------------------------
 
@@ -50,11 +54,20 @@ void AssetStorage::removeSprite(const SpriteId& id)
 }
 
 //----------------------------------------------------------------------------------------------
-
+/*
 Animation* AssetStorage::getAnimation(const AnimationId& id)
 {
 	if (animations.count(id) == 0) return nullptr;
 	else return animations[id].get();
+}
+*/
+
+//----------------------------------------------------------------------------------------------
+
+AnimationCollection* AssetStorage::getAnimationCollection(const AnimationCollectionId& id)
+{
+	if (animation_collections.count(id) == 0) return nullptr;
+	else return animation_collections[id].get();
 }
 
 //----------------------------------------------------------------------------------------------
@@ -89,7 +102,7 @@ void AssetStorage::load(const std::string& filePath, const LoadType& type)
 		loadSprites(js);
 		break;
 	case ANIMATIONS:
-		loadAnimations(filePath, js);
+		loadAnimations(js);
 		//Game::imguiWin->addJson(filePath);
 		break;
 	}
@@ -97,8 +110,10 @@ void AssetStorage::load(const std::string& filePath, const LoadType& type)
 
 //----------------------------------------------------------------------------------------------
 
-void AssetStorage::loadAnimations(const std::string& filePath, json& js)
+void AssetStorage::loadAnimations(json& js)
 {
+	auto uAC = std::make_unique<AnimationCollection>();
+	
 	for (json& j : js["animations"])
 	{
 		auto uA = std::make_unique<Animation>();
@@ -107,10 +122,12 @@ void AssetStorage::loadAnimations(const std::string& filePath, json& js)
 
 		*uA = j;
 
-		animations.emplace(j["animationId"].get<std::string>(), std::move(uA));
+		uAC->animations.emplace(j["animationId"].get<std::string>(), std::move(uA));
 
-		Game::imguiWin->addAssociatedAnimation(filePath, animations.find(j["animationId"].get<std::string>())->first); //only necessary for ImGui animation editor
+		//Game::imguiWin->addAssociatedAnimation(filePath, animations.find(j["animationId"].get<std::string>())->first); //only necessary for ImGui animation editor
 	}
+
+	animation_collections.emplace(js["name"], std::move(uAC));
 }
 
 //----------------------------------------------------------------------------------------------

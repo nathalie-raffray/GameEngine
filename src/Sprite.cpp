@@ -4,14 +4,16 @@
 
 void to_json(json& j, const Sprite& p)
 {
-	to_json(j["texRect"], p.texRect);
+	j["texRect"] = p.texRect;
+	//to_json(j["texRect"], p.texRect);
 	j["texId"] = p.texId;
 	j["scale"] = p.scale;
 }
 
 void from_json(const json& j, Sprite& p)
 {
-	from_json(j["texRect"], p.texRect);
+	//from_json(j["texRect"], p.texRect);
+	p.texRect = j["texRect"];
 	j.at("texId").get_to(p.texId);
 
 	//set all parameters for sf::sprite
@@ -30,15 +32,5 @@ void from_json(const json& j, Sprite& p)
 	}
 }
 
-void to_json(json& j, const IntRect& p)
-{
-	j = json{ p.left, p.top, p.width, p.height };
-}
 
-void from_json(const json& j, IntRect& p)
-{
-	p.left = j[0];
-	p.top = j[1];
-	p.width = j[2];
-	p.height = j[3];
-}
+

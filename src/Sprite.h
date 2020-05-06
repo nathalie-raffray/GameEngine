@@ -22,5 +22,8 @@ struct Sprite
 void to_json(json& j, const Sprite& p);
 void from_json(const json& j, Sprite& p);
 
-void to_json(json& j, const IntRect& p);
-void from_json(const json& j, IntRect& p);
+namespace sf
+{
+	void to_json(json& j, const IntRect& p);
+	void from_json(const json& j, IntRect& p);
+}

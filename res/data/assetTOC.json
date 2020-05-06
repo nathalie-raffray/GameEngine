@@ -1,0 +1,43 @@
+{
+	"assets":
+	[
+		{"ANIMATION_COLLECTIONS" :
+			[
+				{"littlemario" : "../res/data/littlemario.animations.json"},
+				{"mushroommario" : "../res/data/mushroommario.animations.json"}
+			]
+		}
+		{"ANIMATIONS" :
+			[
+				{"littlemario_walk" : "littlemario"},
+				{"littlemario_swim" : "littlemario"},
+				
+				{"mushroommario_walk" : "mushroommario"},
+				{"mushroommario_swim" : "mushroommario"}
+			]
+		},
+		{"SPRITES" :
+			[
+				{"littlemario_walk0" : "littlemario"},
+				{"littlemario_walk1" : "littlemario"},
+				{"littlemario_swim0" : "littlemario"},
+				{"littlemario_swim1" : "littlemario"},
+				{"littlemario_swim2" : "littlemario"},
+				{"littlemario_swim3" : "littlemario"},
+
+				{"mushroommario_walk0" : "mushroommario"},
+				{"mushroommario_walk1" : "mushroommario"},
+				{"mushroommario_swim0" : "mushroommario"},
+				{"mushroommario_swim1" : "mushroommario"},
+				{"mushroommario_swim2" : "mushroommario"},
+				{"mushroommario_swim3" : "mushroommario"}
+
+			]
+		}, 
+		{"TEXTURES" :
+			[
+
+			]
+		}
+	]
+}

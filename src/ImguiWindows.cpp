@@ -25,7 +25,10 @@ using Texture = sf::Texture;
 void ImguiWindows::animationInit()
 {
 
-	spLittleMario = std::make_shared<AnimationComponent>("littlemario_walk");
+	spLittleMario = std::make_shared<AnimationComponent>();
+	spLittleMario->animation_collection_id = "littlemario";
+	spLittleMario->currentAnimation = "littlemario_walk";
+
 	Game::animationSystem->add(spLittleMario);
 	Game::renderingSystem->add(spLittleMario);
 
@@ -49,6 +52,8 @@ void ImguiWindows::animationInit()
 
 void ImguiWindows::animationEditor()
 {
+	/*
+	
 	ImGui::Begin("Animation Editor");
 
 
@@ -200,7 +205,7 @@ void ImguiWindows::animationEditor()
 	//Chnage Sprites
 
 	static std::vector<int> spriteNameIndices(numFrames);
-	/*initialize k*/
+	//initialize k
 	spriteNameIndices.resize(numFrames);
 	if (!init)
 	{
@@ -300,7 +305,6 @@ void ImguiWindows::animationEditor()
 
 			ImGui::TreePop();
 		}
-		/**/
 	}
 
 	//Save Changes 
@@ -337,13 +341,16 @@ void ImguiWindows::animationEditor()
 	}
 
 	ImGui::End();
+	*/
 }
 
 //----------------------------------------------------------------------------------------------
 
+/*
 void ImguiWindows::addAssociatedAnimation(std::string filePath, const AnimationId& id)
 {
 	names.associatedAnimations[filePath].emplace_back(id.c_str());
 }
 
+*/
 //----------------------------------------------------------------------------------------------

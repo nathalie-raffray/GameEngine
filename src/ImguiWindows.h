@@ -26,5 +26,5 @@ public:
 	void animationInit();
 	void animationEditor();
 
-	void addAssociatedAnimation(std::string filePath, const AnimationId& id);
+	//void addAssociatedAnimation(std::string filePath, const AnimationId& id);
 };

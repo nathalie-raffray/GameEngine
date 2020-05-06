@@ -9,6 +9,7 @@
 #include "AnimationFrame.h"
 #include "AssetStorage.h"
 #include "Game.h"
+#include "AnimationCollection.h"
 
 //----------------------------------------------------------------------------------------------
 
@@ -26,10 +27,12 @@ void RenderingSystem::update()
 	{
 		if (!upAnimSpriteC->isEnabled) continue;
 
-		int totalFrames = static_cast<int>(Game::assets->getAnimation(upAnimSpriteC->currentAnimation)->frames.size());
+		Animation* animation = Game::assets->getAnimationCollection(upAnimSpriteC->animation_collection_id)->getAnimation(upAnimSpriteC->currentAnimation);
+
+		int totalFrames = static_cast<int>(animation->frames.size());
 		if (totalFrames == 0) continue; //for debug purposes
 
-		drawSprite(Game::assets->getAnimation(upAnimSpriteC->currentAnimation)->frames[upAnimSpriteC->currentFrame].spriteId);
+		drawSprite(animation->frames[upAnimSpriteC->currentFrame].spriteId);
 
 	}
 	for (auto& upSpriteC : staticSprites)

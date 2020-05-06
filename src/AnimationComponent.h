@@ -5,18 +5,17 @@
 #include <string>
 
 using AnimationId = std::string;
-//using AnimationCollectionId = std::string;
+using AnimationCollectionId = std::string;
 using Clock = sf::Clock;
 
 struct AnimationComponent
 {
 	AnimationId currentAnimation;
-	//AnimationCollectionId animation_collection_Id;
+	AnimationCollectionId animation_collection_id;
 
 	int currentFrame = 0;
 	Clock clock;
-	bool isEnabled; //for animation editor / debugging
-	//int id; //this could be used?
+	
+	bool isEnabled = true; //for animation editor / debugging
 
-	AnimationComponent(AnimationId ca) : currentAnimation(ca) {}
 };

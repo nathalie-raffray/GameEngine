@@ -64,6 +64,12 @@
     <ClCompile Include="..\src\ImguiWindows.cpp">
       <Filter>imgui_debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\jsonSFML.cpp">
+      <Filter>serialization_json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AnimationCollection.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h">
@@ -131,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="..\src\AnimationCollection.h">
       <Filter>animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\jsonSFML.h">
+      <Filter>serialization_json</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

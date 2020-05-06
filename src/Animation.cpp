@@ -42,10 +42,11 @@ void from_json(const json& j, Animation& p)
 
 	for (auto& jsprite : j["sprites"])
 	{
-		p.frames.emplace_back(jsprite["spriteId"].get<std::string>(), 
-							  jsprite["screenOffset"][0].get<int>(), 
-							  jsprite["screenOffset"][1].get<int>(),
-							  jsprite["duration"].get<float>());
+		AnimationFrame af{ jsprite["spriteId"].get<std::string>(),
+						   jsprite["screenOffset"][0].get<int>(),
+						   jsprite["screenOffset"][1].get<int>(),
+						   jsprite["duration"].get<float>() };
+		p.frames.emplace_back(std::move(af));
 	}
 
 }

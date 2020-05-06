@@ -11,6 +11,7 @@
 #include "AssetStorage.h"
 #include "Sprite.h"
 #include "Game.h"
+#include "AnimationCollection.h"
 
 extern AssetStorage assets;
 
@@ -45,7 +46,8 @@ public:
 		for (auto& animSprite : animatedSprites)
 		{
 			//if (!animSprite->isEnabled) continue;
-			Animation* animation = Game::assets->getAnimation(animSprite->currentAnimation);
+			Animation* animation = Game::assets->getAnimationCollection(animSprite->animation_collection_id)->getAnimation(animSprite->currentAnimation);
+				//getAnimation(animSprite->currentAnimation);
 			//assert(animation);
 			int currFrame = animSprite->currentFrame;
 			int totalFrames = static_cast<int>(animation->frames.size());

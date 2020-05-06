@@ -10,6 +10,7 @@
 #include "Sprite.h"
 #include "RenderingSystem.h"
 #include "Game.h"
+//#include "AnimationCollection.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
