@@ -1,24 +1,24 @@
 #include "Sprite.h"
 #include "AssetStorage.h"
 #include "Game.h"
+#include "Texture.h"
+#include "jsonSFML.h"
 
 void to_json(json& j, const Sprite& p)
 {
 	j["texRect"] = p.texRect;
-	//to_json(j["texRect"], p.texRect);
 	j["texId"] = p.texId;
 	j["scale"] = p.scale;
 }
 
 void from_json(const json& j, Sprite& p)
 {
-	//from_json(j["texRect"], p.texRect);
 	p.texRect = j["texRect"];
 	j.at("texId").get_to(p.texId);
 
 	//set all parameters for sf::sprite
 	p.m_sprite.setTextureRect(p.texRect);
-	p.m_sprite.setTexture(*Game::assets->getTexture(p.texId));
+	p.m_sprite.setTexture(Game::assets->get<Texture>(p.texId)->texture);
 	float scale = j["scale"].get<float>();
 	p.m_sprite.setScale(scale, scale);
 	p.scale = scale;

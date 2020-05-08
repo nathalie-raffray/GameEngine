@@ -1,0 +1,14 @@
+{
+	"animations": {
+		"littlemario": "../res/data/littlemario.animations.json",
+		"mushroommario": "../res/data/mushroommario.animations.json"
+	},
+
+	"sprites": {
+		"tree": "../res/data/level1.sprites.json"
+	},
+
+	"textures": {
+		"marioluigi": "../res/data/textures.json"
+	}
+}

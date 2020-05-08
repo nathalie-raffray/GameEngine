@@ -1,5 +1,7 @@
 {
-    "name": "mushroommario",
+    "loadType" : "animations",
+    
+    "animationCollectionId": "mushroommario",
     "animations": [{
             "animationId": "mushroommario_walk",
             "mode": "loop",

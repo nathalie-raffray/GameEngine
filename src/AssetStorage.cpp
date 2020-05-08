@@ -1,160 +1,116 @@
 #include "AssetStorage.h"
 
-#include <string>
-#include <unordered_map>
 #include <fstream>
-#include <memory>
+#include <iostream>
 
 #include "Sprite.h"
-#include "SpriteComponent.h"
-#include "AnimationComponent.h"
 #include "Animation.h"
-#include "AnimationCollection.h"
 #include "AnimationFrame.h"
+#include "AnimationCollection.h"
+#include "Texture.h"
+#include "Asset.h"
+//if debug
 #include "Game.h"
 #include "ImguiWindows.h"
 
-//----------------------------------------------------------------------------------------------
-/*
-void AssetStorage::addAnimation(AnimationId id, std::unique_ptr<Animation> upA)
-{
-	animations.emplace(id, std::move(upA));
-}
-*/
+#include "json.hpp"
 
-//----------------------------------------------------------------------------------------------
-/*
-void AssetStorage::addAnimation(AnimationId id)
-{
-	animations.emplace(id, std::make_unique<Animation>());
-}
-*/
+#include <SFML/Graphics/Texture.hpp>
+
+using json = nlohmann::json;
 
 //----------------------------------------------------------------------------------------------
 
-/*
-void AssetStorage::removeAnimation(const AnimationId& id)
-{
-	animations.erase(id);
-}
-*/
-
 //----------------------------------------------------------------------------------------------
 
-void AssetStorage::addSprite(SpriteId id, std::unique_ptr<Sprite> upA)
-{
-	sprites.emplace(id, std::move(upA));
-}
-
-//----------------------------------------------------------------------------------------------
-
-void AssetStorage::removeSprite(const SpriteId& id)
-{
-	sprites.erase(id);
-}
-
-//----------------------------------------------------------------------------------------------
-/*
-Animation* AssetStorage::getAnimation(const AnimationId& id)
-{
-	if (animations.count(id) == 0) return nullptr;
-	else return animations[id].get();
-}
-*/
-
-//----------------------------------------------------------------------------------------------
-
-AnimationCollection* AssetStorage::getAnimationCollection(const AnimationCollectionId& id)
-{
-	if (animation_collections.count(id) == 0) return nullptr;
-	else return animation_collections[id].get();
-}
-
-//----------------------------------------------------------------------------------------------
-
-Sprite* AssetStorage::getSprite(const SpriteId& id)
-{
-	if (sprites.count(id) == 0) return nullptr;
-	else return sprites[id].get();
-}
-
-//----------------------------------------------------------------------------------------------
-
-Texture* AssetStorage::getTexture(const TextureId& id)
-{
-	if (textures.count(id) == 0) return nullptr;
-	else return textures[id].get();
-}
-
-//----------------------------------------------------------------------------------------------
-
-void AssetStorage::load(const std::string& filePath, const LoadType& type)
+AssetStorage::AssetStorage(const std::string& filePath)
 {
 	json js;
 	std::ifstream i(filePath);
 	i >> js;
 
-	switch (type) {
-	case TEXTURES:
-		loadTextures(js);
-		break;
-	case SPRITES:
-		loadSprites(js);
-		break;
-	case ANIMATIONS:
-		loadAnimations(js);
-		//Game::imguiWin->addJson(filePath);
-		break;
-	}
-}
-
-//----------------------------------------------------------------------------------------------
-
-void AssetStorage::loadAnimations(json& js)
-{
-	auto uAC = std::make_unique<AnimationCollection>();
-	
-	for (json& j : js["animations"])
+	for (auto& j : js)
 	{
-		auto uA = std::make_unique<Animation>();
-
-		loadSprites(j["sprites"]);
-
-		*uA = j;
-
-		uAC->animations.emplace(j["animationId"].get<std::string>(), std::move(uA));
-
-		//Game::imguiWin->addAssociatedAnimation(filePath, animations.find(j["animationId"].get<std::string>())->first); //only necessary for ImGui animation editor
+		for (auto& jj : j.items())
+		{
+			table_of_contents.emplace(jj.key(), jj.value());
+		}
 	}
-
-	animation_collections.emplace(js["name"], std::move(uAC));
 }
 
 //----------------------------------------------------------------------------------------------
 
-void AssetStorage::loadSprites(json& js)
+void AssetStorage::load(const AssetId& id)
 {
-	for (json& j : js)
+	if (table_of_contents.count(id) == 0)
 	{
-		auto uS = std::make_unique<Sprite>();
-
-		*uS = j;
-
-		sprites.emplace(j["spriteId"].get<std::string>(), std::move(uS));
-
+		std::cout << "Could not load asset with id: " << id << std::endl;
+		return;
 	}
+	std::string filePath = table_of_contents[id];
+
+	json js;
+	std::ifstream i(filePath);
+	i >> js;
+
+	std::string loadType = js["loadType"];
+
+	if (loadType.compare("animations") == 0) // LOAD ANIMATIONS
+	{
+		auto uAC = std::make_unique<AnimationCollection>();
+
+		for (json& j : js["animations"])
+		{
+			auto uA = std::make_unique<Animation>();
+
+			*uA = j;
+
+			uAC->animations.emplace(j["animationId"].get<std::string>(), std::move(uA));
+		}
+
+		assets.emplace(js["animationCollectionId"], std::move(uAC));
+	}
+
+
+	else if (loadType.compare("sprites") == 0) // LOAD SPRITES
+	{
+		for (json& j : js["sprites"])
+		{
+			auto uS = std::make_unique<Sprite>();
+
+			*uS = j;
+
+			assets.emplace(j["spriteId"].get<std::string>(), std::move(uS));
+		}
+	}
+
+
+	else if (loadType.compare("textures") == 0) // LOAD TEXTURES
+	{
+		for (json& j : js["textures"])
+		{
+			auto uT = std::make_unique<Texture>();
+
+			assert(uT->texture.loadFromFile(j["filepath"].get<std::string>()));
+
+			assets.emplace(j["texId"].get<std::string>(), std::move(uT));
+		}
+	}
+
+	else std::cout << "couldn't load asset with load type: " << loadType << std::endl;
+
 }
 
 //----------------------------------------------------------------------------------------------
 
-void AssetStorage::loadTextures(json& js)
+
+void AssetStorage::remove(const AssetId& id)
 {
-	for (json& j : js["textures"])
-	{
-		auto uT = std::make_unique<Texture>();
-		assert(uT->loadFromFile(j["filepath"].get<std::string>()));
-		textures.emplace(j["texId"].get<std::string>(), std::move(uT));
-	}
+	if (assets.count(id) == 0) return;
+	assets.erase(id);
 }
 
 //----------------------------------------------------------------------------------------------
+
+
+

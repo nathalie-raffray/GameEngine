@@ -30,13 +30,15 @@
 				{"mushroommario_swim0" : "mushroommario"},
 				{"mushroommario_swim1" : "mushroommario"},
 				{"mushroommario_swim2" : "mushroommario"},
-				{"mushroommario_swim3" : "mushroommario"}
+				{"mushroommario_swim3" : "mushroommario"}, 
+
+				{"tree" : "level1.sprites.json"}
 
 			]
 		}, 
 		{"TEXTURES" :
 			[
-
+				{"marioluigi" : "../res/marioluigi.png"}
 			]
 		}
 	]

@@ -1,17 +1,21 @@
 #pragma once
+#//include <string>
 
-#include <string>
+#include "Sprite.h"
 
-using SpriteId = std::string;
+//using SpriteId = std::string;
 
 struct AnimationFrame
 {
-	SpriteId spriteId;
+	//SpriteId spriteId;
+	Sprite sprite;
 
 	int screenOffsetX=0;
 	int screenOffsetY=0;
 
 	float duration;
+
+	//~AnimationFrame() = default;
 
 	//TAKE THESE OUT, TRY TO MAKE THEM POD, PLAIN OLD DATA
 	//IF PLAIN OLD DATA STRUCTURE, THEN IT DOESNT CALL CONSTRUCTOR

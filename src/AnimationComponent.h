@@ -3,6 +3,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include <string>
+#include "Entity.h"
 
 using AnimationId = std::string;
 using AnimationCollectionId = std::string;
@@ -19,3 +20,5 @@ struct AnimationComponent
 	bool isEnabled = true; //for animation editor / debugging
 
 };
+
+//ComponentRegistry<AnimationComponent>::components

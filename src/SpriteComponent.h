@@ -7,7 +7,7 @@ struct SpriteComponent
 {
 	// Serializable attribute
 	SpriteId spriteId;
-	bool isEnabled;
 	// Transient attributes
+	bool isEnabled;
 };
 

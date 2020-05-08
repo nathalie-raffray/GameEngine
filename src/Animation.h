@@ -9,16 +9,16 @@ using nlohmann::json;
 
 struct AnimationFrame;
 
+enum class animation_mode
+{
+	loop,
+	one_time,
+	ping_pong_forward,
+	ping_pong_backward
+};
+
 struct Animation
 {
-	enum animation_mode
-	{
-		loop,
-		one_time,
-		ping_pong_forward, 
-		ping_pong_backward
-	};
-
 	std::vector<AnimationFrame> frames;
 	animation_mode mode;
 

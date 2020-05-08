@@ -1,15 +1,16 @@
-[{
-		"texRect": [
-			1,
-			16,
-			16,
-			16
-		],
-		"texId": "marioluigi",
-		"scale" : 5,
-		"spriteId": "tree"
-	}
+{
+	"loadType" : "sprites",
 
-
-
-]
+	"sprites" :	[{
+			"texRect": [
+				1,
+				16,
+				16,
+				16
+			],
+			"texId": "marioluigi",
+			"scale" : 5,
+			"spriteId": "tree"
+		}
+	]
+}

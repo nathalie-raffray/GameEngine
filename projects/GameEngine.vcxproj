@@ -111,12 +111,13 @@
     <ClCompile Include="..\src\AnimationCollection.cpp" />
     <ClCompile Include="..\src\AnimationSystem.cpp" />
     <ClCompile Include="..\src\AssetStorage.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\ImguiWindows.cpp" />
     <ClCompile Include="..\src\jsonSFML.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\RenderingSystem.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
-    <ClCompile Include="..\src\SpriteComponent.cpp" />
+    <ClCompile Include="..\src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h" />
@@ -133,7 +134,9 @@
     <ClInclude Include="..\src\AnimationComponent.h" />
     <ClInclude Include="..\src\AnimationFrame.h" />
     <ClInclude Include="..\src\AnimationSystem.h" />
+    <ClInclude Include="..\src\Asset.h" />
     <ClInclude Include="..\src\AssetStorage.h" />
+    <ClInclude Include="..\src\Entity.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\ImguiWindows.h" />
     <ClInclude Include="..\src\jsonSFML.h" />

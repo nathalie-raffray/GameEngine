@@ -23,6 +23,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{43c5f158-41ef-45a6-a9b2-e789f8db000a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -52,13 +55,7 @@
     <ClCompile Include="..\src\AnimationSystem.cpp">
       <Filter>animation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SpriteComponent.cpp">
-      <Filter>animation</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Animation.cpp">
-      <Filter>animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Sprite.cpp">
       <Filter>animation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ImguiWindows.cpp">
@@ -69,6 +66,15 @@
     </ClCompile>
     <ClCompile Include="..\src\AnimationCollection.cpp">
       <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Texture.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Sprite.cpp">
+      <Filter>animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Entity.cpp">
+      <Filter>ECS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="..\src\jsonSFML.h">
       <Filter>serialization_json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Asset.h">
+      <Filter>asset_storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity.h">
+      <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
