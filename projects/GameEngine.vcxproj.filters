@@ -76,6 +76,15 @@
     <ClCompile Include="..\src\Entity.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EntityRegistry.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SystemRegistry.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Game.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\external\imgui-sfml\imconfig-SFML.h">
@@ -151,6 +160,21 @@
       <Filter>asset_storage</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entity.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ComponentRegistry.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ComponentPunchCard.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EntityRegistry.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\System.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SystemRegistry.h">
       <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>

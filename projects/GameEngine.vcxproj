@@ -112,11 +112,14 @@
     <ClCompile Include="..\src\AnimationSystem.cpp" />
     <ClCompile Include="..\src\AssetStorage.cpp" />
     <ClCompile Include="..\src\Entity.cpp" />
+    <ClCompile Include="..\src\EntityRegistry.cpp" />
+    <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\ImguiWindows.cpp" />
     <ClCompile Include="..\src\jsonSFML.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\RenderingSystem.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
+    <ClCompile Include="..\src\SystemRegistry.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +139,10 @@
     <ClInclude Include="..\src\AnimationSystem.h" />
     <ClInclude Include="..\src\Asset.h" />
     <ClInclude Include="..\src\AssetStorage.h" />
+    <ClInclude Include="..\src\ComponentPunchCard.h" />
+    <ClInclude Include="..\src\ComponentRegistry.h" />
     <ClInclude Include="..\src\Entity.h" />
+    <ClInclude Include="..\src\EntityRegistry.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\ImguiWindows.h" />
     <ClInclude Include="..\src\jsonSFML.h" />
@@ -144,6 +150,8 @@
     <ClInclude Include="..\src\RenderingSystem.h" />
     <ClInclude Include="..\src\Sprite.h" />
     <ClInclude Include="..\src\SpriteComponent.h" />
+    <ClInclude Include="..\src\System.h" />
+    <ClInclude Include="..\src\SystemRegistry.h" />
     <ClInclude Include="..\src\Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -4,21 +4,30 @@
 #include <memory>
 #include <string>
 
+#include "System.h"
+
 struct AnimationComponent;
 
 using AnimationId = std::string;
 
-class AnimationSystem
+class AnimationSystem : System
 {
 private:
 	std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
+	//std::vector<EntityHandle> m_entities;
 
 public:
 	
-	void add(const std::shared_ptr<AnimationComponent>& spA);
+	//virtual void add(const EntityHandle h) override;
 
-	void play(const AnimationId& newAnimation, std::shared_ptr<AnimationComponent>& spA);
+	virtual bool isValid(const EntityHandle& h) override;
 
-	void update();
+	virtual void update(float dt) override;
+
+	//void add(const std::shared_ptr<AnimationComponent>& spA);
+
+	//void play(const AnimationId& newAnimation, std::shared_ptr<AnimationComponent>& spA);
+
+	//void update();
 };
 

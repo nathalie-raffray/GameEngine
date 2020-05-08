@@ -1,26 +1,13 @@
 #pragma once
-#include <memory>
-#include <vector>
-#include <string>
 
-struct AnimationComponent;
-struct SpriteComponent;
+#include "System.h"
 
-using SpriteId = std::string;
-
-class RenderingSystem
+class RenderingSystem : System
 {
-private:
-
-	std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
-	std::vector<std::shared_ptr<SpriteComponent>> staticSprites;
-
 public:
 
-	void add(const std::shared_ptr<AnimationComponent>& spA);
-	
-	void update();
+	virtual bool isValid(const EntityHandle& h) override;
 
-	void drawSprite(const SpriteId& id);
+	virtual void update(float dt) override;
 
 };

@@ -10,54 +10,47 @@
 #include "AssetStorage.h"
 #include "Game.h"
 #include "AnimationCollection.h"
+#include "Entity.h"
 
 //----------------------------------------------------------------------------------------------
 
-void RenderingSystem::add(const std::shared_ptr<AnimationComponent>& spA)
+bool RenderingSystem::isValid(const EntityHandle& h)
 {
-	animatedSprites.emplace_back(spA);
+	if (h->has<AnimationComponent>() || h->has<SpriteComponent>()) return true;
+	return false;
 }
 
 //----------------------------------------------------------------------------------------------
 
-void RenderingSystem::update()
+void RenderingSystem::update(float dt)
 {
-	//if (Game::paused) return;
-	for (auto& upAnimSpriteC : animatedSprites)
+	dt = 0; //temporary: so that compiler doesnt give warning. 
+	for (auto& entity : m_entities)
 	{
-		if (!upAnimSpriteC->isEnabled) continue;
-
-		Animation* animation = Game::assets->get<AnimationCollection>(upAnimSpriteC->animation_collection_id)->getAnimation(upAnimSpriteC->currentAnimation);
-		
-		if (!animation) continue;//for debug purposes
-
-		int totalFrames = static_cast<int>(animation->frames.size());
-		if (totalFrames == 0) continue; //for debug purposes
-
-		Game::window->draw(animation->frames[upAnimSpriteC->currentFrame].sprite.m_sprite);
-	}
-	for (auto& upSpriteC : staticSprites)
-	{
-		if (!upSpriteC->isEnabled) continue;
-		Sprite* s = Game::assets->get<Sprite>(upSpriteC->spriteId);
-		if (s)
+		//if (!upAnimSpriteC->isEnabled) continue;
+		if (entity->has<AnimationComponent>())
 		{
-			sf::Sprite& sprite = s->m_sprite;
-			Game::window->draw(sprite);
+			auto animation_component = entity->get<AnimationComponent>();
+			Animation* animation = Game::assets->get<AnimationCollection>(animation_component->animation_collection_id)->getAnimation(animation_component->currentAnimation);
+
+			if (!animation) continue;//for debug purposes
+
+			int totalFrames = static_cast<int>(animation->frames.size());
+			if (totalFrames == 0) continue; //for debug purposes
+
+			Game::window->draw(animation->frames[animation_component->currentFrame].sprite.m_sprite);
+		}
+		if (entity->has<SpriteComponent>())
+		{
+			//if (!upSpriteC->isEnabled) continue;
+			auto sprite_component = entity->get<SpriteComponent>();
+			Sprite* s = Game::assets->get<Sprite>(sprite_component->spriteId);
+			if (s)
+			{
+				sf::Sprite& sprite = s->m_sprite;
+				Game::window->draw(sprite);
+			}
+
 		}
 	}
 }
-
-//----------------------------------------------------------------------------------------------
-
-void RenderingSystem::drawSprite(const SpriteId& id)
-{
-	Sprite* s = Game::assets->get<Sprite>(id);
-	if (s)
-	{
-		sf::Sprite& sprite = s->m_sprite;
-		Game::window->draw(sprite);
-	}
-}
-
-//----------------------------------------------------------------------------------------------

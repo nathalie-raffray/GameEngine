@@ -27,9 +27,9 @@ using IntRect = sf::IntRect;
 
 //----------------------------------------------------------------------------------------------
 
-void ImguiWindows::add(const std::shared_ptr<AnimationComponent>& sp)
+void ImguiWindows::add(EntityHandle eh)
 {
-	spLittleMario = sp;
+	entity = eh;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -63,6 +63,8 @@ void ImguiWindows::animationEditor()
 {
 
 	ImGui::Begin("Animation Editor");
+
+	auto spLittleMario = entity->get<AnimationComponent>();
 
 	static int k = 0; //to choose files
 	static int i = 0; //to choose animations

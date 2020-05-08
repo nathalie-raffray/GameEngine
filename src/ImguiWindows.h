@@ -4,11 +4,14 @@
 #include <unordered_map>
 #include <string>
 
+#include "Entity.h"
+#include "EntityRegistry.h"
+
+#include "json.hpp"
+
 using AnimationId = std::string;
 
 struct AnimationComponent;
-
-#include "json.hpp"
 
 using json = nlohmann::json;
 using AnimationCollectionId = std::string;
@@ -27,14 +30,11 @@ class ImguiWindows
 {
 private:
 	ImguiAnimation names;
-	std::shared_ptr<AnimationComponent> spLittleMario;
+	EntityHandle entity;
 
 public:
-	void add(const std::shared_ptr<AnimationComponent>& sp);
+	void add(EntityHandle eh);
 	void animationInit();
 	void animationEditor();
 
-	//json js;
-
-	//void addAssociatedAnimation(std::string filePath, const AnimationId& id);
 };
