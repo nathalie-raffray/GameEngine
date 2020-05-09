@@ -13,8 +13,8 @@ using AnimationId = std::string;
 class AnimationSystem : System
 {
 private:
-	std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
-	//std::vector<EntityHandle> m_entities;
+	//std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
+	std::vector<EntityHandle> m_entities;
 
 public:
 	
@@ -24,10 +24,5 @@ public:
 
 	virtual void update(float dt) override;
 
-	//void add(const std::shared_ptr<AnimationComponent>& spA);
-
-	//void play(const AnimationId& newAnimation, std::shared_ptr<AnimationComponent>& spA);
-
-	//void update();
 };
 

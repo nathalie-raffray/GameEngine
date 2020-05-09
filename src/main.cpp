@@ -1,17 +1,21 @@
 #include "imgui.h"
 #include "imgui-SFML.h"
 
+
 #include "SpriteComponent.h"	
 #include "Parser.h"
-#include "AnimationSystem.h"
 #include "AnimationComponent.h"
-#include "ImguiWindows.h"
 #include "AssetStorage.h"
 #include "Sprite.h"
-#include "RenderingSystem.h"
 #include "Game.h"
-#include "EntityRegistry.h" //fix this later, should be entityregistry
+
+#include "EntityRegistry.h" 
 #include "SystemRegistry.h" 
+#include "AnimationSystem.h"
+#include "RenderingSystem.h"
+#include "ImguiWindows.h"
+
+
 //#include "AnimationCollection.h"
 
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -27,6 +31,7 @@
 
 using IntRect = sf::IntRect;
 //class EntityRegistry;
+
 bool								Game::paused			= false;
 std::unique_ptr<AnimationSystem>    Game::animationSystem   = std::make_unique<AnimationSystem>();
 std::unique_ptr<RenderingSystem>    Game::renderingSystem   = std::make_unique<RenderingSystem>();
@@ -46,7 +51,7 @@ int main()
 	sf::Color bgColor;
 
 	float color[3] = { 0.f, 0.f, 0.f };
-
+/*
 	Entity entity;
 	entity.add<AnimationComponent>();
 	auto component1 = entity.get<AnimationComponent>();
@@ -62,7 +67,7 @@ int main()
 	component2->currentAnimation = "littlemario_swim";
 
 	Game::entity_registry->add(std::move(entity2));
-
+	*/
 	/*auto entity2 = std::make_unique<Entity>();
 	entity2->add<AnimationComponent>();
 	auto component3 = entity->get<AnimationComponent>();
@@ -89,9 +94,9 @@ int main()
 
 		Game::window->clear(bgColor); // fill background with color
 
-		Game::update(0);
+		//Game::update(0);
 
-		Game::imguiWin->animationEditor();
+		//Game::imguiWin->animationEditor();
 		
 		ImGui::SFML::Render(*Game::window);
 		Game::window->display();
