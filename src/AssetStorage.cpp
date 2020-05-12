@@ -29,6 +29,8 @@ AssetStorage::AssetStorage(const std::string& filePath)
 	std::ifstream i(filePath);
 	i >> js;
 
+	//table_of_contents = js.get<ToC>();
+
 	for (auto& j : js)
 	{
 		for (auto& jj : j.items())

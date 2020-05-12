@@ -30,7 +30,7 @@
 #include <vector>
 
 using IntRect = sf::IntRect;
-//class EntityRegistry;
+using Entity = CEntity<AnimationComponent, SpriteComponent>;
 
 bool								Game::paused			= false;
 std::unique_ptr<AnimationSystem>    Game::animationSystem   = std::make_unique<AnimationSystem>();
@@ -51,7 +51,7 @@ int main()
 	sf::Color bgColor;
 
 	float color[3] = { 0.f, 0.f, 0.f };
-/*
+
 	Entity entity;
 	entity.add<AnimationComponent>();
 	auto component1 = entity.get<AnimationComponent>();
@@ -65,9 +65,12 @@ int main()
 	auto component2 = entity2.get<AnimationComponent>();
 	component2->animation_collection_id = "littlemario";
 	component2->currentAnimation = "littlemario_swim";
+	entity2.add<SpriteComponent>();
+	entity2.remove<SpriteComponent>();
+	entity2.add<SpriteComponent>();
 
 	Game::entity_registry->add(std::move(entity2));
-	*/
+	
 	/*auto entity2 = std::make_unique<Entity>();
 	entity2->add<AnimationComponent>();
 	auto component3 = entity->get<AnimationComponent>();

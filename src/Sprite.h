@@ -11,7 +11,7 @@ using nlohmann::json;
 using TextureId = std::string;
 using IntRect = sf::IntRect;
 
-struct Sprite : virtual Asset
+struct Sprite : Asset
 {
 	TextureId texId;
 	IntRect texRect;

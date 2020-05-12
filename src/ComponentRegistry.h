@@ -1,104 +1,64 @@
 #pragma once
 #include <vector>
-#include <memory>
-#include <any>
-#include <unordered_map>
+#include <stack>
 
-using ComponentId = std::size_t;
-
-#if _DEBUG
-#define ASSERT(x) if(!(x)) __debugbreak();
-#else 
-#define ASSERT(x) (x)
-#endif
-
-
-inline ComponentId getNewComponentId()
-{
-	static ComponentId id = 0;
-	return id++;
-}
-
+constexpr uint32_t maxComponents = 32u;
+constexpr uint32_t INVALID = ~0u;
 
 template<typename ComponentType>
-constexpr inline ComponentId& getComponentId()  
+struct component_registry
 {
-	static ComponentId id = getNewComponentId();
-	return id;
-}
+	static std::vector<ComponentType> m_components;
+	//inline static uint32_t m_freeIndex = INVALID; //m_freeIndex was giving me difficulties at the end of the program, since my components are not pure data
+	static std::stack<uint32_t> freeIndices;
+};
 
 template<typename ComponentType>
-struct component_registry 
-{
-	//static std::vector<ComponentType> components;
-	//static std::size_t handle;
-	std::vector<ComponentType> components;
-
-};
-//definition of a non-template data member of a class template
-
-/*template<typename ComponentType>
-std::vector<ComponentType> component_registry<ComponentType>::components = {};
+std::vector<ComponentType> component_registry<ComponentType>::m_components = { };
 
 template<typename ComponentType>
-std::size_t handle = getComponentId<ComponentType>();*/
+std::stack<uint32_t> component_registry<ComponentType>::freeIndices({ INVALID });
 
-/*
-template<std::size_t handle> //where handle must be less than maxcomponents
-struct component_registry_byhandle
-{
-	static std::vector<std::any>& components;
-};
-*/
-
-struct component_registry_manager
-{
-	template<typename ComponentType>
-	static void init()
-	{
-		static bool init = false;
-		if (init) return;
-
-		map[getComponentId<ComponentType>()] = component_registry<ComponentType>();
-
-		init = true;
-	}
-
-	static std::vector<std::any>& get_byhandle(std::size_t handle)
-	{
-		ASSERT(map.count(handle) != 0);
-		return map[handle].components;
-	}
-
-	template<typename ComponentType>
-	static std::vector<std::any>& get()
-	{
-		auto handle = getComponentId<ComponentType>();
-		ASSERT(map.count(handle) != 0);
-		//return std::any_cast<ComponentType>(map[handle].components);
-		return map[handle].components;
-	}
-
-	static std::unordered_map<std::size_t, component_registry<std::any>> map;
-};
-//component_registry<getComponentId<ComoponentType>>::components
-//component_registry<handle>::components
 
 template<typename T>
-struct ComponentHandle 
+void detach(const uint32_t& index)
 {
-	std::size_t m_Handle;
+	if (index == INVALID) return;
 
-	T* operator->()
+	component_registry<T>::freeIndices.push(index);
+
+	/*auto* pNextFree = &component_registry<T>::m_freeIndex;
+	while (*pNextFree != -1)
 	{
-		//return &component_registry<T>::components[m_Handle];
-		return &std::any_cast<T>(component_registry_manager::get<T>()[m_Handle]); 
-
+		pNextFree = reinterpret_cast<uint32_t*>(&component_registry<T>::m_components[*pNextFree]);
 	}
-	T& operator*()
+	*pNextFree = index;
+	*reinterpret_cast<uint32_t*>(&component_registry<T>::m_components[index]) = INVALID;*/
+}
+
+template<typename T>
+uint32_t attach()
+{
+	//auto& index = component_registry<T>::m_freeIndex;
+	auto& index = component_registry<T>::freeIndices.top();
+
+	if (index == -1)
 	{
-		//return component_registry<T>::components[m_Handle];
-		return std::any_cast<T>(component_registry_manager::get<T>()[m_Handle]);
+		//component_registry::m_components<T>.emplace_back(std::forward<TArgs>(mArgs)...);
+		component_registry<T>::m_components.emplace_back();
 
+		return static_cast<uint32_t>(component_registry<T>::m_components.size()) - 1;
 	}
-};
+	else
+	{
+		/*auto indexCopy = index;
+		index = *reinterpret_cast<uint32_t*>(&component_registry<T>::m_components[index]);
+		component_registry<T>::m_components[indexCopy] = { };
+		return indexCopy; */
+
+		component_registry<T>::m_components[index] = { };
+		component_registry<T>::freeIndices.pop();
+
+		return index;
+	}
+}

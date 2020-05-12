@@ -4,8 +4,13 @@
 
 #include "Game.h"
 
-class Entity;
+template<typename... ComponentTypes>
+class CEntity;
 struct EntityHandle;
+
+struct AnimationComponent;
+struct SpriteComponent;
+using Entity = CEntity<AnimationComponent, SpriteComponent>;
 
 class EntityRegistry
 {

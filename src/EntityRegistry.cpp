@@ -1,8 +1,11 @@
 #include "EntityRegistry.h"
 #include "SystemRegistry.h"
 #include "Entity.h"
+#include "SpriteComponent.h"
+#include "AnimationComponent.h"
 
 #include "ImguiWindows.h"//TEMPORARY
+
 void EntityRegistry::add(Entity&& entity)
 {
 	entities.emplace_back(std::make_unique<Entity>(entity));
