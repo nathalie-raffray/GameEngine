@@ -22,9 +22,9 @@ bool RenderingSystem::isValid(const EntityHandle& h)
 
 //----------------------------------------------------------------------------------------------
 
-void RenderingSystem::update(float dt)
+void RenderingSystem::update(float dt) 
 {
-	dt = 0; //temporary: so that compiler doesnt give warning. 
+	dt = 0; //temporaary: so that compiler doesnt give warning. 
 	for (auto& entity : m_entities)
 	{
 		//if (!upAnimSpriteC->isEnabled) continue;
@@ -54,3 +54,5 @@ void RenderingSystem::update(float dt)
 		}
 	}
 }
+
+//----------------------------------------------------------------------------------------------

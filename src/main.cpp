@@ -52,32 +52,32 @@ int main()
 
 	float color[3] = { 0.f, 0.f, 0.f };
 
-	Entity entity;
-	entity.add<AnimationComponent>();
-	auto component1 = entity.get<AnimationComponent>();
+	Game::system_registry->add<AnimationSystem>();
+	Game::system_registry->add<RenderingSystem>();
+
+	//Entity entity;
+	auto entity = Game::entity_registry->create();
+	entity->add<AnimationComponent>();
+	auto component1 = entity->get<AnimationComponent>();
 	component1->animation_collection_id = "littlemario";
 	component1->currentAnimation = "littlemario_walk";
 
-	Game::entity_registry->add(std::move(entity));
 
-	Entity entity2;
-	entity2.add<AnimationComponent>();
-	auto component2 = entity2.get<AnimationComponent>();
+	auto entity2 = Game::entity_registry->create();
+	entity2->add<AnimationComponent>();
+	auto component2 = entity2->get<AnimationComponent>();
 	component2->animation_collection_id = "littlemario";
 	component2->currentAnimation = "littlemario_swim";
-	entity2.add<SpriteComponent>();
-	entity2.remove<SpriteComponent>();
-	entity2.add<SpriteComponent>();
 
-	Game::entity_registry->add(std::move(entity2));
-	
+	Game::imguiWin->add(entity);
+	Game::imguiWin->animationInit();
+
 	/*auto entity2 = std::make_unique<Entity>();
 	entity2->add<AnimationComponent>();
 	auto component3 = entity->get<AnimationComponent>();
 	component3->animation_collection_id = "babymario";
 	component3->currentAnimation = "babymario_walk";*/
 
-	Game::imguiWin->animationInit();
 
 	char windowTitle[255] = "ImGui + SFML = <3";
 
@@ -97,9 +97,9 @@ int main()
 
 		Game::window->clear(bgColor); // fill background with color
 
-		//Game::update(0);
+		Game::update(0);
 
-		//Game::imguiWin->animationEditor();
+		Game::imguiWin->animationEditor();
 		
 		ImGui::SFML::Render(*Game::window);
 		Game::window->display();

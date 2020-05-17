@@ -79,7 +79,7 @@ public:
 	}
 
 private:
-	bool m_Active;
+	bool m_Active = true;
 };
 
 struct AnimationComponent;

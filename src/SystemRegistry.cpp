@@ -1,5 +1,7 @@
 #include "SystemRegistry.h"
 #include "System.h"
+#include "AnimationSystem.h"
+#include "RenderingSystem.h"
 
 void SystemRegistry::addEntityToSystems(const EntityHandle&& e)
 {

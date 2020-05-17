@@ -10,11 +10,11 @@ struct AnimationComponent;
 
 using AnimationId = std::string;
 
-class AnimationSystem : System
+class AnimationSystem : public System
 {
 private:
 	//std::vector<std::shared_ptr<AnimationComponent>> animatedSprites;
-	std::vector<EntityHandle> m_entities;
+	//std::vector<EntityHandle> m_entities;
 
 public:
 	

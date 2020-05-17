@@ -17,7 +17,7 @@ class EntityRegistry
 public:
 	friend struct EntityHandle;
 	  
-	void add(Entity&& entity);
+	EntityHandle&& create();
 
 	void remove(const EntityHandle& h);
 

@@ -5,6 +5,8 @@
 class System
 {
 public:
+	virtual ~System() {}
+	
 	virtual void add(const EntityHandle h)
 	{
 		if (isValid(h)) m_entities.emplace_back(h);
@@ -18,8 +20,8 @@ public:
 		}),
 			std::end(m_entities));
 	}
-	virtual bool isValid(const EntityHandle& h) = 0;
-	virtual void update(float dt) = 0;
+	virtual bool isValid(const EntityHandle&) { return false; }
+	virtual void update(float) {}
 
 protected:
 	std::vector<EntityHandle> m_entities;

@@ -2,7 +2,7 @@
 
 #include "System.h"
 
-class RenderingSystem : System
+class RenderingSystem : public System
 {
 public:
 

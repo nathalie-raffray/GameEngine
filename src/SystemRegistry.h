@@ -23,7 +23,7 @@ public:
 	//friend struct SystemHandle;
 
 	template<typename SystemType>
-	void add(SystemType&& system);
+	void add();
 
 	void addEntityToSystems(const EntityHandle&& e);
 
@@ -41,10 +41,9 @@ private:
 };
 
 template<typename SystemType>
-inline void SystemRegistry::add(SystemType&& system)
+void SystemRegistry::add()
 {
-	systems.emplace_back(std::make_unique<SystemType>(system));
+	systems.emplace_back(std::make_unique<System>(SystemType{}));
 	SystemHandle handle{ systems.size() - 1 };
-
 	//return handle; //will move semantics be applied here?
 }

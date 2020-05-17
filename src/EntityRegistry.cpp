@@ -4,14 +4,13 @@
 #include "SpriteComponent.h"
 #include "AnimationComponent.h"
 
-#include "ImguiWindows.h"//TEMPORARY
 
-void EntityRegistry::add(Entity&& entity)
+EntityHandle&& EntityRegistry::create()
 {
-	entities.emplace_back(std::make_unique<Entity>(entity));
+	entities.emplace_back(std::make_unique<Entity>());
 	EntityHandle handle{ entities.size() - 1 };
-	Game::imguiWin->add(handle); //TEMPORARY UNTIL I MAKE IMGUI WINDOWS AN OFFICIAL SYSTEM 
-	Game::system_registry->addEntityToSystems(std::move(handle));
+	Game::system_registry->addEntityToSystems(EntityHandle(handle)); //change this at some point, maybe addEntitytosystems shouldnt take in &&
+	return std::move(handle);
 }
 
 void EntityRegistry::remove(const EntityHandle& h)
