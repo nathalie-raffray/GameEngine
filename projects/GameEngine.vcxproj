@@ -139,7 +139,6 @@
     <ClInclude Include="..\src\AnimationSystem.h" />
     <ClInclude Include="..\src\Asset.h" />
     <ClInclude Include="..\src\AssetStorage.h" />
-    <ClInclude Include="..\src\ComponentPunchCard.h" />
     <ClInclude Include="..\src\ComponentRegistry.h" />
     <ClInclude Include="..\src\Entity.h" />
     <ClInclude Include="..\src\EntityRegistry.h" />

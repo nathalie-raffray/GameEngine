@@ -12,7 +12,6 @@ using nlohmann::json;
 #define ASSERT(x) (x)
 #endif
 
-
 template<typename T>
 struct component_handle
 {

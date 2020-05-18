@@ -21,6 +21,8 @@ struct Sprite : Asset
 
 	~Sprite() override = default;
 
+	static bool load(const std::string& filePath);
+
 };
 
 void to_json(json& j, const Sprite& p);

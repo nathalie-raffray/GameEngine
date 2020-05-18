@@ -2,23 +2,23 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <iostream>
 
 using AssetId = std::string;
 
 struct Asset;
 
 using AssetMap = std::unordered_map<AssetId, std::unique_ptr<Asset>>;
-using ToC = std::unordered_map<AssetId, std::string>;
-//using ToC = std::unordered_map<AssetId, std::path>;
-
-
 
 class AssetStorage
 {
 public:
+	AssetMap assets;
+
+public:
 	friend class ImguiWindows;
 
-	//load a table of contents into asset storage to initalize it
+	//load a table of contents into asset storage to initialize it
 	AssetStorage(const std::string& filePath);
 
 	template<typename T> T* get(const AssetId& id);
@@ -26,12 +26,7 @@ public:
 	void remove(const AssetId& id);
 
 private:
-	AssetMap assets;
-	ToC table_of_contents;
-
-	void load(const AssetId& id);
-	//bool load(const AssetId& id);
-
+	std::unordered_map<AssetId, std::string> table_of_contents;
 
 };
 
@@ -42,14 +37,12 @@ inline T* AssetStorage::get(const AssetId& id)
 {
 	if (assets.count(id) == 0)
 	{
-		//T::load([ToC[id]]);
-		//instead of having my own load function
-
-		load(id);
-		if (assets.count(id) == 0) return nullptr;
-		/*
-		assets.count is kinda
-		*/
+		if (table_of_contents.count(id) == 0)
+		{
+			std::cout << "Could not load asset with id: " << id << std::endl;
+			return nullptr;
+		}
+		T::load(table_of_contents[id]);
 	}
 	return dynamic_cast<T*>(assets[id].get()); 
 }

@@ -2,7 +2,6 @@
 #include <vector>
 #include <stack>
 
-constexpr uint32_t maxComponents = 32u;
 constexpr uint32_t INVALID = ~0u;
 
 template<typename ComponentType>

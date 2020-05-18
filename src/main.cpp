@@ -63,14 +63,17 @@ int main()
 	component1->currentAnimation = "littlemario_walk";
 
 
-	auto entity2 = Game::entity_registry->create();
+	/*auto entity2 = Game::entity_registry->create();
 	entity2->add<AnimationComponent>();
 	auto component2 = entity2->get<AnimationComponent>();
 	component2->animation_collection_id = "littlemario";
-	component2->currentAnimation = "littlemario_swim";
+	component2->currentAnimation = "littlemario_swim";*/
 
 	Game::imguiWin->add(entity);
 	Game::imguiWin->animationInit();
+
+	Game::system_registry->addEntityToSystems(std::move(entity));
+
 
 	/*auto entity2 = std::make_unique<Entity>();
 	entity2->add<AnimationComponent>();

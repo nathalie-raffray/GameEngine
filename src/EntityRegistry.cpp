@@ -9,7 +9,7 @@ EntityHandle&& EntityRegistry::create()
 {
 	entities.emplace_back(std::make_unique<Entity>());
 	EntityHandle handle{ entities.size() - 1 };
-	Game::system_registry->addEntityToSystems(EntityHandle(handle)); //change this at some point, maybe addEntitytosystems shouldnt take in &&
+	//Game::system_registry->addEntityToSystems(EntityHandle(handle)); 
 	return std::move(handle);
 }
 

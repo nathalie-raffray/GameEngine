@@ -165,9 +165,6 @@
     <ClInclude Include="..\src\ComponentRegistry.h">
       <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ComponentPunchCard.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\EntityRegistry.h">
       <Filter>ECS</Filter>
     </ClInclude>

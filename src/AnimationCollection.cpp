@@ -1,6 +1,12 @@
 #include "AnimationCollection.h"
 #include "Animation.h"
 #include "AnimationFrame.h"
+#include "Game.h"
+#include "AssetStorage.h"
+
+#include <fstream>
+
+//----------------------------------------------------------------------------------------------
 
 Animation* AnimationCollection::getAnimation(const AnimationId& id) 
 {
@@ -8,6 +14,31 @@ Animation* AnimationCollection::getAnimation(const AnimationId& id)
 	else return animations[id].get();
 }
 
+//----------------------------------------------------------------------------------------------
+
+bool AnimationCollection::load(const std::string& filePath)
+{
+	json js;
+	std::ifstream i(filePath);
+	i >> js;
+
+	auto uAC = std::make_unique<AnimationCollection>();
+
+	for (json& j : js["animations"])
+	{
+		auto uA = std::make_unique<Animation>();
+
+		*uA = j;
+
+		uAC->animations.emplace(j["animationId"].get<std::string>(), std::move(uA));
+	}
+
+	Game::assets->assets.emplace(js["animationCollectionId"], std::move(uAC));
+
+	return true;
+}
+
+//----------------------------------------------------------------------------------------------
 
 /*void from_json(const json& j, AnimationCollection& ac)
 {

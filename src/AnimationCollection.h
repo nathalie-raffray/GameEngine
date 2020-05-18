@@ -9,6 +9,7 @@
 using nlohmann::json;
 
 using AnimationId = std::string;
+using AssetId = std::string;
 
 struct Animation;
 
@@ -17,6 +18,8 @@ struct AnimationCollection : Asset
 	std::unordered_map<AnimationId, std::unique_ptr<Animation>> animations;
 
 	Animation* getAnimation(const AnimationId& id);
+
+	static bool load(const std::string& filePath);
 
 	~AnimationCollection() override = default;
 };

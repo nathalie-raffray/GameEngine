@@ -2,6 +2,7 @@
 #include "EntityRegistry.h"
 #include "Entity.h" //include this for every system?
 
+
 class System
 {
 public:

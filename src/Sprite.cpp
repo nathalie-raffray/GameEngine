@@ -3,6 +3,9 @@
 #include "Game.h"
 #include "Texture.h"
 #include "jsonSFML.h"
+#include <fstream>
+
+//----------------------------------------------------------------------------------------------
 
 void to_json(json& j, const Sprite& p)
 {
@@ -10,6 +13,8 @@ void to_json(json& j, const Sprite& p)
 	j["texId"] = p.texId;
 	j["scale"] = p.scale;
 }
+
+//----------------------------------------------------------------------------------------------
 
 void from_json(const json& j, Sprite& p)
 {
@@ -32,5 +37,22 @@ void from_json(const json& j, Sprite& p)
 	}
 }
 
+//----------------------------------------------------------------------------------------------
 
+bool Sprite::load(const std::string& filePath)
+{
+	json js;
+	std::ifstream i(filePath);
+	i >> js;
 
+	for (json& j : js["sprites"])
+	{
+		auto uS = std::make_unique<Sprite>();
+
+		*uS = j;
+
+		Game::assets->assets.emplace(j["spriteId"].get<std::string>(), std::move(uS));
+	}
+	
+	return true;
+}

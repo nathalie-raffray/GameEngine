@@ -3,6 +3,8 @@
 #include <memory>
 
 //#include "Game.h"
+#include "AnimationSystem.h"
+#include "RenderingSystem.h"
 
 class System;
 struct EntityHandle;
@@ -43,7 +45,9 @@ private:
 template<typename SystemType>
 void SystemRegistry::add()
 {
-	systems.emplace_back(std::make_unique<System>(SystemType{}));
+	//auto uPtr = std::make_unique<System>(SystemType{});
+	//systems.emplace_back(std::move(uPtr));
+	systems.emplace_back(std::make_unique<SystemType>());
 	SystemHandle handle{ systems.size() - 1 };
 	//return handle; //will move semantics be applied here?
 }
