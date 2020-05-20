@@ -26,6 +26,9 @@
     <Filter Include="ECS">
       <UniqueIdentifier>{43c5f158-41ef-45a6-a9b2-e789f8db000a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="collision">
+      <UniqueIdentifier>{fd32c66c-714d-4fb0-b25b-8db856539ad7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -73,9 +76,6 @@
     <ClCompile Include="..\src\Sprite.cpp">
       <Filter>animation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Entity.cpp">
-      <Filter>ECS</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\EntityRegistry.cpp">
       <Filter>ECS</Filter>
     </ClCompile>
@@ -84,6 +84,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Game.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CollisionSystem.cpp">
+      <Filter>collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +175,18 @@
       <Filter>ECS</Filter>
     </ClInclude>
     <ClInclude Include="..\src\SystemRegistry.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CollisionSystem.h">
+      <Filter>collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ColliderComponent.h">
+      <Filter>collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TEntity.h">
       <Filter>ECS</Filter>
     </ClInclude>
   </ItemGroup>

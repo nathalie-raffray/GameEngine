@@ -3,7 +3,6 @@
 #include <SFML/System/Clock.hpp>
 
 #include <string>
-#include "Entity.h"
 
 using AnimationId = std::string;
 using AnimationCollectionId = std::string;

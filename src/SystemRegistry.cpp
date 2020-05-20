@@ -1,9 +1,7 @@
 #include "SystemRegistry.h"
 #include "System.h"
-//#include "AnimationSystem.h"
-//#include "RenderingSystem.h"
 
-void SystemRegistry::addEntityToSystems(const EntityHandle&& e)
+void SystemRegistry::addEntityToSystems(EntityHandle e)
 {
 	for (auto& s : systems)
 	{
@@ -11,7 +9,7 @@ void SystemRegistry::addEntityToSystems(const EntityHandle&& e)
 	}
 }
 
-void SystemRegistry::remove(const SystemHandle& h)
+void SystemRegistry::remove(SystemHandle h)
 {
 	systems.erase(systems.begin() + h.m_index);
 }

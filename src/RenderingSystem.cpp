@@ -14,10 +14,9 @@
 
 //----------------------------------------------------------------------------------------------
 
-bool RenderingSystem::isValid(const EntityHandle& h)
+bool RenderingSystem::isValid(EntityHandle h) const
 {
-	if (h->has<AnimationComponent>() || h->has<SpriteComponent>()) return true;
-	return false;
+	return (h->has<AnimationComponent>() || h->has<SpriteComponent>());
 }
 
 //----------------------------------------------------------------------------------------------
@@ -27,7 +26,6 @@ void RenderingSystem::update(float dt)
 	dt = 0; //temporaary: so that compiler doesnt give warning. 
 	for (auto& entity : m_entities)
 	{
-		//if (!upAnimSpriteC->isEnabled) continue;
 		if (entity->has<AnimationComponent>())
 		{
 			auto animation_component = entity->get<AnimationComponent>();
@@ -42,7 +40,6 @@ void RenderingSystem::update(float dt)
 		}
 		if (entity->has<SpriteComponent>())
 		{
-			//if (!upSpriteC->isEnabled) continue;
 			auto sprite_component = entity->get<SpriteComponent>();
 			Sprite* s = Game::assets->get<Sprite>(sprite_component->spriteId);
 			if (s)

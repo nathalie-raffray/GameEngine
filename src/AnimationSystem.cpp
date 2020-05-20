@@ -15,10 +15,9 @@
 
 //----------------------------------------------------------------------------------------------
 
-bool AnimationSystem::isValid(const EntityHandle& h)
+bool AnimationSystem::isValid(EntityHandle h) const
 {
-	if (h->has<AnimationComponent>()) return true;
-	return false;
+	return (h->has<AnimationComponent>());
 }
 
 //----------------------------------------------------------------------------------------------

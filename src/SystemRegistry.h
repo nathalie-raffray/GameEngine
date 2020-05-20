@@ -27,9 +27,9 @@ public:
 	template<typename SystemType>
 	void add();
 
-	void addEntityToSystems(const EntityHandle&& e);
+	void addEntityToSystems(EntityHandle e);
 
-	void remove(const SystemHandle& h);
+	void remove(SystemHandle h);
 
 	void update(float dt);
 
@@ -47,7 +47,7 @@ void SystemRegistry::add()
 {
 	//auto uPtr = std::make_unique<System>(SystemType{});
 	//systems.emplace_back(std::move(uPtr));
-	systems.emplace_back(std::make_unique<SystemType>());
-	SystemHandle handle{ systems.size() - 1 };
+	systems.emplace_back(new SystemType);
+//	SystemHandle handle{ systems.size() - 1 };
 	//return handle; //will move semantics be applied here?
 }

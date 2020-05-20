@@ -3,28 +3,23 @@
 #include <memory>
 
 #include "Game.h"
-
-template<typename... ComponentTypes>
-class CEntity;
-struct EntityHandle;
-
-struct AnimationComponent;
-struct SpriteComponent;
-using Entity = CEntity<AnimationComponent, SpriteComponent>;
+#include "Entity.h"
 
 class EntityRegistry
 {
 public:
 	friend struct EntityHandle;
 	  
-	EntityHandle&& create();
+	EntityHandle create();
 
-	void remove(const EntityHandle& h);
+	void remove(EntityHandle h);
 
 	void update();
 
 private:
 	std::vector<std::unique_ptr<Entity>> entities;
+	//std::vector<Entity> entities;
+
 	/*  a vector of unique pointers, rather than simple Entities because
 		it will be less costly when vector resizes and entities
 		are not used sequentially during update() unlike components

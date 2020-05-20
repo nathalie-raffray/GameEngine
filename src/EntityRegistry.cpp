@@ -1,19 +1,16 @@
 #include "EntityRegistry.h"
 #include "SystemRegistry.h"
-#include "Entity.h"
-#include "SpriteComponent.h"
-#include "AnimationComponent.h"
 
-
-EntityHandle&& EntityRegistry::create()
+EntityHandle EntityRegistry::create()
 {
 	entities.emplace_back(std::make_unique<Entity>());
 	EntityHandle handle{ entities.size() - 1 };
 	//Game::system_registry->addEntityToSystems(EntityHandle(handle)); 
-	return std::move(handle);
+	return handle;
+	//RETURN STD::MOVE IS DUMB
 }
 
-void EntityRegistry::remove(const EntityHandle& h)
+void EntityRegistry::remove(EntityHandle h) //ENTITY HANDLE TIENT DANS UN REGISTRE SO NO NEED TO PASS IT BY CONST REF
 {
 	entities.erase(entities.begin() + h.m_index);
 }

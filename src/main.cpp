@@ -14,6 +14,7 @@
 #include "AnimationSystem.h"
 #include "RenderingSystem.h"
 #include "ImguiWindows.h"
+#include "Entity.h"
 
 
 //#include "AnimationCollection.h"
@@ -30,7 +31,6 @@
 #include <vector>
 
 using IntRect = sf::IntRect;
-using Entity = CEntity<AnimationComponent, SpriteComponent>;
 
 bool								Game::paused			= false;
 std::unique_ptr<AnimationSystem>    Game::animationSystem   = std::make_unique<AnimationSystem>();

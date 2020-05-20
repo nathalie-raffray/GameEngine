@@ -20,7 +20,7 @@ public:
 	
 	//virtual void add(const EntityHandle h) override;
 
-	virtual bool isValid(const EntityHandle& h) override;
+	virtual bool isValid(EntityHandle h) const override;
 
 	virtual void update(float dt) override;
 
