@@ -66,102 +66,72 @@ private:
 
 struct PauseEvent : public Event
 {
-	explicit PauseEvent(const PauseEvent&) {}
+	//explicit PauseEvent(const PauseEvent&) {}
 };
 
 //using Listener = TListener<ColliderEvent, PauseEvent>;
 
-template<typename EventType>
-struct TListener
+struct BListener
 {
-	virtual ~TListener() {}
-	
-	virtual void handle(const EventType& event) {}
-};
-
-struct Listener : public TListener<ColliderEvent>,
-				  public TListener<PauseEvent>
-{
-	virtual ~Listener() {}
-
-};
-
-/*template<typename... EventTypes>
-struct TListener : public EventHandler<EventTypes>...
-{
-	virtual ~TListener() {}
-
-};*/
-
-/*
-struct Listener : public TListener<ColliderEvent, PauseEvent>
-{
-
-};
-*/
-
-
-
-
-/*
-struct Listener //so the listeners will be systems
-{
-	enum class EventType
-	{
-		COLLISION
-	};
-	
-	virtual ~Listener(){}
-
-	virtual void handle(EventType type, const Event& event) = 0;
-	virtual void handle() {
-
-		for (auto entity : entities)
-		{
-			auto events = EventManager::events_broadcasted[entity];
-			for (auto& e : events)
-			{
-				//dynamic_cast
-			}
-		}
-	}
+	virtual ~BListener() {}
 
 	template<typename EventType>
-	virtual void handle() = 0;
-
-	//std::vector<EntityHandle> entities;
+	void handle(const EventType& event);
 
 };
-*/
 
-
-struct GoombaController :
-		public System, public Listener
+struct DListener : public BListener
 {
-	//using Listener::~TListener<
-	virtual void handle(const ColliderEvent& event) override
+	template <typename EventType>
+	void handle(const EventType& event)
 	{
-
-	}
-
-	virtual void handle(const PauseEvent& event) override
-	{
-
+		BListener::handle<EventType>(event);
 	}
 
 
-	//void handle<CollisionEvent>(const CollisionEvent& event) override
+};
 
-	//void handle<CollisionEvent, Goomba>(const CollisionEvent& event) override
-	//void handle<CollisionEvent, Shell>(const CollisionEvent& event) override
+template<>
+void DListener::handle<ColliderEvent>(const ColliderEvent& event)
+{
+	
+}
+
+template<>
+void DListener::handle<PauseEvent>(const PauseEvent& event)
+{
+
+}
 
 
+template<typename T>
+struct Listener
+{
+	Listener()
+	{
+		EventManager::add_listener<T>(*this);
+	}
+	
+	virtual ~Listener() {}
+	virtual void handle(const T& event);
+};
+
+struct GoombaController : public System, public Listener<ColliderEvent>
+{
+	void handle(const ColliderEvent& event) override
+	{
+
+	}
 };
 
 struct ColliderEvent : public Event
 {
 	EntityHandle collider1;
 	EntityHandle collider2;
+
+	// ColliderEvent(const ColliderEvent& event) {}
+	// ColliderEvent(const PauseEvent& event) = delete;
+
 };
 
 
@@ -170,30 +140,30 @@ struct ColliderEvent : public Event
 #include <set>
 struct EventManager
 {
-	
-	//static std::multimap<EntityHandle, Event> events_broadcasted;
-	//static std::multimap<Listener, Event> events_broadcasted;
+	template<typename T>
+	static std::set<Listener<T>&> listeners; //eg. T = Listener<ColliderEvent>
 
-	//static std::multimap<MultiKey, Event> events_broadcasted;
-	static std::multimap<EventType, Listener> listeners;
-	static std::multimap<EventType, Event> events;
-	//static std::set<Event> events;
+	template<typename EventType>
+	static std::set<EventType> events;
+
+	//static std::multimap<EventType, DListener> listeners;
+	//static std::multimap<EventType, Event> events;
 
 	static void process_events()
 	{
-		for (auto it_listener = listeners.lower_bound(COLLISION); it_listener != listeners.upper_bound(COLLISION); it_listener++)
+		for(auto event : events<ColliderEvent>)
 		{
-			for (auto it_event = events.lower_bound(COLLISION); it_event != events.upper_bound(COLLISION); it_event++)
+			for (auto listener : listeners<ColliderEvent>)
 			{
-				auto event = dynamic_cast<ColliderEvent&>(it_event->second);
-				it_listener->second.handle(event);
+				listener.handle(event);
 			}
 		}
 	}
 
-	static void add_listener(EventType type, const Listener& listener)
+	template<typename T>
+	static void add_listener(const Listener<T>& listener)
 	{
-		listeners.emplace(type, listener);
+		listeners<Listener<T>>.insert(listener);
 	}
 
 };
