@@ -1,13 +1,12 @@
 #include "GoombaController.h"
-#include "ColliderComponent.h"
-#include "iostream"
+#include <iostream>
 
 bool GoombaController::isValid(EntityHandle eh) const
 {
 	return eh->has<ColliderComponent>();
 }
 
-void GoombaController::update(float)
+void GoombaController::update(float dt)
 {
 
 }

@@ -2,15 +2,8 @@
 #include <iostream>
 
 #include "AnimationSystem.h"
-#include "AnimationComponent.h"
-#include "Animation.h"
-#include "AnimationFrame.h"
 #include "AssetStorage.h"
-#include "Sprite.h"
-#include "Game.h"
 #include "AnimationCollection.h"
-#include "Entity.h"
-#include "EntityRegistry.h"
 
 
 //----------------------------------------------------------------------------------------------

@@ -1,10 +1,6 @@
 #include "CollisionSystem.h"
-#include "ColliderComponent.h"
-#include "AnimationComponent.h"
+
 #include "AnimationCollection.h"
-#include "Animation.h"
-#include "AnimationFrame.h"
-#include "Game.h"
 #include "AssetStorage.h"
 #include "EventManager.h"
 
@@ -15,7 +11,7 @@ bool CollisionSystem::isValid(EntityHandle eh) const
 
 }
 
-void CollisionSystem::update(float)
+void CollisionSystem::update(float dt)
 {
 	for (auto it = m_entities.begin(); it < m_entities.end(); it++ )
 	{

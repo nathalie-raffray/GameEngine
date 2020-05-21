@@ -7,7 +7,7 @@
 
 using nlohmann::json;
 
-struct AnimationFrame;
+#include "AnimationFrame.h"
 
 enum class animation_mode
 {

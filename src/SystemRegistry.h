@@ -2,7 +2,7 @@
 #include <vector>
 #include <memory>
 
-//#include "Game.h"
+/* SYSTEMS */
 #include "AnimationSystem.h"
 #include "RenderingSystem.h"
 #include "GoombaController.h"	
@@ -35,12 +35,10 @@ public:
 
 	void update(float dt);
 
-	void refresh(); //?
-
 private:
 	std::vector<std::unique_ptr<System>> systems;
-	/*  a vector of unique pointers, rather than simple Entities because
-		it will be less costly when vector resizes and entities
+	/*  a vector of unique pointers, rather than simple Systems because
+		it will be less costly when vector resizes and systems
 		are not used sequentially during update() unlike components
 		so there won't be the issue of cache misses
 	*/

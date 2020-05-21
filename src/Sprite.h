@@ -4,9 +4,10 @@
 #include <string>
 
 #include "json.hpp"
-#include "Asset.h"
 
 using nlohmann::json;
+
+#include "Asset.h"
 
 using TextureId = std::string;
 using IntRect = sf::IntRect;

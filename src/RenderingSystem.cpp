@@ -1,16 +1,8 @@
 #include "RenderingSystem.h"
 
-#include <SFML/Graphics/Sprite.hpp>
-
-#include "AnimationComponent.h"
-#include "SpriteComponent.h"
-#include "Animation.h"
-#include "Sprite.h"
-#include "AnimationFrame.h"
 #include "AssetStorage.h"
 #include "Game.h"
 #include "AnimationCollection.h"
-#include "Entity.h"
 
 //----------------------------------------------------------------------------------------------
 
@@ -23,7 +15,6 @@ bool RenderingSystem::isValid(EntityHandle h) const
 
 void RenderingSystem::update(float dt) 
 {
-	dt = 0; //temporaary: so that compiler doesnt give warning. 
 	for (auto& entity : m_entities)
 	{
 		if (entity->has<AnimationComponent>())

@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "Entity.h"
 
+struct EntityHandle;
+
 class EntityRegistry
 {
 public:

@@ -8,7 +8,7 @@ public:
 
 	virtual bool isValid(EntityHandle eh) const override;
 
-	virtual void update(float) override;
+	virtual void update(float dt) override;
 
 private:
 

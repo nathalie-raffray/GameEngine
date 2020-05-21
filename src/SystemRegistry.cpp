@@ -26,6 +26,3 @@ void SystemRegistry::update(float dt)
 	}
 }
 
-void SystemRegistry::refresh()
-{
-}

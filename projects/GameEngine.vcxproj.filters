@@ -23,17 +23,23 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ECS">
+    <Filter Include="ecs">
       <UniqueIdentifier>{43c5f158-41ef-45a6-a9b2-e789f8db000a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="collision">
-      <UniqueIdentifier>{fd32c66c-714d-4fb0-b25b-8db856539ad7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="event-system">
+    <Filter Include="event_system">
       <UniqueIdentifier>{6ece0737-f366-4b30-9ff0-9d9e85742e0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="event-system\events">
+    <Filter Include="event_system\events">
       <UniqueIdentifier>{9158fa47-0d0a-4606-b276-46bc0a4fc707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems">
+      <UniqueIdentifier>{eee496a5-2be6-45a2-a10e-5df702a7fd0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems\collision">
+      <UniqueIdentifier>{fd32c66c-714d-4fb0-b25b-8db856539ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="components">
+      <UniqueIdentifier>{a7e070ba-00cd-4b62-90a6-365d449eda9c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -55,14 +61,8 @@
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\RenderingSystem.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\AssetStorage.cpp">
       <Filter>asset_storage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\AnimationSystem.cpp">
-      <Filter>animation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Animation.cpp">
       <Filter>animation</Filter>
@@ -83,28 +83,34 @@
       <Filter>animation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EntityRegistry.cpp">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\SystemRegistry.cpp">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Game.cpp">
       <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CollisionSystem.cpp">
-      <Filter>collision</Filter>
+      <Filter>systems\collision</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GoombaController.cpp">
-      <Filter>collision</Filter>
+      <Filter>systems\collision</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Listener.cpp">
-      <Filter>event-system</Filter>
+      <Filter>event_system</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ColliderEvent.cpp">
-      <Filter>event-system\events</Filter>
+      <Filter>event_system\events</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EventManager.cpp">
-      <Filter>event-system</Filter>
+      <Filter>event_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AnimationSystem.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RenderingSystem.cpp">
+      <Filter>systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,25 +141,13 @@
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\RenderingSystem.h">
-      <Filter>main</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\AssetStorage.h">
       <Filter>asset_storage</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Animation.h">
       <Filter>animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\AnimationComponent.h">
-      <Filter>animation</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\AnimationFrame.h">
-      <Filter>animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\AnimationSystem.h">
-      <Filter>animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\SpriteComponent.h">
       <Filter>animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Sprite.h">
@@ -161,9 +155,6 @@
     </ClInclude>
     <ClInclude Include="..\src\ImguiWindows.h">
       <Filter>imgui_debug</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Parser.h">
-      <Filter>serialization_json</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Game.h">
       <Filter>main</Filter>
@@ -181,49 +172,61 @@
       <Filter>asset_storage</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Entity.h">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ComponentRegistry.h">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EntityRegistry.h">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\System.h">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\SystemRegistry.h">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\CollisionSystem.h">
-      <Filter>collision</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ColliderComponent.h">
-      <Filter>collision</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Input.h">
-      <Filter>main</Filter>
+      <Filter>systems\collision</Filter>
     </ClInclude>
     <ClInclude Include="..\src\TEntity.h">
-      <Filter>ECS</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\GoombaController.h">
-      <Filter>collision</Filter>
+      <Filter>systems\collision</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Listener.h">
-      <Filter>event-system</Filter>
+      <Filter>event_system</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EventManager.h">
-      <Filter>event-system</Filter>
+      <Filter>event_system</Filter>
     </ClInclude>
     <ClInclude Include="..\src\PauseEvent.h">
-      <Filter>event-system\events</Filter>
+      <Filter>event_system\events</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ColliderEvent.h">
-      <Filter>event-system\events</Filter>
+      <Filter>event_system\events</Filter>
     </ClInclude>
     <ClInclude Include="..\src\CustomEvent.h">
-      <Filter>event-system\events</Filter>
+      <Filter>event_system\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AnimationSystem.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RenderingSystem.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ColliderComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SpriteComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AnimationComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input.h">
+      <Filter>event_system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

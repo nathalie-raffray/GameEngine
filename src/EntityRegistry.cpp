@@ -1,11 +1,9 @@
 #include "EntityRegistry.h"
-#include "SystemRegistry.h"
 
 EntityHandle EntityRegistry::create()
 {
 	entities.emplace_back(Entity{});
 	EntityHandle handle{ entities.size() - 1 };
-	//Game::system_registry->addEntityToSystems(EntityHandle(handle)); 
 	return handle;
 	//RETURN STD::MOVE IS DUMB
 }

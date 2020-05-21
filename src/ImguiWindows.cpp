@@ -1,27 +1,28 @@
+#include "ImguiWindows.h"
+
+/* IMGUI / JSON */
 #include "imgui.h"
 #include "imgui-SFML.h"
 #include "json.hpp"
+using json = nlohmann::json;
 
-#include <SFML/Graphics/Texture.hpp>
-
+/* STL */
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 
-#include "ImguiWindows.h"
-#include "AssetStorage.h"
-#include "SpriteComponent.h"
+/* SYSTEMS IMGUI WINDOWS IS USING */
 #include "AnimationSystem.h"
 #include "RenderingSystem.h"
-#include "Sprite.h"
+
+/* ASSETS */
+#include "Game.h"
+#include "AssetStorage.h"
+
+/* OTHER */
 #include "AnimationCollection.h"
 #include "Texture.h"
-#include "Game.h"
-#include "AnimationComponent.h"
-#include "Animation.h"
-#include "AnimationFrame.h"
 
-using json = nlohmann::json;
 
 using IntRect = sf::IntRect;
 

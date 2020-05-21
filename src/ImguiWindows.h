@@ -1,10 +1,8 @@
 #pragma once
 #include <vector>
-#include <memory>
 #include <unordered_map>
 #include <string>
 
-#include "Entity.h"
 #include "EntityRegistry.h"
 
 #include "json.hpp"

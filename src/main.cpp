@@ -4,17 +4,8 @@
 #include "EntityRegistry.h" 
 #include "SystemRegistry.h" 
 
-/* SYSTEMS */
-#include "GoombaController.h"
-#include "AnimationSystem.h"
-#include "RenderingSystem.h"
-#include "CollisionSystem.h"
-
 /* DEBUG */
 #include "ImguiWindows.h"
-
-/* EVENTS */
-#include "EventManager.h"
 
 /* ASSET STORAGE */
 #include "AssetStorage.h"
@@ -25,8 +16,6 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
 
 /* STL */
 #include <iostream>
@@ -104,7 +93,5 @@ int main()
 		ImGui::SFML::Render(*Game::window);
 		Game::window->display();
 	}
-	
-
 	ImGui::SFML::Shutdown();
 }

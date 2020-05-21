@@ -4,14 +4,13 @@
 #include <memory>
 
 #include "json.hpp"
-#include "Asset.h"
 
 using nlohmann::json;
 
+#include "Animation.h"
+
 using AnimationId = std::string;
 using AssetId = std::string;
-
-struct Animation;
 
 struct AnimationCollection : Asset
 {
