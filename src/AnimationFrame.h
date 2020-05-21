@@ -1,5 +1,4 @@
 #pragma once
-#//include <string>
 
 #include "Sprite.h"
 
@@ -14,8 +13,6 @@ struct AnimationFrame
 	int screenOffsetY=0;
 
 	float duration;
-
-	//~AnimationFrame() = default;
 
 	//TAKE THESE OUT, TRY TO MAKE THEM POD, PLAIN OLD DATA
 	//IF PLAIN OLD DATA STRUCTURE, THEN IT DOESNT CALL CONSTRUCTOR

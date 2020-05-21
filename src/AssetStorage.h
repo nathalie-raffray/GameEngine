@@ -6,7 +6,7 @@
 
 using AssetId = std::string;
 
-struct Asset;
+#include "Asset.h"
 
 using AssetMap = std::unordered_map<AssetId, std::unique_ptr<Asset>>;
 

@@ -12,22 +12,8 @@ public:
 
 private:
 
+	bool AABBCollision(EntityHandle e1, EntityHandle e2);
 };
-
-#include <string>
-using String1 = std::string;
-using String2 = std::string;
-using String3 = std::string;
-using String4 = std::string;
-
-template<typename S1, typename S2>
-void foo();
-
-template<>
-void foo<String1, String2>()
-{
-
-}
 
 
 

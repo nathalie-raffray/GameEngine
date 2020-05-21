@@ -1,30 +1,34 @@
-#include "imgui.h"
-#include "imgui-SFML.h"
-
-
-#include "SpriteComponent.h"	
-#include "Parser.h"
-#include "AnimationComponent.h"
-#include "AssetStorage.h"
-#include "Sprite.h"
 #include "Game.h"
 
+/* REGISTRIES */
 #include "EntityRegistry.h" 
 #include "SystemRegistry.h" 
+
+/* SYSTEMS */
+#include "GoombaController.h"
 #include "AnimationSystem.h"
 #include "RenderingSystem.h"
+#include "CollisionSystem.h"
+
+/* DEBUG */
 #include "ImguiWindows.h"
-#include "Entity.h"
 
+/* EVENTS */
+#include "EventManager.h"
 
-//#include "AnimationCollection.h"
+/* ASSET STORAGE */
+#include "AssetStorage.h"
 
+/* IMGUI && SFML */
+#include "imgui.h"
+#include "imgui-SFML.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+/* STL */
 #include <iostream>
 #include <list>
 #include <memory>
@@ -33,8 +37,6 @@
 using IntRect = sf::IntRect;
 
 bool								Game::paused			= false;
-std::unique_ptr<AnimationSystem>    Game::animationSystem   = std::make_unique<AnimationSystem>();
-std::unique_ptr<RenderingSystem>    Game::renderingSystem   = std::make_unique<RenderingSystem>();
 std::unique_ptr<ImguiWindows>	    Game::imguiWin			= std::make_unique<ImguiWindows>();
 std::unique_ptr<AssetStorage>		Game::assets			= std::make_unique<AssetStorage>("../res/data/tableofcontents.json");
 std::unique_ptr<sf::RenderWindow>   Game::window			= std::make_unique<sf::RenderWindow>(sf::VideoMode(720, 640), "");
@@ -54,33 +56,28 @@ int main()
 
 	Game::system_registry->add<AnimationSystem>();
 	Game::system_registry->add<RenderingSystem>();
+	Game::system_registry->add<GoombaController>();
+	Game::system_registry->add<CollisionSystem>();
 
-	//Entity entity;
 	auto entity = Game::entity_registry->create();
 	entity->add<AnimationComponent>();
 	auto component1 = entity->get<AnimationComponent>();
 	component1->animation_collection_id = "littlemario";
 	component1->currentAnimation = "littlemario_walk";
 
+	auto goomba1 = Game::entity_registry->create();
+	goomba1->add<ColliderComponent>();
 
-	/*auto entity2 = Game::entity_registry->create();
-	entity2->add<AnimationComponent>();
-	auto component2 = entity2->get<AnimationComponent>();
-	component2->animation_collection_id = "littlemario";
-	component2->currentAnimation = "littlemario_swim";*/
+	auto goomba2 = Game::entity_registry->create();
+	goomba2->add<ColliderComponent>();
+
 
 	Game::imguiWin->add(entity);
 	Game::imguiWin->animationInit();
 
-	Game::system_registry->addEntityToSystems(std::move(entity));
-
-
-	/*auto entity2 = std::make_unique<Entity>();
-	entity2->add<AnimationComponent>();
-	auto component3 = entity->get<AnimationComponent>();
-	component3->animation_collection_id = "babymario";
-	component3->currentAnimation = "babymario_walk";*/
-
+	Game::system_registry->addEntityToSystems(entity);
+	Game::system_registry->addEntityToSystems(goomba1);
+	Game::system_registry->addEntityToSystems(goomba2);
 
 	char windowTitle[255] = "ImGui + SFML = <3";
 

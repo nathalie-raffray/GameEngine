@@ -1,7 +1,6 @@
 #include "AssetStorage.h"
 
 #include <fstream>
-#include "Asset.h"
 
 #include "json.hpp"
 

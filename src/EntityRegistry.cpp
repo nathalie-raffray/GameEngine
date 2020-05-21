@@ -3,7 +3,7 @@
 
 EntityHandle EntityRegistry::create()
 {
-	entities.emplace_back(std::make_unique<Entity>());
+	entities.emplace_back(Entity{});
 	EntityHandle handle{ entities.size() - 1 };
 	//Game::system_registry->addEntityToSystems(EntityHandle(handle)); 
 	return handle;
@@ -19,9 +19,9 @@ void EntityRegistry::update()
 {
 	//remove entities that are no longer active
 	entities.erase(std::remove_if(std::begin(entities), std::end(entities),
-		[](const std::unique_ptr<Entity>& mEntity)
+		[](Entity& mEntity)
 	{
-		return !mEntity->is_active();
+		return !mEntity.is_active();
 	}),
 		std::end(entities));
 }

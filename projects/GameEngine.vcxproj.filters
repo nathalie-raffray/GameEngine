@@ -29,6 +29,12 @@
     <Filter Include="collision">
       <UniqueIdentifier>{fd32c66c-714d-4fb0-b25b-8db856539ad7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="event-system">
+      <UniqueIdentifier>{6ece0737-f366-4b30-9ff0-9d9e85742e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event-system\events">
+      <UniqueIdentifier>{9158fa47-0d0a-4606-b276-46bc0a4fc707}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -87,6 +93,18 @@
     </ClCompile>
     <ClCompile Include="..\src\CollisionSystem.cpp">
       <Filter>collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GoombaController.cpp">
+      <Filter>collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Listener.cpp">
+      <Filter>event-system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ColliderEvent.cpp">
+      <Filter>event-system\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EventManager.cpp">
+      <Filter>event-system</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +206,24 @@
     </ClInclude>
     <ClInclude Include="..\src\TEntity.h">
       <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GoombaController.h">
+      <Filter>collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Listener.h">
+      <Filter>event-system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EventManager.h">
+      <Filter>event-system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PauseEvent.h">
+      <Filter>event-system\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ColliderEvent.h">
+      <Filter>event-system\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CustomEvent.h">
+      <Filter>event-system\events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

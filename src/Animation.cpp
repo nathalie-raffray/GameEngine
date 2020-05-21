@@ -1,6 +1,5 @@
 #include "Animation.h"
 #include "AnimationFrame.h"
-#include "Asset.h"
 
 void to_json(json& j, const Animation& p)
 {

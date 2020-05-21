@@ -5,6 +5,8 @@
 //#include "Game.h"
 #include "AnimationSystem.h"
 #include "RenderingSystem.h"
+#include "GoombaController.h"	
+#include "CollisionSystem.h"
 
 class System;
 struct EntityHandle;
@@ -32,6 +34,8 @@ public:
 	void remove(SystemHandle h);
 
 	void update(float dt);
+
+	void refresh(); //?
 
 private:
 	std::vector<std::unique_ptr<System>> systems;

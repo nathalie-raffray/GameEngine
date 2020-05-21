@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <memory>
 
 #include "Game.h"
 #include "Entity.h"
@@ -17,7 +16,7 @@ public:
 	void update();
 
 private:
-	std::vector<std::unique_ptr<Entity>> entities;
+	std::vector<Entity> entities;
 	//std::vector<Entity> entities;
 
 	/*  a vector of unique pointers, rather than simple Entities because
@@ -31,7 +30,13 @@ struct EntityHandle
 {
 	Entity* operator->() const
 	{
-		return Game::entity_registry->entities[m_index].get();
+		if (!Game::entity_registry->entities[m_index].is_active())
+		{
+			return nullptr;
+		}
+		else {
+			return &Game::entity_registry->entities[m_index];
+		}
 	}
 
 	std::size_t m_index;
