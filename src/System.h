@@ -6,7 +6,7 @@ class System
 public:
 	virtual ~System() {}
 	
-	void add(EntityHandle h)
+	virtual void add(EntityHandle h)
 	{
 		if (isValid(h))
 		{

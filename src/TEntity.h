@@ -12,6 +12,8 @@ using nlohmann::json;
 #define ASSERT(x) (x)
 #endif
 
+struct EntityHandle;
+
 template<typename T>
 struct component_handle
 {
@@ -35,6 +37,13 @@ public:
 	~TEntity()
 	{
 		(remove<ComponentTypes>(), ...);
+	}
+
+	EntityHandle clone()
+	{
+		EntityHandle eh = Game::entity_registry->create();
+		(eh->add<ComponentTypes>(), ...);
+		return eh;
 	}
 
 	template<typename T, typename... TArgs>

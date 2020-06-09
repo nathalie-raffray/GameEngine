@@ -41,6 +41,9 @@
     <Filter Include="components">
       <UniqueIdentifier>{a7e070ba-00cd-4b62-90a6-365d449eda9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="event_system\action_system">
+      <UniqueIdentifier>{473fffd8-55ab-45cb-a958-a6942dc56a74}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -226,7 +229,7 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Input.h">
-      <Filter>event_system</Filter>
+      <Filter>event_system\action_system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
