@@ -1,0 +1,29 @@
+"entities" : 
+[
+{
+	"entityId" : "goombaEntity",
+	"components" :
+	[
+		{"ColliderComponent" : {}}, 
+		{"TransformComponent" : {}},
+		{"AnimationCollection" : {
+			"animationCollectionId" : "goomba"
+		}},
+		{"GoombaController" : {}}
+	], 
+	"programmable_components" :
+	["TransformComponent"]
+}, 
+{
+	"entityId" : "staticSpriteEntity",
+	"components" :
+	[
+		{"ColliderComponent" : {}}, 
+		{"TransformComponent" : {}},
+		{"SpriteComponent" : {}}
+	], 
+	"programmable_components" :
+	["TransformComponent", "SpriteComponent"]
+}
+
+]

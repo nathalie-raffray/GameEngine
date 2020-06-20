@@ -17,5 +17,7 @@ public:
 	static std::unique_ptr<EntityRegistry> entity_registry;
 	static std::unique_ptr<SystemRegistry> system_registry;
 
+	static void init();
+
 	static void update(float dt);
 };

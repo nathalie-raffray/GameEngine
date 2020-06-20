@@ -34,17 +34,20 @@ class TEntity : public component_handle<ComponentTypes>...
 {
 public:
 
-	~TEntity()
+	TEntity() {}
+
+	~TEntity() {}
+
+	void destroy()
 	{
 		(remove<ComponentTypes>(), ...);
 	}
 
-	EntityHandle clone()
+	/*void clone(TEntity* eh)
 	{
-		EntityHandle eh = Game::entity_registry->create();
-		(eh->add<ComponentTypes>(), ...);
-		return eh;
-	}
+		//if compoennet index ISNT invalid
+		//(eh->add<ComponentTypes>(), ...);
+	}*/
 
 	template<typename T, typename... TArgs>
 	void add(TArgs&& ...mArgs)
@@ -62,7 +65,7 @@ public:
 	{
 		ASSERT(has<T>());
 		//return *static_cast<component_handle<T>*>(this);
-		return { component_handle<T>::m_index }; //need to fix this, returning a member variable wasnt working
+		return { component_handle<T>::m_index }; 
 	}
 
 

@@ -1,11 +1,13 @@
 {
-	"loadType" : "textures",
-
 	"textures":
 			[
 				{	
 					"texId" : "marioluigi", 
 					"filepath" : "../res/marioluigi.png"
+				}, 
+				{
+					"texId" : "stagetiles", 
+					"filepath" : "../res/stagetiles.png"
 				}
 			]
 }

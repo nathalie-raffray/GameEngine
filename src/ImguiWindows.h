@@ -3,7 +3,8 @@
 #include <unordered_map>
 #include <string>
 
-#include "EntityRegistry.h"
+//#include "EntityRegistry.h"
+#include "Entity.h"
 
 #include "json.hpp"
 

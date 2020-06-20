@@ -1,7 +1,8 @@
 #include "Game.h"
 
 /* REGISTRIES */
-#include "EntityRegistry.h" 
+//#include "EntityRegistry.h" 
+#include "Entity.h"
 #include "SystemRegistry.h" 
 
 /* DEBUG */
@@ -43,28 +44,65 @@ int main()
 
 	float color[3] = { 0.f, 0.f, 0.f };
 
-	Game::system_registry->add<AnimationSystem>();
+	/*Game::system_registry->add<AnimationSystem>();
 	Game::system_registry->add<RenderingSystem>();
 	Game::system_registry->add<GoombaController>();
 	Game::system_registry->add<CollisionSystem>();
+	Game::system_registry->add<Camera>();*/
+	Game::init();
+
+	auto camera = Game::entity_registry->create();
+	camera->add<CameraComponent>();
+	camera->get<CameraComponent>()->aspectRatio = { 720, 640 };
+	camera->get<CameraComponent>()->screenCoord0 = { 0, 0 };
+	camera->get<CameraComponent>()->screenCoord1 = { 2500, 2500 };
+
+	auto player = Game::entity_registry->create();
+	player->add<TransformComponent>();
+	player->add<PlayerComponent>();
+	player->get<TransformComponent>()->pos = { 200, 200 };
+	player->add<AnimationComponent>();
+	player->add<RenderComponent>();
+	player->get<RenderComponent>()->layer = 3;
+	auto component = player->get<AnimationComponent>();
+	component->animation_collection_id = "littlemario";
+	component->currentAnimation = "littlemario_walk";
+
+	auto background = Game::entity_registry->create();
+	background->add<SpriteComponent>();
+	background->get<SpriteComponent>()->spriteId = "tree";
+	background->add<RenderComponent>();
+	background->get<RenderComponent>()->layer = 0;
+	background->add<TransformComponent>();
+	background->get<TransformComponent>()->pos = { 0, 0 };
 
 	auto entity = Game::entity_registry->create();
 	entity->add<AnimationComponent>();
+	entity->add<TransformComponent>();
 	auto component1 = entity->get<AnimationComponent>();
 	component1->animation_collection_id = "littlemario";
 	component1->currentAnimation = "littlemario_walk";
 
 	auto goomba1 = Game::entity_registry->create();
-	goomba1->add<ColliderComponent>();
+	goomba1->add<AnimationComponent>();
+	goomba1->get<AnimationComponent>()->animation_collection_id = "littlemario";
+	goomba1->get<AnimationComponent>()->currentAnimation = "littlemario_swim";
+	goomba1->add<RenderComponent>();
+	goomba1->get<RenderComponent>()->layer = 2;
+	goomba1->add<TransformComponent>();
+	goomba1->get<TransformComponent>()->pos = { 0, 0 };
+	//goomba1->add<ColliderComponent>();
 
 	auto goomba2 = Game::entity_registry->create();
 	goomba2->add<ColliderComponent>();
 
-
 	Game::imguiWin->add(entity);
 	Game::imguiWin->animationInit();
 
-	Game::system_registry->addEntityToSystems(entity);
+	Game::system_registry->addEntityToSystems(player);
+	Game::system_registry->addEntityToSystems(camera);
+	Game::system_registry->addEntityToSystems(background);
+	//Game::system_registry->addEntityToSystems(entity);
 	Game::system_registry->addEntityToSystems(goomba1);
 	Game::system_registry->addEntityToSystems(goomba2);
 
@@ -86,9 +124,9 @@ int main()
 
 		Game::window->clear(bgColor); // fill background with color
 
-		Game::update(0);
+		Game::update(deltaClock.restart().asSeconds());
 
-		Game::imguiWin->animationEditor();
+		//Game::imguiWin->animationEditor();
 		
 		ImGui::SFML::Render(*Game::window);
 		Game::window->display();

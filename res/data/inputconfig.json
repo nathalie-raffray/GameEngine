@@ -1,0 +1,63 @@
+{
+	"Left" : {
+		"PC" :
+		{
+			"input" : 71
+		}, 
+		"XBOX" :
+		{
+			"input" : "joystick", 
+			"axis" : "x",
+			"direction" : -1
+		}
+	}, 
+	"Right" : {
+		"PC" :
+		{
+			"input" : 72
+		}, 
+		"XBOX" :
+		{
+			"input" : "joystick", 
+			"axis" : "x",
+			"direction" : 1
+		}
+	}, 
+	"Up" : {
+		"PC" :
+		{
+			"input" : 73
+		}, 
+		"XBOX" :
+		{
+			"input" : "joystick", 
+			"axis" : "y",
+			"direction" : 1
+		}
+	},
+	"Down" : {
+		"PC" :
+		{
+			"input" : 74
+		}, 
+		"XBOX" :
+		{
+			"input" : "joystick", 
+			"axis" : "y",
+			"direction" : -1
+		}
+	},
+	"ButtonA" : {
+		"PC" :
+		{
+			"input" : 0
+		}, 
+		"XBOX" :
+		{
+			"input" : "button", 
+			"button" : "a"
+		}
+	}
+
+
+}

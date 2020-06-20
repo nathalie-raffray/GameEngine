@@ -20,7 +20,7 @@ std::stack<uint32_t> component_registry<ComponentType>::freeIndices({ INVALID })
 
 
 template<typename T>
-void detach(const uint32_t& index)
+void detach(uint32_t index)
 {
 	if (index == INVALID) return;
 
@@ -39,7 +39,7 @@ template<typename T>
 uint32_t attach()
 {
 	//auto& index = component_registry<T>::m_freeIndex;
-	auto& index = component_registry<T>::freeIndices.top();
+	const auto& index = component_registry<T>::freeIndices.top();
 
 	if (index == -1)
 	{

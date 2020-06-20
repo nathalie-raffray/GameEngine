@@ -1,9 +1,10 @@
+#include "Entity.h"
 #include "EntityRegistry.h"
 
 EntityHandle EntityRegistry::create()
 {
 	entities.emplace_back(Entity{});
-	EntityHandle handle{ entities.size() - 1 };
+	EntityHandle handle{ static_cast<uint32_t>(entities.size()) - 1 };
 	return handle;
 	//RETURN STD::MOVE IS DUMB
 }
@@ -19,7 +20,12 @@ void EntityRegistry::update()
 	entities.erase(std::remove_if(std::begin(entities), std::end(entities),
 		[](Entity& mEntity)
 	{
-		return !mEntity.is_active();
+		if (!mEntity.is_active())
+		{
+			mEntity.destroy(); //cant allow erase() to call destructor because if in destructor I remove all components (and allocate freeIndices) then when entities resizes it will also call destructor and fuck up freeIndices
+			return true;
+		}
+		return false;
 	}),
 		std::end(entities));
 }

@@ -1,5 +1,6 @@
 #pragma once
-#include "EntityRegistry.h"
+//#include "EntityRegistry.h"
+#include "Entity.h"
 
 struct ColliderEvent
 {

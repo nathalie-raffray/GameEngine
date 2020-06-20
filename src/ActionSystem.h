@@ -1,108 +1,69 @@
 #pragma once
-
-#include <SFML/Window/Mouse.hpp>
-#include <SFML/Window/Keyboard.hpp>
-#include <SFML/Window/Joystick.hpp>
-
 #include <unordered_map>
 #include <string>
 
-#include "System.h"
+#include "ActionEnum.h"
+#include "Input.h"
 
-enum class InputSystem
+#include "json.hpp"
+
+using nlohmann::json;
+
+struct InputComponent
 {
-	KEYBOARD, XBOXCONTROLLER
+	enum Device {
+		PC, XBOXCONTROLLER
+	};
+	static inline Device d;
+	static inline unsigned int joystickID;
 };
 
+
+class ActionSystem //system???
+{
+public:
+	//ActionSystem(const std::string& filePath);
+
+	static void init(const std::string& filePath);
+
+	static bool getActionValue(ActionName actionName);
+
+	//float getActionValueFloat(const ActionName& actionName);
+	static inline std::unordered_map<ActionName, Input> actionMap;
+};
+
+void from_json(const json& j, ActionSystem& ac);
+void to_json(json& j, const ActionSystem& ac);
+
+//using ActionName = std::string;
 /*
-enum class ActionName
-{
-	Left, Right, Up, Down, Start, Select, ButtonB, ButtonA, TurboB, TurboA
-};
-*/
-
-using ActionName = std::string;
-
 struct ActionComponent
 {
 	//ActionName name; //jump, walk left, blah...
 	//Input input;
-	std::string name;
+	//std::string name;
+	//uint32_t id;
+	ActionName action_name;
 
-	/*KEYBOARD OR MOUSE*/
+	//KEYBOARD OR MOUSE
 	bool keyboardmouse;
 
 	char key;
 	bool leftrightmousebutton;
-	/*JOYSTICK AXIS OR JOYSTICK BUTTON*/
+	//JOYSTICK AXIS OR JOYSTICK BUTTON
 	bool axisbutton;
 
 	char axis;
 	bool direction;
 	char button;
 };
- 
-struct Input
-{
-	enum tag {
-		keyboard, mousebutton, joystickaxis, joystickbutton
-	};
+ */
 
-	tag keyboardmouse;
-	union KeyboardMouseInput
-	{
-		sf::Keyboard::Key key;
-		sf::Mouse::Button mouseButton;
-	};
 
-	tag joystick;
-	union JoystickInput
-	{
-		struct JoystickAxis
-		{
-			enum Direction { POSITIVE = true, NEGATIVE = false };
 
-			sf::Joystick::Axis axis;
-			Direction dir;
-		} joystickaxis;
 
-		unsigned int button;
-	};
-};
 
-class ActionSystem //system???
-{
-public:
-	bool getActionValue(const ActionName& actionName);
 
-	//float getActionValueFloat(const ActionName& actionName);
-private:
-	std::unordered_map<ActionName, Input> actionMap;
-};
-
-struct Camera : public System
-{
-	bool isValid(EntityHandle eh)
-	{
-		return (eh->has<SpriteComponent>() || eh->has<AnimationComponent>());
-	}
-	
-	void update(float) override 
-	{
-		for (auto e : m_entities)
-		{
-			//
-			//auto position = e->get<AnimationComponent>()->
-			sf::Sprite s;
-		}
-	}
-	
-	EntityHandle center;
-
-	float x;
-	float y; //bottom lefthand coords
-	//subtract from these when you save the level while editing w/level editor
-};
 
 //transform 
 

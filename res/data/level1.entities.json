@@ -1,0 +1,23 @@
+"entities" : [
+{
+	"entityId" : "goomba", 
+	"components" :
+	[
+		{"TransformComponent" :
+			[[50, 80, 0], [52, 53, 0]]
+		}, 
+		{"RenderComponent" : 2}
+	]
+},
+{
+	"entityId" : "staticSpriteEntity", 
+	"components" :
+	[
+		{"TransformComponent" :
+			[[100, 80, 0], [152, 53, 0]]
+		},
+		{"SpriteComponent" : "block1"}
+	]
+}
+
+]

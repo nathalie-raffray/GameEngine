@@ -1,5 +1,6 @@
 #pragma once
-#include "EntityRegistry.h"
+//#include "EntityRegistry.h"
+#include "Entity.h"
 
 class System
 {
@@ -11,7 +12,7 @@ public:
 		if (isValid(h))
 		{
 			m_entities.emplace_back(h);
-			onAdded(h);
+			init(h);
 		}
 	}
 	virtual void refresh()
@@ -25,7 +26,7 @@ public:
 	}
 	virtual bool isValid(EntityHandle) const = 0;
 	
-	virtual void onAdded(EntityHandle){}
+	virtual void init(EntityHandle){}
 	
 	virtual void update(float) {}
 

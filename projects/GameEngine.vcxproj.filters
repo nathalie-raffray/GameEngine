@@ -44,6 +44,9 @@
     <Filter Include="event_system\action_system">
       <UniqueIdentifier>{473fffd8-55ab-45cb-a958-a6942dc56a74}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utilities">
+      <UniqueIdentifier>{0c8bb54d-97d1-4b4b-9ab6-c6f2e7b2c145}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -114,6 +117,27 @@
     </ClCompile>
     <ClCompile Include="..\src\RenderingSystem.cpp">
       <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ActionEnum.cpp">
+      <Filter>event_system\action_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ActionSystem.cpp">
+      <Filter>event_system\action_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Camera.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Input.cpp">
+      <Filter>event_system\action_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PlayerController.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TEntity.cpp">
+      <Filter>ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ComponentRegistry.cpp">
+      <Filter>ecs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +254,42 @@
     </ClInclude>
     <ClInclude Include="..\src\Input.h">
       <Filter>event_system\action_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ActionSystem.h">
+      <Filter>event_system\action_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EnumFactory.h">
+      <Filter>utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ActionEnum.h">
+      <Filter>event_system\action_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TransformComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CameraComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PlayerComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Camera.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EntityAsset.h">
+      <Filter>asset_storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Component.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ImguiEntityEditor.h">
+      <Filter>imgui_debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PlayerController.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

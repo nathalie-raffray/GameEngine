@@ -1,12 +1,10 @@
 {
-	"loadType" : "sprites",
-
 	"sprites" :	[{
 			"texRect": [
 				1,
-				16,
-				16,
-				16
+				1,
+				500,
+				500
 			],
 			"texId": "marioluigi",
 			"scale" : 5,

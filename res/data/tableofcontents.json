@@ -9,6 +9,16 @@
 	},
 
 	"textures": {
-		"marioluigi": "../res/data/textures.json"
+		"marioluigi": "../res/data/textures.json",
+		"stagetiles": "../res/data/textures.json"
+	}, 
+
+	"entities": {
+		"goombaEntity": "../res/data/entity.assets.json",
+		"staticSpriteEntity": "../res/data/entity.assets.json"
+	},
+
+	"input": {
+		"inputconfig":"../res/data/inputconfig.json"
 	}
 }

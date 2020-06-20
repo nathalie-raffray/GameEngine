@@ -7,6 +7,8 @@
 #include "RenderingSystem.h"
 #include "GoombaController.h"	
 #include "CollisionSystem.h"
+#include "Camera.h"
+#include "PlayerController.h"
 
 class System;
 struct EntityHandle;
