@@ -18,7 +18,6 @@ std::vector<ComponentType> component_registry<ComponentType>::m_components = { }
 template<typename ComponentType>
 std::stack<uint32_t> component_registry<ComponentType>::freeIndices({ INVALID });
 
-
 template<typename T>
 void detach(uint32_t index)
 {

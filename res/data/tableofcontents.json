@@ -13,12 +13,16 @@
 		"stagetiles": "../res/data/textures.json"
 	}, 
 
-	"entities": {
-		"goombaEntity": "../res/data/entity.assets.json",
-		"staticSpriteEntity": "../res/data/entity.assets.json"
+	"prefabs": {
+		"marioPrefab": "../res/data/entity.assets.json",
+		"staticSpritePrefab": "../res/data/entity.assets.json"
 	},
 
 	"input": {
 		"inputconfig":"../res/data/inputconfig.json"
+	},
+
+	"level":{
+		"level1":"../res/data/level1.json"
 	}
 }

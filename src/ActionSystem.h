@@ -5,9 +5,7 @@
 #include "ActionEnum.h"
 #include "Input.h"
 
-#include "json.hpp"
-
-using nlohmann::json;
+#include "json_serialization.h"
 
 struct InputComponent
 {

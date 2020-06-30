@@ -1,9 +1,10 @@
 #include "Game.h"
 
-/* REGISTRIES */
+/* LEVEL */
 //#include "EntityRegistry.h" 
-#include "Entity.h"
-#include "SystemRegistry.h" 
+//#include "Entity.h"
+//#include "SystemRegistry.h" 
+#include "Level.h"
 
 /* DEBUG */
 #include "ImguiWindows.h"
@@ -30,8 +31,12 @@ bool								Game::paused			= false;
 std::unique_ptr<ImguiWindows>	    Game::imguiWin			= std::make_unique<ImguiWindows>();
 std::unique_ptr<AssetStorage>		Game::assets			= std::make_unique<AssetStorage>("../res/data/tableofcontents.json");
 std::unique_ptr<sf::RenderWindow>   Game::window			= std::make_unique<sf::RenderWindow>(sf::VideoMode(720, 640), "");
-std::unique_ptr<EntityRegistry>		Game::entity_registry   = std::make_unique<EntityRegistry>();
-std::unique_ptr<SystemRegistry>		Game::system_registry   = std::make_unique<SystemRegistry>();
+//std::unique_ptr<EntityRegistry>		Game::entity_registry   = std::make_unique<EntityRegistry>();
+//std::unique_ptr<SystemRegistry>		Game::system_registry   = std::make_unique<SystemRegistry>();
+EntityRegistry* Game::entity_registry = nullptr;
+SystemRegistry* Game::system_registry = nullptr;
+Level* Game::current_level = nullptr;
+
 
 
 int main()
@@ -44,14 +49,9 @@ int main()
 
 	float color[3] = { 0.f, 0.f, 0.f };
 
-	/*Game::system_registry->add<AnimationSystem>();
-	Game::system_registry->add<RenderingSystem>();
-	Game::system_registry->add<GoombaController>();
-	Game::system_registry->add<CollisionSystem>();
-	Game::system_registry->add<Camera>();*/
-	Game::init();
+	Game::init("level1");
 
-	auto camera = Game::entity_registry->create();
+	/*auto camera = Game::entity_registry->create();
 	camera->add<CameraComponent>();
 	camera->get<CameraComponent>()->aspectRatio = { 720, 640 };
 	camera->get<CameraComponent>()->screenCoord0 = { 0, 0 };
@@ -104,7 +104,7 @@ int main()
 	Game::system_registry->addEntityToSystems(background);
 	//Game::system_registry->addEntityToSystems(entity);
 	Game::system_registry->addEntityToSystems(goomba1);
-	Game::system_registry->addEntityToSystems(goomba2);
+	Game::system_registry->addEntityToSystems(goomba2);*/
 
 	char windowTitle[255] = "ImGui + SFML = <3";
 

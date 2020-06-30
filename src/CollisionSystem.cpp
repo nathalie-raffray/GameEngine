@@ -20,6 +20,9 @@ void CollisionSystem::update(float dt)
 			//if (AABBCollision(*it, *it2))
 			//{
 				ColliderEvent event;
+				//could have specific event like StaticDynamicCollision for AABB collisions between static&dynamic colliders
+				//KinematicCollision if a collider is kinematic. 
+				//DynamicDynamicCollision for collision between a goomba and a goomba or goomba and player for example.
 				event.collider1 = *it;
 				event.collider2 = *it2;
 

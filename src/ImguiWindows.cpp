@@ -237,6 +237,7 @@ void ImguiWindows::animationEditor()
 	{
 		Game::paused = !Game::paused;
 	}
+	
 
 	//Change Number of Frames
 	static int newNumFrames = numFrames;
@@ -341,4 +342,87 @@ void ImguiWindows::animationEditor()
 }
 
 //----------------------------------------------------------------------------------------------
+#include "Prefab.h"
+void ImguiWindows::entityInit()
+{
+	static Prefab* currentEntity;
+	
+	static int i = 0;
+	if (ImGui::Combo("prefabs", &i, imgui_entity.prefabs.data(), static_cast<int>(imgui_entity.prefabs.size())))
+	{
+		currentEntity = Game::assets->get<Prefab>(imgui_entity.prefabs[i]);
+	}
+
+	//add this to ImGuiFunc in imgui_component_map
+	/*static bool programmable;
+	if (ImGui::Checkbox("programmable", &programmable))
+	{
+		if (programmable) {
+			currentEntity->entity_immutable->remove<component>();
+			currentEntity->entity_programmable->add<component>();
+		}
+		else
+		{
+			currentEntity->entity_immutable->add<component>();
+			currentEntity->entity_programmable->remove<component>();
+		}
+	}*/
+
+	/*for(auto& el : ComponentFactory::imgui_component_map)
+	{
+		auto& ImGuiFunc = el.second;
+		ImGuiFunc(currentEntity);
+	}*/
+	/*for (auto& el : ComponentFactory::imgui_component_map)
+	{
+		auto& ImGuiFunc = el.second;
+		ImGuiFunc(currentEntity->entity_programmable);
+	}*/
+
+	if (ImGui::Button("Save?"))
+	{
+		//to_json currentEntity
+	}
+
+	
+}
+
+//----------------------------------------------------------------------------------------------
+
+void ImguiWindows::entityEditor()
+{
+	ImGui::Begin("Entity Asset Editor");
+
+	static std::vector<const char*> componentTypes;
+
+}
+
+//----------------------------------------------------------------------------------------------
+
+/*namespace AnimationComponent
+{
+	void ImGui()
+	{
+		//AnimationId currentAnimation;
+		//AnimationCollectionId animation_collection_id;
+		//int currentFrame = 0;
+
+		static const char* name = "animation component"; //?
+		if (ImGui::TreeNode(name))
+		{
+			static char animationCollectionId[50];
+			if (ImGui::InputText("animation collection id", animationCollectionId, 50))
+			{
+			
+			}
+			static char animationId[50];
+			if (ImGui::InputText("first animation id", animationId, 50))
+			{
+
+			}
+		}
+
+	}
+};*/
+
 

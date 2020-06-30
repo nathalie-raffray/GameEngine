@@ -3,9 +3,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Joystick.hpp>
 
-#include "json.hpp"
-
-using nlohmann::json;
+#include "json_serialization.h"
 
 struct Input
 {

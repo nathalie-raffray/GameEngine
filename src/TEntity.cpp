@@ -1,4 +1,4 @@
-//#include "TEntity.h"
+#include "TEntity.h"
 //#include "EntityRegistry.h"
 
 /*template class TEntity<AnimationComponent, SpriteComponent, ColliderComponent, TransformComponent, CameraComponent,

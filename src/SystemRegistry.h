@@ -33,7 +33,7 @@ public:
 
 	void addEntityToSystems(EntityHandle e);
 
-	void remove(SystemHandle h);
+	//void remove(SystemHandle h);
 
 	void update(float dt);
 

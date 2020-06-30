@@ -1,0 +1,16 @@
+{
+	"id" : "level1",
+
+	"stackable" : false,
+
+	"entities_filepath" : "../res/data/level1.entities.json",
+	
+	"systems" : {
+		"AnimationSystem":"",
+		"GoombaController":"",
+		"CollisionSystem":"",
+		"PlayerController":"",
+		"Camera":"",
+		"RenderingSystem":""
+	}
+}

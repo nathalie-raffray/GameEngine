@@ -3,9 +3,7 @@
 
 #include <string>
 
-#include "json.hpp"
-
-using nlohmann::json;
+#include "json_serialization.h"
 
 #include "Asset.h"
 

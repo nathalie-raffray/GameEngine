@@ -26,7 +26,6 @@ void to_json(json& j, const Animation& p)
 		j["sprites"][i]["screenOffset"][1] = p.frames[i].screenOffsetY;
 		j["sprites"][i]["duration"] = p.frames[i].duration;
 	}
-	//j["scale"] = 
 }
 
 void from_json(const json& j, Animation& p)

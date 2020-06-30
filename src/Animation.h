@@ -3,9 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "json.hpp"
-
-using nlohmann::json;
+#include "json_serialization.h"
 
 #include "AnimationFrame.h"
 

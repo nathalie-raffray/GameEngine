@@ -136,8 +136,14 @@
     <ClCompile Include="..\src\TEntity.cpp">
       <Filter>ecs</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ComponentRegistry.cpp">
+    <ClCompile Include="..\src\Entity.cpp">
       <Filter>ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Prefab.cpp">
+      <Filter>asset_storage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -276,19 +282,34 @@
     <ClInclude Include="..\src\Camera.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\EntityAsset.h">
-      <Filter>asset_storage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Component.h">
-      <Filter>components</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\ImguiEntityEditor.h">
       <Filter>imgui_debug</Filter>
     </ClInclude>
     <ClInclude Include="..\src\PlayerController.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="RenderComponent.h">
+    <ClInclude Include="..\src\GoombaComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ImGuiComponents.h">
+      <Filter>imgui_debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Prefab.h">
+      <Filter>asset_storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\json_serialization.h">
+      <Filter>serialization_json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\jsonEntity.h">
+      <Filter>serialization_json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RenderComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Level.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PrefabComponent.h">
       <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>

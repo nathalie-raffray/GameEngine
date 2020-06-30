@@ -25,15 +25,28 @@ struct ImguiAnimation
 	std::vector<const char*> filePaths;
 };
 
+struct ImguiEntity
+{
+	std::vector<const char*> prefabs;
+	std::vector<const char*> componentTypes;
+
+};
+
 class ImguiWindows
 {
 private:
 	ImguiAnimation names;
 	EntityHandle entity;
 
+	ImguiEntity imgui_entity;
+
 public:
 	void add(EntityHandle eh);
 	void animationInit();
 	void animationEditor();
 
+	void entityInit();
+	void entityEditor();
+
 };
+

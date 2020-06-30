@@ -9,10 +9,10 @@ void SystemRegistry::addEntityToSystems(EntityHandle e)
 	}
 }
 
-void SystemRegistry::remove(SystemHandle h)
+/*void SystemRegistry::remove(SystemHandle h)
 {
 	systems.erase(systems.begin() + h.m_index);
-}
+}*/
 
 void SystemRegistry::update(float dt)
 {

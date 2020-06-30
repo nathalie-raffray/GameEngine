@@ -1,6 +1,15 @@
 #include "Entity.h"
 #include "EntityRegistry.h"
 
+EntityRegistry::~EntityRegistry()
+{
+	for (auto& entity : entities)
+	{
+		entity.destroy();
+	}
+	entities.clear();
+}
+
 EntityHandle EntityRegistry::create()
 {
 	entities.emplace_back(Entity{});
@@ -9,10 +18,10 @@ EntityHandle EntityRegistry::create()
 	//RETURN STD::MOVE IS DUMB
 }
 
-void EntityRegistry::remove(EntityHandle h) //ENTITY HANDLE TIENT DANS UN REGISTRE SO NO NEED TO PASS IT BY CONST REF
+/*void EntityRegistry::remove(EntityHandle h) //ENTITY HANDLE TIENT DANS UN REGISTRE SO NO NEED TO PASS IT BY CONST REF
 {
 	entities.erase(entities.begin() + h.m_index);
-}
+}*/
 
 void EntityRegistry::update()
 {
