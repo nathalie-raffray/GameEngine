@@ -3,17 +3,23 @@
 #include <unordered_map>
 #include <string>
 
-//#include "EntityRegistry.h"
 #include "Entity.h"
+#include "EntityRegistry.h"
 
-#include "json.hpp"
+#include "json_serialization.h"
 
 using AnimationId = std::string;
+using AnimationCollectionId = std::string;
 
 struct AnimationComponent;
 
-using json = nlohmann::json;
-using AnimationCollectionId = std::string;
+struct ImguiSprite
+{
+	std::unordered_map<std::string, std::vector<const char*>> sprites;
+	std::vector<const char*> filePaths;
+
+	EntityHandle entity;
+};
 
 struct ImguiAnimation
 {
@@ -21,27 +27,42 @@ struct ImguiAnimation
 	std::vector<const char*> textureNames;
 	std::unordered_map<AnimationCollectionId, std::vector<const char*>> associatedAnimations;
 	std::unordered_map<std::string, AnimationCollectionId> filePathIds;
-
 	std::vector<const char*> filePaths;
+
+	EntityHandle entity;
 };
 
 struct ImguiEntity
 {
 	std::vector<const char*> prefabs;
-	std::vector<const char*> componentTypes;
-
+	std::vector<const char*> entityfilepaths;
 };
 
 class ImguiWindows
 {
-private:
+public:
+	ImguiSprite imgui_sprite;
 	ImguiAnimation names;
-	EntityHandle entity;
-
 	ImguiEntity imgui_entity;
 
+	//EntityHandle entity;
+
 public:
-	void add(EntityHandle eh);
+
+	void init()
+	{
+		spriteInit();
+		animationInit();
+		entityInit();
+	}
+
+	//void add(EntityHandle eh);
+
+	void update();
+
+	void spriteInit();
+	void spriteEditor();
+
 	void animationInit();
 	void animationEditor();
 

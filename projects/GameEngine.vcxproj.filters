@@ -7,9 +7,6 @@
     <Filter Include="imgui-sfml">
       <UniqueIdentifier>{22a3469a-6da1-46c0-9bd5-d7a564c918a1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="animation">
-      <UniqueIdentifier>{e6f1668f-0681-4f11-89aa-97c99909cdd7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="asset_storage">
       <UniqueIdentifier>{4ced9c18-2412-4d55-aca3-15e47f86c364}</UniqueIdentifier>
     </Filter>
@@ -47,6 +44,12 @@
     <Filter Include="utilities">
       <UniqueIdentifier>{0c8bb54d-97d1-4b4b-9ab6-c6f2e7b2c145}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{862bc017-b667-4d08-aea5-0a33e20a938f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\animation">
+      <UniqueIdentifier>{e6f1668f-0681-4f11-89aa-97c99909cdd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -71,7 +74,7 @@
       <Filter>asset_storage</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Animation.cpp">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\ImguiWindows.cpp">
       <Filter>imgui_debug</Filter>
@@ -80,13 +83,10 @@
       <Filter>serialization_json</Filter>
     </ClCompile>
     <ClCompile Include="..\src\AnimationCollection.cpp">
-      <Filter>animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Texture.cpp">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Sprite.cpp">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\EntityRegistry.cpp">
       <Filter>ecs</Filter>
@@ -133,17 +133,17 @@
     <ClCompile Include="..\src\PlayerController.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TEntity.cpp">
-      <Filter>ecs</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Entity.cpp">
       <Filter>ecs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Level.cpp">
-      <Filter>main</Filter>
+      <Filter>assets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Prefab.cpp">
-      <Filter>asset_storage</Filter>
+      <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Texture.cpp">
+      <Filter>assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,13 +178,13 @@
       <Filter>asset_storage</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Animation.h">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\AnimationFrame.h">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Sprite.h">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ImguiWindows.h">
       <Filter>imgui_debug</Filter>
@@ -192,11 +192,8 @@
     <ClInclude Include="..\src\Game.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Texture.h">
-      <Filter>animation</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\AnimationCollection.h">
-      <Filter>animation</Filter>
+      <Filter>assets\animation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\jsonSFML.h">
       <Filter>serialization_json</Filter>
@@ -294,9 +291,6 @@
     <ClInclude Include="..\src\ImGuiComponents.h">
       <Filter>imgui_debug</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Prefab.h">
-      <Filter>asset_storage</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\json_serialization.h">
       <Filter>serialization_json</Filter>
     </ClInclude>
@@ -306,11 +300,17 @@
     <ClInclude Include="..\src\RenderComponent.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Level.h">
-      <Filter>main</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\PrefabComponent.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Level.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Prefab.h">
+      <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Texture.h">
+      <Filter>assets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

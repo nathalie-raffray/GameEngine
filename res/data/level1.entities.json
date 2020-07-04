@@ -4,7 +4,8 @@
 			"CameraComponent": {
 				"aspectRatio": [720, 640],
 				"screenCoord0": [0, 0],
-				"screenCoord1": [2500, 2500]
+				"screenCoord1": [2500, 2500],
+				"zoom" : 1
 			}
 		},
 		{
@@ -16,7 +17,7 @@
 				"currentAnimation": "littlemario_swim"
 			},
 			"TransformComponent": {
-				"pos": [250, 250]
+				"pos": [20, 20]
 			},
 			"PlayerComponent": {
 				"speed": 5
@@ -41,7 +42,7 @@
 				"pos": [0, 0]
 			},
 			"SpriteComponent": {
-				"spriteId": "tree"
+				"spriteId": "test"
 			},
 			"RenderComponent": {}
 		}

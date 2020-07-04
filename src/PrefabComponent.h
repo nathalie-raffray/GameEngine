@@ -8,6 +8,8 @@ struct PrefabComponent
 	AssetId prefab_id;
 
 	//or have a bitset of maxcomponents to see which one is programmable
+	static inline const char* name = "prefab component"; //?
+
 };
 
 /***************** JSON SERIALIZATION **********************/

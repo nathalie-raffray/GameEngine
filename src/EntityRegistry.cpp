@@ -1,5 +1,6 @@
 #include "Entity.h"
-#include "EntityRegistry.h"
+#include "Level.h"
+#include "AssetStorage.h"
 
 EntityRegistry::~EntityRegistry()
 {
@@ -18,11 +19,6 @@ EntityHandle EntityRegistry::create()
 	//RETURN STD::MOVE IS DUMB
 }
 
-/*void EntityRegistry::remove(EntityHandle h) //ENTITY HANDLE TIENT DANS UN REGISTRE SO NO NEED TO PASS IT BY CONST REF
-{
-	entities.erase(entities.begin() + h.m_index);
-}*/
-
 void EntityRegistry::update()
 {
 	//remove entities that are no longer active
@@ -37,4 +33,9 @@ void EntityRegistry::update()
 		return false;
 	}),
 		std::end(entities));
+}
+
+EntityRegistry* EntityRegistryHandle::operator->() const
+{
+	return &Game::assets->get<Level>(Game::current_level.level_id)->entity_registry;
 }

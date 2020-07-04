@@ -9,6 +9,8 @@ struct SpriteComponent
 	SpriteId spriteId;
 	// Transient attributes
 	bool isEnabled;
+
+	static inline const char* name = "sprite component";
 };
 
 /***************** JSON SERIALIZATION **********************/

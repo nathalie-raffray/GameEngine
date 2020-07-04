@@ -3,9 +3,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Asset.h"
 
-#include "json.hpp"
-
-using nlohmann::json;
+#include "json_serialization.h"
 
 struct Texture : Asset
 {

@@ -19,7 +19,7 @@ using Entity = TEntity<AnimationComponent, SpriteComponent, ColliderComponent, T
 /* ENTITY REGISTRY */
 #include "EntityRegistry.h"
 
-#include "json_serialization.h"
+/* JSON */
 void to_json(json& j, const Entity& entity);
 void from_json(const json& j, Entity& entity);
 
@@ -84,53 +84,3 @@ struct ComponentFactory
 	}
 };
 
-
-
-/*
-
-fromjson(json j, Entity entity)
-{
-	for(json& jj : j.items())
-	{
-		if(jj.key().get(std::string) == "AssetComponent")
-		{
-			Prefab* prefab = Game::assets->get<Prefab>(jj.value()["entity_asset_id"]);
-			entity.clone(prefab->immutable);
-		}
-		else
-		{
-			if(jj.key().get<std::string>() == "AnimationComponent")
-			{
-				entity.add<AnimationComponent>();
-				*entity.get<AnimationComponent>() = jj.value();
-			}
-		}
-	}
-	
-	FROMJSON(AnimationComponent);
-	FROMJSON(SpriteComponent);
-}
-
-tojson(json j, Entity entity)
-{
-	if(entity->has<PrefabComponent>())
-	{
-		Prefab prefab = Game::assets->get<Prefab>();
-		
-		if(prefab->programmable->has<AnimationComponent>() && entity->has<AnimationComponent>())
-		{
-			j.push_back(*entity->get<AnimationComponent>());
-		}
-	}
-	else{
-		if(entity->has<AnimationComponent>())
-		{
-			j.push_back(*entity->get<AnimationComponent>());
-		}
-	}
-}
-
-foreach(component c : entity)
-
-
-*/

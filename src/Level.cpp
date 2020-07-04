@@ -1,12 +1,11 @@
 #include "Level.h"
 
-#include "json_serialization.h"
 #include <fstream>
 
 #include "AssetStorage.h"
 #include "Game.h"
 
-#define ADD_SYSTEM(system) if(has_field<std::string>(js["systems"], #system)){ newLevel->system_registry.add<system>(); }
+#define ADD_SYSTEM(system) if(has_field<std::string>(js["systems"], #system)){ Game::system_registry->add<system>(); }
 
 bool Level::load(const std::string& filePath)
 {
@@ -15,16 +14,12 @@ bool Level::load(const std::string& filePath)
 	i >> js;
 
 	std::string id = js["id"].get<std::string>();
-	//auto uP = std::make_unique<Level>(Level(js["stackable"].get<bool>()));
-	auto uP = std::make_unique<Level>();
 
+	auto uP = std::make_unique<Level>();
 	Game::assets->assets.emplace(std::make_pair(id, std::move(uP)));
-	//Game::assets->assets[id] = std::make_unique<Level>(Level(js["stackable"].get<bool>()));
-	//Game::assets->assets[id] = std::make_unique<Asset>(new Level(js["stackable"].get<bool>()));
-	auto* newLevel = Game::assets->get<Level>(id);
-	Game::current_level = newLevel;
-	Game::entity_registry = &newLevel->entity_registry;
-	Game::system_registry = &newLevel->system_registry;
+
+	Game::current_level = { id };
+	//*Game::current_level = js;
 
 	//register systems
 	ADD_SYSTEM(AnimationSystem);
@@ -35,36 +30,76 @@ bool Level::load(const std::string& filePath)
 	ADD_SYSTEM(RenderingSystem);
 
 	//add entities
-	std::ifstream i2(js.at("entities_filepath").get<std::string>()); 
+	std::ifstream i2(js.at("entities_filepath").get<std::string>());
 	json jEntities;
 	i2 >> jEntities;
-	
+
 	for (json& jEntity : jEntities["entities"])
 	{
-		auto entity = newLevel->entity_registry.create();
+		auto entity = Game::entity_registry->create();
 		//Entity& entity = newLevel->entity_registry.entities[handle.m_index];
 		**entity = jEntity;
-		newLevel->system_registry.addEntityToSystems(entity);
+		if (entity->has<CameraComponent>())
+		{
+			Game::current_level->camera = entity;
+		}
+		Game::system_registry->addEntityToSystems(entity);
 	}
-
 	return true;
 }
 
-void Level::pushLevel(const AssetId& levelID)
+void Level::pushLevel(LevelHandle level)
 {
-	auto* newLevel = Game::assets->get<Level>(levelID);
-
-	if (!newLevel->stackable)
+	if (!level->stackable)
 	{
 		if (Level::levels.size() > 0)
 		{
-			Game::assets->remove(Level::levels.top()); //will call dtors of entityregistry and systemregistry
+			Game::assets->remove(Level::levels.top().level_id); //will call dtors of entityregistry and systemregistry
 			Level::levels.pop();
 		}
 	}
 
-	Level::levels.emplace(levelID);
-	Game::current_level = newLevel;
-	Game::entity_registry = &newLevel->entity_registry;
-	Game::system_registry = &newLevel->system_registry;
+	Level::levels.emplace(level);
+	Game::current_level = level;
+}
+
+void from_json(const json& js, Level& l)
+{
+	//l.system_registry.add<AnimationSystem>();
+	
+	//register systems
+	/*ADD_SYSTEM(AnimationSystem);
+	ADD_SYSTEM(GoombaController);
+	ADD_SYSTEM(CollisionSystem);
+	ADD_SYSTEM(PlayerController);
+	ADD_SYSTEM(Camera);
+	ADD_SYSTEM(RenderingSystem);
+
+	//add entities
+	std::ifstream i2(js.at("entities_filepath").get<std::string>());
+	json jEntities;
+	i2 >> jEntities;
+
+	for (json& jEntity : jEntities["entities"])
+	{
+		auto entity = l.entity_registry.create();
+		//Entity& entity = newLevel->entity_registry.entities[handle.m_index];
+		**entity = jEntity;
+		l.system_registry.addEntityToSystems(entity);
+	}*/
+}
+
+void to_json(json& j, const Level& l)
+{
+
+}
+
+Level* LevelHandle::operator->() const
+{
+	return Game::assets->get<Level>(level_id);
+}
+
+Level& LevelHandle::operator*() const
+{
+	return *Game::assets->get<Level>(level_id);
 }

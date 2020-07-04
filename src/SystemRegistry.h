@@ -11,16 +11,17 @@
 #include "PlayerController.h"
 
 class System;
+class SystemRegistry;
 struct EntityHandle;
 
 struct SystemHandle
 {
-	/*Entity* operator->()
-	{
-		return Game::entity_registry->entities[m_index].get();
-	}*/
-
 	std::size_t m_index;
+};
+
+struct SystemRegistryHandle
+{
+	SystemRegistry* operator->() const;
 };
 
 class SystemRegistry
@@ -52,6 +53,8 @@ void SystemRegistry::add()
 	//auto uPtr = std::make_unique<System>(SystemType{});
 	//systems.emplace_back(std::move(uPtr));
 	systems.emplace_back(new SystemType);
-//	SystemHandle handle{ systems.size() - 1 };
-	//return handle; //will move semantics be applied here?
-}
+	//	SystemHandle handle{ systems.size() - 1 };
+		//return handle; //will move semantics be applied here?
+};
+
+

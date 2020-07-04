@@ -1,0 +1,39 @@
+{
+	"entities": [{
+			"prefabId": "imguiSpitePrefab",
+			"immutable_components": {
+				"RenderComponent": {
+					"layer": 10
+				},
+				"TransformComponent": {
+					"pos": [250, 250],
+					"rotationz": 0
+				},
+				"SpriteComponent": {
+					"spriteId":"tree"
+				}
+			},
+			"programmable_components": {
+			}
+		},
+		{
+			"prefabId": "imguiAnimationPrefab",
+			"immutable_components": {
+				"RenderComponent": {
+					"layer": 10
+				},
+				"TransformComponent": {
+					"pos": [250, 250],
+					"rotationz": 0
+				},
+				"AnimationComponent": {
+					"animation_collection_id": "littlemario",
+					"currentAnimation": "littlemario_walk"
+				}
+			},
+			"programmable_components": {
+			}
+		}
+
+	]
+}

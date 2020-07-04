@@ -5,7 +5,8 @@
 	},
 
 	"sprites": {
-		"tree": "../res/data/level1.sprites.json"
+		"tree": "../res/data/level1.sprites.json",
+		"test": "../res/data/level1.sprites.json"
 	},
 
 	"textures": {
@@ -14,6 +15,8 @@
 	}, 
 
 	"prefabs": {
+		"imguiSpitePrefab":"../res/data/imgui.prefabs.json",
+		"imguiAnimationPrefab":"../res/data/imgui.prefabs.json",
 		"marioPrefab": "../res/data/entity.assets.json",
 		"staticSpritePrefab": "../res/data/entity.assets.json"
 	},
@@ -23,6 +26,6 @@
 	},
 
 	"level":{
-		"level1":"../res/data/level1.json"
+		"level1":"../res/data/level1.level.json"
 	}
 }

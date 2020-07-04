@@ -135,7 +135,6 @@
     <ClCompile Include="..\src\RenderingSystem.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\SystemRegistry.cpp" />
-    <ClCompile Include="..\src\TEntity.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>

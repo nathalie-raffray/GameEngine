@@ -16,7 +16,7 @@
 				"currentAnimation": "littlemario_swim"
 			},
 			"TransformComponent": {
-				"pos": [250, 250]
+				"pos": [20, 20]
 			},
 			"PlayerComponent": {
 				"speed": 5

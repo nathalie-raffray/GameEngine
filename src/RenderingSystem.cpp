@@ -3,12 +3,13 @@
 #include "AssetStorage.h"
 #include "Game.h"
 #include "AnimationCollection.h"
+#include "Level.h"
 
 //----------------------------------------------------------------------------------------------
 
 bool RenderingSystem::isValid(EntityHandle h) const
 {
-	return ( (h->has<AnimationComponent>() || h->has<SpriteComponent>()) && h->has<TransformComponent>() && h->has<RenderComponent>());
+	return ((h->has<AnimationComponent>() || h->has<SpriteComponent>()) && h->has<TransformComponent>() && h->has<RenderComponent>());
 }
 
 //----------------------------------------------------------------------------------------------
@@ -42,7 +43,11 @@ void RenderingSystem::update(float dt)
 		auto transform = entity->get<TransformComponent>();
 		sprite->setPosition((float)transform->pos.x, (float)transform->pos.y);
 		sprite->setRotation(transform->rotationz);
+		//sprite->scale({ Game::current_level->camera->get<CameraComponent>()->zoom, Game::current_level->camera->get<CameraComponent>()->zoom });
+		auto original_scale = sprite->getScale();
+		sprite->scale({ Game::current_level->camera->get<CameraComponent>()->zoom, Game::current_level->camera->get<CameraComponent>()->zoom });
 		Game::window->draw(*sprite);
+		sprite->setScale(original_scale);
 	}
 }
 

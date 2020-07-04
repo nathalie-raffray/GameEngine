@@ -2,6 +2,8 @@
 struct PlayerComponent
 {
 	float speed;
+
+	static inline const char* name = "player component"; //?
 };
 
 /***************** JSON SERIALIZATION **********************/

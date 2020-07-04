@@ -23,14 +23,23 @@ private:
 	std::vector<Entity> entities;
 };
 
+struct EntityRegistryHandle
+{
+	EntityRegistry* operator->() const;
+};
+
 struct EntityHandle
 {
 	Entity* operator->() const
 	{
-		if (!Game::entity_registry->entities[m_index].is_active())
+		if (m_index == INVALID)
 		{
 			return nullptr;
 		}
+		/*if (!Game::entity_registry->entities[m_index].is_active())
+		{
+			return nullptr;
+		}*/
 		else {
 			return &Game::entity_registry->entities[m_index];
 		}
@@ -38,10 +47,14 @@ struct EntityHandle
 
 	Entity* operator*() const
 	{
-		if (!Game::entity_registry->entities[m_index].is_active())
+		if (m_index == INVALID)
 		{
 			return nullptr;
 		}
+		/*else if (!Game::entity_registry->entities[m_index].is_active())
+		{
+			return nullptr;
+		}*/
 		else {
 			return &Game::entity_registry->entities[m_index];
 		}

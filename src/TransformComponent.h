@@ -10,6 +10,8 @@ struct TransformComponent
 	//Vector2<int> new_pos;
 	
 	float rotationz;
+
+	static inline const char* name = "transform component"; //?
 };
 
 /***************** JSON SERIALIZATION **********************/

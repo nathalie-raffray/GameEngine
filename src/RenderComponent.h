@@ -2,6 +2,9 @@
 struct RenderComponent
 {
 	unsigned int layer;
+
+	static inline const char* name = "render component"; //?
+
 };
 
 /***************** JSON SERIALIZATION **********************/

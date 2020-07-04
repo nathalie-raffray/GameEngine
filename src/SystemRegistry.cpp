@@ -1,6 +1,10 @@
 #include "SystemRegistry.h"
 #include "System.h"
 
+#include "Game.h"
+#include "AssetStorage.h"
+#include "Level.h"
+
 void SystemRegistry::addEntityToSystems(EntityHandle e)
 {
 	for (auto& s : systems)
@@ -9,20 +13,19 @@ void SystemRegistry::addEntityToSystems(EntityHandle e)
 	}
 }
 
-/*void SystemRegistry::remove(SystemHandle h)
-{
-	systems.erase(systems.begin() + h.m_index);
-}*/
-
 void SystemRegistry::update(float dt)
 {
 	for (auto& s : systems)
 	{
-		s->update(dt);
+		s->refresh();
 	}
 	for (auto& s : systems)
 	{
-		s->refresh();
+		s->update(dt);
 	}
 }
 
+SystemRegistry* SystemRegistryHandle::operator->() const
+{
+	return &Game::assets->get<Level>(Game::current_level.level_id)->system_registry;
+}

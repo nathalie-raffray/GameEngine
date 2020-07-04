@@ -20,7 +20,8 @@ public:
 		m_entities.erase(std::remove_if(std::begin(m_entities), std::end(m_entities),
 			[](EntityHandle h)
 		{
-			return !h->is_active();
+			return (!(*h) || !h->is_active());
+			//return !h->is_active();
 		}),
 			std::end(m_entities));
 	}

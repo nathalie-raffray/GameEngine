@@ -24,7 +24,9 @@
 			},
 			"programmable_components": {
 				"TransformComponent": {},
-				"SpriteComponent": {},
+				"SpriteComponent": {
+					"spriteId" : "tree"
+				},
 				"RenderComponent": {}
 			}
 		}

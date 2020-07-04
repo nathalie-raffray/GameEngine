@@ -1,4 +1,7 @@
 #pragma once
+#include "AssetStorage.h"
+#include "Prefab.h"
+
 #define FROMJSON(component) if (has_field<json>(j, #component))\
 							{\
 								if(!entity.has<component>()) entity.add<component>();\
