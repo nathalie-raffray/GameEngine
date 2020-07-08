@@ -1,0 +1,26 @@
+{
+	"sprites" :	[
+		{
+			"texRect": [
+				1,
+				1,
+				400,
+				400
+			],
+			"texId": "marioluigi",
+			"scale" : 1,
+			"spriteId": "tree"
+		},
+		{
+			"texRect": [
+				50,
+				50,
+				200,
+				200
+			],
+			"texId": "marioluigi",
+			"scale" : 1,
+			"spriteId": "test"
+		}
+	]
+}

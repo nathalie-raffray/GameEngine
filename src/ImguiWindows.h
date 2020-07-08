@@ -23,7 +23,6 @@ struct ImguiSprite
 
 struct ImguiAnimation
 {
-	//std::vector<const char*> spriteNames;
 	std::vector<const char*> textureNames;
 	std::unordered_map<AnimationCollectionId, std::vector<const char*>> associatedAnimations;
 	std::unordered_map<std::string, AnimationCollectionId> filePathIds;
@@ -35,19 +34,22 @@ struct ImguiAnimation
 struct ImguiEntity
 {
 	std::vector<const char*> prefabs;
-	std::vector<const char*> entityfilepaths;
+	std::vector<const char*> filePaths;
+	std::vector<const char*> levels;
 };
 
 class ImguiWindows
 {
 public:
+	std::string toc_filepath;
+
 	ImguiSprite imgui_sprite;
-	ImguiAnimation names;
+	ImguiAnimation imgui_animation;
 	ImguiEntity imgui_entity;
 
-	//EntityHandle entity;
-
 public:
+
+	ImguiWindows(std::string fp) : toc_filepath(fp) {}
 
 	void init()
 	{
@@ -56,9 +58,9 @@ public:
 		entityInit();
 	}
 
-	//void add(EntityHandle eh);
-
 	void update();
+
+private:
 
 	void spriteInit();
 	void spriteEditor();

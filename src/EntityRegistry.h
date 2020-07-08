@@ -8,8 +8,8 @@ struct EntityHandle;
 class EntityRegistry
 {
 public:
-	friend struct EntityHandle;
-	friend class Level;
+	//friend struct EntityHandle;
+	//friend class Level;
 
 	~EntityRegistry();
 	  
@@ -19,7 +19,6 @@ public:
 
 	void update();
 
-private:
 	std::vector<Entity> entities;
 };
 

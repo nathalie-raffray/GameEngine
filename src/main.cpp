@@ -25,7 +25,7 @@ using IntRect = sf::IntRect;
 /* declare and initialize static Game variables*/
 bool Game::paused = false;
 bool Game::debug_mode = false;
-std::unique_ptr<ImguiWindows> Game::imguiWin = std::make_unique<ImguiWindows>();
+std::unique_ptr<ImguiWindows> Game::imguiWin = std::make_unique<ImguiWindows>("../res/data/tableofcontents.json");
 std::unique_ptr<AssetStorage> Game::assets = std::make_unique<AssetStorage>("../res/data/tableofcontents.json");
 std::unique_ptr<sf::RenderWindow> Game::window = std::make_unique<sf::RenderWindow>(sf::VideoMode(720, 640), "");
 EntityRegistryHandle Game::entity_registry{};

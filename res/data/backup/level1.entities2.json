@@ -4,7 +4,8 @@
 			"CameraComponent": {
 				"aspectRatio": [720, 640],
 				"screenCoord0": [0, 0],
-				"screenCoord1": [2500, 2500]
+				"screenCoord1": [2500, 2500],
+				"zoom" : 1
 			}
 		},
 		{
@@ -41,9 +42,9 @@
 				"pos": [0, 0]
 			},
 			"SpriteComponent": {
-				"spriteId": "tree"
+				"spriteId": "test"
 			},
-			"RenderComponent": {}
+			"RenderComponent": null
 		}
 	]
 }

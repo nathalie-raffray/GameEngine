@@ -1,50 +1,108 @@
 {
-	"entities": [
-		{
-			"CameraComponent": {
-				"aspectRatio": [720, 640],
-				"screenCoord0": [0, 0],
-				"screenCoord1": [2500, 2500],
-				"zoom" : 1
-			}
-		},
-		{
-			"PrefabComponent": {
-				"prefab_id": "marioPrefab"
-			},
-			"AnimationComponent": {
-				"animation_collection_id": "littlemario",
-				"currentAnimation": "littlemario_swim"
-			},
-			"TransformComponent": {
-				"pos": [20, 20]
-			},
-			"PlayerComponent": {
-				"speed": 5
-			}, 
-			"RenderComponent":{
-				"layer": 4
-			}
-		}, 
-		{
-			"PrefabComponent": {
-				"prefab_id": "marioPrefab"
-			},
-			"TransformComponent": {
-				"pos": [0, 0]
-			}
-		},
-		{
-			"PrefabComponent": {
-				"prefab_id": "staticSpritePrefab"
-			},
-			"TransformComponent": {
-				"pos": [0, 0]
-			},
-			"SpriteComponent": {
-				"spriteId": "test"
-			},
-			"RenderComponent": {}
-		}
-	]
+    "entities": [
+        {
+            "CameraComponent": {
+                "aspectRatio": [
+                    720,
+                    640
+                ],
+                "screenCoord0": [
+                    -5,
+                    -1
+                ],
+                "screenCoord1": [
+                    2495,
+                    2499
+                ],
+                "zoom": 1.0
+            }
+        },
+        {
+            "AnimationComponent": {
+                "animation_collection_id": "littlemario",
+                "currentAnimation": "littlemario_swim"
+            },
+            "PlayerComponent": {
+                "speed": 5.0
+            },
+            "PrefabComponent": {
+                "prefab_id": "marioPrefab"
+            },
+            "TransformComponent": {
+                "pos": [
+                    270,
+                    205
+                ]
+            }
+        },
+        {
+            "AnimationComponent": {
+                "animation_collection_id": "littlemario",
+                "currentAnimation": "littlemario_walk"
+            },
+            "PrefabComponent": {
+                "prefab_id": "marioPrefab"
+            },
+            "TransformComponent": {
+                "pos": [
+                    328,
+                    377
+                ]
+            }
+        },
+        {
+            "PrefabComponent": {
+                "prefab_id": "staticSpritePrefab"
+            },
+            "RenderComponent": null,
+            "SpriteComponent": {
+                "spriteId": "test"
+            },
+            "TransformComponent": {
+                "pos": [
+                    206,
+                    23
+                ]
+            }
+        },
+        {
+            "RenderComponent": null,
+            "SpriteComponent": {
+                "spriteId": "test2"
+            },
+            "TransformComponent": {
+                "pos": [
+                    99,
+                    215
+                ]
+            }
+        },
+        {
+            "RenderComponent": null,
+            "SpriteComponent": {
+                "spriteId": "test2"
+            },
+            "TransformComponent": {
+                "pos": [
+                    389,
+                    50
+                ]
+            }
+        },
+        {
+            "AnimationComponent": {
+                "animation_collection_id": "mushroommario",
+                "currentAnimation": "mushroommario_walk"
+            },
+            "RenderComponent": {
+                "layer": 2
+            },
+            "TransformComponent": {
+                "pos": [
+                    50,
+                    378
+                ]
+            }
+        }
+    ]
 }

@@ -6,7 +6,7 @@ EntityRegistry::~EntityRegistry()
 {
 	for (auto& entity : entities)
 	{
-		entity.destroy();
+		entity.remove_components();
 	}
 	entities.clear();
 }
@@ -25,9 +25,9 @@ void EntityRegistry::update()
 	entities.erase(std::remove_if(std::begin(entities), std::end(entities),
 		[](Entity& mEntity)
 	{
-		if (!mEntity.is_active())
+		if (!mEntity.m_Active)
 		{
-			mEntity.destroy(); //cant allow erase() to call destructor because if in destructor I remove all components (and allocate freeIndices) then when entities resizes it will also call destructor and fuck up freeIndices
+			mEntity.remove_components(); //cant allow erase() to call destructor because if in destructor I remove all components (and allocate freeIndices) then when entities resizes it will also call destructor and fuck up freeIndices
 			return true;
 		}
 		return false;

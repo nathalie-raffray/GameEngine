@@ -1,31 +1,28 @@
 {
-	"animations": {
-		"littlemario": "../res/data/littlemario.animations.json",
-		"mushroommario": "../res/data/mushroommario.animations.json"
-	},
-
-	"sprites": {
-		"tree": "../res/data/level1.sprites.json",
-		"test": "../res/data/level1.sprites.json"
-	},
-
-	"textures": {
-		"marioluigi": "../res/data/textures.json",
-		"stagetiles": "../res/data/textures.json"
-	}, 
-
-	"prefabs": {
-		"imguiSpitePrefab":"../res/data/imgui.prefabs.json",
-		"imguiAnimationPrefab":"../res/data/imgui.prefabs.json",
-		"marioPrefab": "../res/data/entity.assets.json",
-		"staticSpritePrefab": "../res/data/entity.assets.json"
-	},
-
-	"input": {
-		"inputconfig":"../res/data/inputconfig.json"
-	},
-
-	"level":{
-		"level1":"../res/data/level1.level.json"
-	}
+    "animations": {
+        "littlemario": "../res/data/littlemario.animations.json",
+        "mushroommario": "../res/data/mushroommario.animations.json"
+    },
+    "input": {
+        "inputconfig": "../res/data/inputconfig.json"
+    },
+    "level": {
+        "level1": "../res/data/level1.level.json"
+    },
+    "prefabs": {
+        "imguiAnimationPrefab": "../res/data/imgui.prefabs.json",
+        "imguiSpitePrefab": "../res/data/imgui.prefabs.json",
+        "marioPrefab": "../res/data/entity.assets.json",
+        "staticSpritePrefab": "../res/data/entity.assets.json"
+    },
+    "sprites": {
+        "test": "../res/data/level1.sprites.json",
+        "test2": "../res/data/level1.sprites.json",
+        "test3": "../res/data/level1.sprites.json",
+        "tree": "../res/data/level1.sprites.json"
+    },
+    "textures": {
+        "marioluigi": "../res/data/textures.json",
+        "stagetiles": "../res/data/textures.json"
+    }
 }

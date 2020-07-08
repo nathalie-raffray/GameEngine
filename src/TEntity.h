@@ -31,14 +31,10 @@ class TEntity : public component_handle<ComponentTypes>...
 {
 public:
 
-	TEntity() {}
-
-	~TEntity() {}
-
-	void destroy()
+	/*bool operator=(TEntity entity) const 
 	{
-		(remove<ComponentTypes>(), ...);
-	}
+		return ((component_handle<ComponentTypes>::m_index == entity.component_handle<ComponentTypes>::m_index) && ...); //giving me problems but i don't know why
+	}*/
 
 	void clone(TEntity* eh) const
 	{
@@ -74,14 +70,15 @@ public:
 		component_handle<T>::m_index = INVALID;
 	}
 
+	void remove_components()
+	{
+		(remove<ComponentTypes>(), ...);
+	}
+
 	template<typename T>
 	inline bool has() const
 	{
 		return !(component_handle<T>::m_index == INVALID);
-	}
-
-	bool is_active() {
-		return m_Active;
 	}
 
 public:

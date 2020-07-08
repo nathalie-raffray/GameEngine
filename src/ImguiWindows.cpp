@@ -3,8 +3,7 @@
 /* IMGUI / JSON */
 #include "imgui.h"
 #include "imgui-SFML.h"
-#include "json.hpp"
-using json = nlohmann::json;
+#include "json_serialization.h"
 
 /* STL */
 #include <iostream>
@@ -18,6 +17,7 @@ using json = nlohmann::json;
 /* ASSETS */
 #include "Game.h"
 #include "AssetStorage.h"
+#include "Level.h"
 
 /* OTHER */
 #include "AnimationCollection.h"
@@ -73,6 +73,7 @@ void ImguiWindows::spriteInit()
 			}
 			imgui_sprite.sprites[tc.second].emplace_back(tc.first.c_str());
 		}
+
 	}
 }
 
@@ -84,7 +85,7 @@ void ImguiWindows::spriteEditor()
 	{
 		imgui_sprite.entity->m_Active = true;
 		Game::system_registry->addEntityToSystems(imgui_sprite.entity);
-		names.entity->m_Active = false;
+		imgui_animation.entity->m_Active = false;
 	}
 
 	static int i = 0; //to choose files
@@ -96,13 +97,13 @@ void ImguiWindows::spriteEditor()
 
 	static bool newSprite = false;
 
-	if (ImGui::Combo("file", &i, imgui_sprite.filePaths.data(), static_cast<int>(imgui_sprite.filePaths.size())))
+	if (ImGui::Combo("filepaths", &i, imgui_sprite.filePaths.data(), static_cast<int>(imgui_sprite.filePaths.size())))
 	{
 		j = 0;
 		imgui_sprite.entity->get<SpriteComponent>()->spriteId = imgui_sprite.sprites[imgui_sprite.filePaths[i]][j];
 		currSprite = Game::assets->get<Sprite>(imgui_sprite.entity->get<SpriteComponent>()->spriteId);
 		k = 0;
-		//k = names.textureNames
+		//k = imgui_animation.textureNames
 	}
 
 	if (ImGui::Combo("sprite", &j, imgui_sprite.sprites[imgui_sprite.filePaths[i]].data(), static_cast<int>(imgui_sprite.sprites[imgui_sprite.filePaths[i]].size())))
@@ -125,7 +126,7 @@ void ImguiWindows::spriteEditor()
 			imgui_sprite.entity->get<SpriteComponent>()->spriteId = newSpriteName;
 			currSprite = Game::assets->get<Sprite>(newSpriteName);
 			currSprite->scale = 5;
-			currSprite->texId = names.textureNames[0];
+			currSprite->texId = imgui_animation.textureNames[0];
 			currSprite->m_sprite.setTexture(Game::assets->get<Texture>(currSprite->texId)->texture);
 			currSprite->texRect = { 0, 0, 100, 100 };
 			j = static_cast<int>(imgui_sprite.sprites[imgui_sprite.filePaths[i]].size() - 1);
@@ -134,9 +135,9 @@ void ImguiWindows::spriteEditor()
 		}
 	}
 
-	if (ImGui::Combo("texture", &k, names.textureNames.data(), static_cast<int>(names.textureNames.size())))
+	if (ImGui::Combo("texture", &k, imgui_animation.textureNames.data(), static_cast<int>(imgui_animation.textureNames.size())))
 	{
-		currSprite->texId = names.textureNames[k];
+		currSprite->texId = imgui_animation.textureNames[k];
 		currSprite->m_sprite.setTexture(Game::assets->get<Texture>(currSprite->texId)->texture);
 	}
 	if (ImGui::InputInt4("texRect", &currSprite->texRect.left))
@@ -150,7 +151,53 @@ void ImguiWindows::spriteEditor()
 
 	if (ImGui::Button("Save?"))
 	{
+		//save i guess saves all sprites...into that file 
+		json jin;
+		std::ifstream is(imgui_sprite.filePaths[i]);
+		is >> jin;
 
+		json jout;
+
+		bool added = false;
+
+		for (auto& jel : jin["sprites"])
+		{
+			if (jel.at("spriteId").get<std::string>() == imgui_sprite.entity->get<SpriteComponent>()->spriteId)
+			{
+				json el = *currSprite;
+				el["spriteId"] = static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId);
+				jout["sprites"].push_back(el);
+				added = true;
+			}
+			else {
+				jout["sprites"].push_back(jel);
+			}
+		}
+
+		if (!added)
+		{
+			json el = *currSprite;
+			el["spriteId"] = static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId);
+			jout["sprites"].push_back(el);
+
+			//add to table of contents as well.
+			json toc;
+			std::ifstream stoc(toc_filepath);
+			stoc >> toc;
+			toc["sprites"][static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId)] = imgui_sprite.filePaths[i];
+
+			std::ofstream otoc;
+			otoc.open(toc_filepath);
+			otoc << std::setw(4) << toc << std::endl;
+			otoc.close();
+		}
+
+		std::cout << jout.dump(4) << std::endl;
+
+		std::ofstream o;
+		o.open(imgui_sprite.filePaths[i]);
+		o << std::setw(4) << jout << std::endl;
+		o.close();
 	}
 }
 
@@ -162,26 +209,26 @@ void ImguiWindows::animationInit()
 	{
 		if (tc.second.find("animations.json") != -1)
 		{
-			names.filePaths.emplace_back(tc.second.c_str());
-			names.filePathIds[tc.second] = tc.first;
+			imgui_animation.filePaths.emplace_back(tc.second.c_str());
+			imgui_animation.filePathIds[tc.second] = tc.first;
 
 			AnimationCollection* ac = Game::assets->get<AnimationCollection>(tc.first);
 			for (auto& animation : ac->animations)
 			{
-				names.associatedAnimations[tc.first].emplace_back(animation.first.c_str());
+				imgui_animation.associatedAnimations[tc.first].emplace_back(animation.first.c_str());
 			}
 		}
 		else if (tc.second.find("textures.json") != -1)
 		{
-			names.textureNames.emplace_back(tc.first.c_str());
+			imgui_animation.textureNames.emplace_back(tc.first.c_str());
 		}
 	}
-	names.entity = Prefab::get_clone("imguiAnimationPrefab");
-	names.entity->m_Active = false;
+	imgui_animation.entity = Prefab::get_clone("imguiAnimationPrefab");
+	imgui_animation.entity->m_Active = false;
 
 
-	//Game::system_registry->addEntityToSystems(names.entity);
-	//names.entity->m_Active = false;
+	//Game::system_registry->addEntityToSystems(imgui_animation.entity);
+	//imgui_animation.entity->m_Active = false;
 	
 }
 
@@ -192,14 +239,14 @@ void ImguiWindows::animationEditor()
 
 	//ImGui::Begin("Animation Editor");
 
-	if (!names.entity->m_Active)
+	if (!imgui_animation.entity->m_Active)
 	{
-		names.entity->m_Active = true;
-		Game::system_registry->addEntityToSystems(names.entity);
+		imgui_animation.entity->m_Active = true;
+		Game::system_registry->addEntityToSystems(imgui_animation.entity);
 		imgui_sprite.entity->m_Active = false;
 	}
 
-	auto spLittleMario = names.entity->get<AnimationComponent>();
+	auto spLittleMario = imgui_animation.entity->get<AnimationComponent>();
 
 	static int k = 0; //to choose files
 	static int i = 0; //to choose animations
@@ -212,7 +259,7 @@ void ImguiWindows::animationEditor()
 	static bool creatingNewAnimation = false; //newSprite checks whether we are creating a new sprite
 	static bool creatingNewFile = false;
 
-	static auto animationNames = names.associatedAnimations[spLittleMario->animation_collection_id];
+	static auto animationNames = imgui_animation.associatedAnimations[spLittleMario->animation_collection_id];
 
 	static std::string currentAnimation = spLittleMario->currentAnimation;
 	static AnimationCollection* currentAnimationCollection = Game::assets->get<AnimationCollection>(spLittleMario->animation_collection_id);
@@ -222,11 +269,11 @@ void ImguiWindows::animationEditor()
 	static bool changeAnimation = false;
 
 	//Choose File
-	if (ImGui::Combo("file", &k, names.filePaths.data(), static_cast<int>(names.filePaths.size())))
+	if (ImGui::Combo("file", &k, imgui_animation.filePaths.data(), static_cast<int>(imgui_animation.filePaths.size())))
 	{
-		std::string& newAnimationCollectionID = names.filePathIds[names.filePaths[k]];
+		std::string& newAnimationCollectionID = imgui_animation.filePathIds[imgui_animation.filePaths[k]];
 		spLittleMario->animation_collection_id = newAnimationCollectionID;
-		animationNames = names.associatedAnimations[newAnimationCollectionID];
+		animationNames = imgui_animation.associatedAnimations[newAnimationCollectionID];
 		currentAnimationCollection = Game::assets->get<AnimationCollection>(newAnimationCollectionID);
 		i = 0;
 		numFrames = 0;
@@ -256,15 +303,15 @@ void ImguiWindows::animationEditor()
 			Game::assets->assets.emplace(newAnimationCollectionName, std::make_unique<AnimationCollection>());
 			//names.filePaths.emplace_back(newFileName);
 			//strcpy(names.filePaths.back(), newFileName);
-			names.filePathIds.emplace(std::string(newFileName), std::string(newAnimationCollectionName));
-			names.filePaths.emplace_back(names.filePathIds.find(newFileName)->first.c_str());
-			names.associatedAnimations.emplace(newAnimationCollectionName, std::vector<const char*>(0));
-			animationNames = names.associatedAnimations[newAnimationCollectionName];
+			imgui_animation.filePathIds.emplace(std::string(newFileName), std::string(newAnimationCollectionName));
+			imgui_animation.filePaths.emplace_back(imgui_animation.filePathIds.find(newFileName)->first.c_str());
+			imgui_animation.associatedAnimations.emplace(newAnimationCollectionName, std::vector<const char*>(0));
+			animationNames = imgui_animation.associatedAnimations[newAnimationCollectionName];
 
 			currentAnimationCollection = Game::assets->get<AnimationCollection>(newAnimationCollectionName);
 			currentAnimation = "No Animation";
 
-			k = static_cast<int>(names.filePaths.size()) - 1;
+			k = static_cast<int>(imgui_animation.filePaths.size()) - 1;
 			i = 0;
 			numFrames = 0;
 			spLittleMario->animation_collection_id = newAnimationCollectionName;
@@ -306,7 +353,7 @@ void ImguiWindows::animationEditor()
 		{
 			//Game::assets->assets.emplace()
 			currentAnimationCollection->animations.emplace(std::string(newAnimationName), std::make_unique<Animation>());
-			names.associatedAnimations[spLittleMario->animation_collection_id].emplace_back(currentAnimationCollection->animations.find(newAnimationName)->first.c_str()); 
+			imgui_animation.associatedAnimations[spLittleMario->animation_collection_id].emplace_back(currentAnimationCollection->animations.find(newAnimationName)->first.c_str());
 			animationNames.emplace_back(currentAnimationCollection->animations.find(newAnimationName)->first.c_str()); 
 
 			currentAnimation = newAnimationName;
@@ -326,7 +373,7 @@ void ImguiWindows::animationEditor()
 	{
 		currentAnimationCollection->animations.erase(currentAnimation);
 		animationNames.erase(animationNames.begin() + i);
-		names.associatedAnimations[names.filePaths[k]].erase(names.associatedAnimations[names.filePaths[k]].begin() + i);
+		imgui_animation.associatedAnimations[imgui_animation.filePaths[k]].erase(imgui_animation.associatedAnimations[imgui_animation.filePaths[k]].begin() + i);
 		i = 0;
 		if (animationNames.size() == 0)
 		{
@@ -416,9 +463,9 @@ void ImguiWindows::animationEditor()
 			AnimationFrame& currFrame = currentAnimationCollection->animations[currentAnimation]->frames[n];
 			Sprite& currSprite = currFrame.sprite;
 
-			if (ImGui::Combo("texture", &l[n], names.textureNames.data(), static_cast<int>(names.textureNames.size())))
+			if (ImGui::Combo("texture", &l[n], imgui_animation.textureNames.data(), static_cast<int>(imgui_animation.textureNames.size())))
 			{
-				currSprite.texId = names.textureNames[l[n]];
+				currSprite.texId = imgui_animation.textureNames[l[n]];
 				currSprite.m_sprite.setTexture(Game::assets->get<Texture>(currSprite.texId)->texture);
 			}
 			if (ImGui::InputInt4("texRect", &currSprite.texRect.left))
@@ -457,13 +504,13 @@ void ImguiWindows::animationEditor()
 		std::ifstream is("../res/data/tableofcontents.json");
 		is >> js;
 
-		js["animations"][spLittleMario->animation_collection_id] = names.filePaths[k];
+		js["animations"][spLittleMario->animation_collection_id] = imgui_animation.filePaths[k];
 
 		std::cout << js.dump(4) << std::endl;
 
 		/*
 		std::ofstream o;
-		o.open(names.filePaths[k]);
+		o.open(imgui_animation.filePaths[k]);
 		o << std::setw(4) << jout << std::endl;
 		o.close()
 
@@ -493,30 +540,20 @@ void ImguiWindows::entityInit()
 			std::ifstream i(tc.second);
 			i >> js;
 
-			imgui_entity.entityfilepaths.emplace_back(js.at("entities_filepath").get<std::string>().c_str());
+			//imgui_entity.entityfilepaths.emplace_back(js.at("entities_filepath").get<std::string>().c_str());
+			imgui_entity.filePaths.emplace_back(tc.second.c_str());
+			imgui_entity.levels.emplace_back(tc.first.c_str());
 		}
 
 	}
 	
 }
-#include "Level.h"
-//----------------------------------------------------------------------------------------------
 
-#define IMGUI_COMPONENT(component) if (current_prefab)\
-{\
-	if (current_prefab->entity_programmable.has<component>())\
-	{\
-		if (ImGui::TreeNode(component::name))\
-		{\
-			ImGuiComponent<component>(current_entity);\
-			ImGui::TreePop();\
-		}\
-	}\
-}
+//----------------------------------------------------------------------------------------------
 
 void ImguiWindows::entityEditor()
 {
-	names.entity->m_Active = false;
+	imgui_animation.entity->m_Active = false;
 	imgui_sprite.entity->m_Active = false;
 
 	static Prefab* current_prefab = nullptr;
@@ -524,71 +561,219 @@ void ImguiWindows::entityEditor()
 
 	static bool saved = false;
 
+	static bool creating_entity = false;
+	static bool selecting_entity = false;
+	static bool selected_entity = false;
+
 	static int j = 0;
-	if (ImGui::Combo("filepath", &j, imgui_entity.entityfilepaths.data(), static_cast<int>(imgui_entity.entityfilepaths.size())))
-	{
-		//should be levels instead of filepaths
-	}
+	ImGui::Combo("level", &j, imgui_entity.filePaths.data(), static_cast<int>(imgui_entity.filePaths.size()));
+
+	ImGui::NewLine();
+	ImGui::Separator();
+	//ImGui::NewLine();
 
 	static int i = 0;
-	if (ImGui::Combo("prefabs", &i, imgui_entity.prefabs.data(), static_cast<int>(imgui_entity.prefabs.size())))
+	if (ImGui::Button("create entity")|| creating_entity)
 	{
-		current_prefab = Game::assets->get<Prefab>(imgui_entity.prefabs[i]);
+		creating_entity = true;
+		selecting_entity = false;
+		selected_entity = false;
+
+		if (ImGui::Combo("prefabs", &i, imgui_entity.prefabs.data(), static_cast<int>(imgui_entity.prefabs.size())))
+		{
+			current_prefab = Game::assets->get<Prefab>(imgui_entity.prefabs[i]);
+			if (!saved)
+			{
+				if (*current_entity) {
+					current_entity->m_Active = false; //will ignore this entity for saving. 
+				}
+			}
+			saved = false;
+
+			current_entity = Game::entity_registry->create();
+			//remove from systems?
+			current_prefab->entity_immutable.clone(*current_entity);
+			current_prefab->entity_programmable.clone(*current_entity);
+			Game::system_registry->addEntityToSystems(current_entity);
+		}
+	}
+
+	ImGui::NewLine();
+	ImGui::Separator();
+	//ImGui::NewLine();
+
+	if (ImGui::Button("select entity") || selecting_entity)
+	{
+		creating_entity = false;
+		selecting_entity = true;
+		selected_entity = false;
+
 		if (!saved)
 		{
 			if (*current_entity) {
-				current_entity->m_Active = false;
+				current_entity->m_Active = false; //will ignore this entity for saving. 
 			}
 		}
-		saved = false;
+		current_entity = { INVALID };
+		saved = true;
 
-		current_entity = Game::entity_registry->create();
-		//remove from systems?
-		current_prefab->entity_immutable.clone(*current_entity);
-		current_prefab->entity_programmable.clone(*current_entity);
-		Game::system_registry->addEntityToSystems(current_entity);
+		if (ImGui::IsMouseClicked(ImGui::GetMouseCursor()))
+		{
+			int mousex = static_cast<int>(ImGui::GetMousePos().x);
+			int mousey = static_cast<int>(ImGui::GetMousePos().y);
+
+			Entity* entity_clickon = nullptr;
+			uint32_t entity_index = 0;
+			uint32_t it = 0;
+
+			Level* level = Game::assets->get<Level>(imgui_entity.levels[j]);
+			for (auto& entity : level->entity_registry.entities)
+			{
+				if (entity.m_Active)
+				{
+					if (entity.has<TransformComponent>() && entity.has<RenderComponent>()
+						&& (entity.has<AnimationComponent>() || entity.has<SpriteComponent>()))
+					{
+						const auto& pos = entity.get<TransformComponent>()->pos;
+						Vector2<int> bounds;
+
+						if (entity.has<AnimationComponent>())
+						{
+							auto animation_component = entity.get<AnimationComponent>();
+							const auto& sprite = Game::assets->get<AnimationCollection>(animation_component->animation_collection_id)->getAnimation(animation_component->currentAnimation)->frames[animation_component->currentFrame].sprite.m_sprite;
+							bounds = static_cast<Vector2<int>>(sprite.getGlobalBounds().getSize());
+						}
+						else if (entity.has<SpriteComponent>())
+						{
+							const auto& sprite = Game::assets->get<Sprite>(entity.get<SpriteComponent>()->spriteId)->m_sprite;
+							bounds = static_cast<Vector2<int>>(sprite.getGlobalBounds().getSize());
+						}
+						//wonder how this changes if i flip sprite
+						if (mousex > pos.x && mousex < pos.x + bounds.x && mousey > pos.y && mousey < pos.y + bounds.y)
+						{
+							if (!entity_clickon)
+							{
+								entity_clickon = &entity;
+								entity_index = it;
+							}
+							else {
+								if (entity.get<RenderComponent>()->layer >= entity_clickon->get<RenderComponent>()->layer)
+								{
+									entity_clickon = &entity;
+									entity_index = it;
+								}
+							}
+						}
+					}
+				}
+				it++;
+			}
+			if (entity_clickon)
+			{
+				current_entity = { entity_index };
+				if(entity_clickon->has<PrefabComponent>())
+				{
+					current_prefab = Game::assets->get<Prefab>(entity_clickon->get<PrefabComponent>()->prefab_id);
+				}
+				else {
+					current_prefab = nullptr;
+				}
+				selected_entity = true;
+			}
+			selecting_entity = false;
+		}
+	}
+
+	if (selected_entity)
+	{
+		if (ImGui::Button("delete entity"))
+		{
+			if (*current_entity)
+			{
+				current_entity->m_Active = false; //maybe entity should have another bool member that states whether or not to save it
+				current_entity = { INVALID };
+				current_prefab = nullptr;
+				selected_entity = false;
+			}
+		}
 	}
 
 	//ZOOM
-	static int zoom = 0;
+	/*static int zoom = 0;
 	const ImS32 s32_one = 1;
 
 	if (ImGui::InputScalar("zoom", ImGuiDataType_S32, &zoom, &s32_one, NULL, "%u"))
 	{
 		Game::current_level->camera->get<CameraComponent>()->zoom = static_cast<float>(pow(2, zoom));
-	}
+	}*/
+	ImGui::NewLine();
+	ImGui::Separator();
 
-	//change scale of all sprites at render
-
+	//move current entity
 	static bool ismoving = false;
 	if (*current_entity)
 	{
 		if (current_entity->has<TransformComponent>())
 		{
+			int mousex = static_cast<int>(ImGui::GetMousePos().x);
+			int mousey = static_cast<int>(ImGui::GetMousePos().y);
+			
 			if (ImGui::Button("move") || ismoving)
 			{
 				ismoving = true;
-				current_entity->get<TransformComponent>()->pos = { static_cast<int>(ImGui::GetMousePos().x), static_cast<int>(ImGui::GetMousePos().y) };
+				current_entity->get<TransformComponent>()->pos = { mousex, mousey };
 
 				if (ImGui::IsMouseClicked(ImGui::GetMouseCursor()))
 				{
 					ismoving = false;
 				}
 			}
+			static std::string mousepos;
+			mousepos = std::string("mouse position: (") + std::to_string(mousex) + std::string(", ") + std::to_string(mousey) + ")";
+			ImGui::Text(mousepos.c_str());
+			
 		}
 	}
 
 	IMGUI_COMPONENT(AnimationComponent);
 	IMGUI_COMPONENT(SpriteComponent);
 	IMGUI_COMPONENT(TransformComponent);
-	//IMGUI_COMPONENT(RenderComponent);
-	//IMGUI_COMPONENT(CameraComponent);
+	IMGUI_COMPONENT(RenderComponent);
+	//IMGUI_COMPONENT(CameraComponent); //shouldn't be able to edit camera component from editor because theres no way to select it(invisible)
 
-	if (ImGui::Button("Save?"))
+	ImGui::NewLine();
+	ImGui::Separator();
+
+	if (ImGui::Button("Save"))
 	{
 		//to_json currentEntity
+		json js;
+		std::ifstream is(imgui_entity.filePaths[j]);
+		is >> js;
+
+		Level* level = Game::assets->get<Level>(imgui_entity.levels[j]);
+		json jlevel;
+
+		for (auto& entity : level->entity_registry.entities)
+		{
+			if (entity.m_Active)
+			{
+				jlevel["entities"].push_back(entity);
+			}
+		}
+
+		std::cout << jlevel.dump(4) << std::endl;
+
+		std::ofstream o;
+		o.open(js.at("entities_filepath").get<std::string>());
+		o << std::setw(4) << jlevel << std::endl;
+		o.close();
+
 		saved = true;
 	}
+
+	ImGui::NewLine();
+	ImGui::Separator();
 
 
 }
