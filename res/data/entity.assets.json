@@ -12,7 +12,7 @@
 					"currentAnimation": "littlemario_walk"
 				},
 				"TransformComponent": {
-					"pos": [50, 80],
+					"pos": [0, 0],
 					"rotationz": 0
 				}
 			}

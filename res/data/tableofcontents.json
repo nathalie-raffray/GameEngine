@@ -1,7 +1,8 @@
 {
     "animations": {
         "littlemario": "../res/data/littlemario.animations.json",
-        "mushroommario": "../res/data/mushroommario.animations.json"
+        "mushroommario": "../res/data/mushroommario.animations.json",
+        "testeranimations": "../res/data/test.animations.json"
     },
     "input": {
         "inputconfig": "../res/data/inputconfig.json"

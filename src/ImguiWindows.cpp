@@ -49,7 +49,7 @@ void ImguiWindows::update()
 		animationEditor();
 		break;
 	case 2:
-		entityEditor();
+		levelEditor();
 		break;
 	}
 
@@ -194,6 +194,8 @@ void ImguiWindows::spriteEditor()
 
 		std::cout << jout.dump(4) << std::endl;
 
+		//if remove sprite then must remove from table of contents too...
+
 		std::ofstream o;
 		o.open(imgui_sprite.filePaths[i]);
 		o << std::setw(4) << jout << std::endl;
@@ -322,6 +324,10 @@ void ImguiWindows::animationEditor()
 		}
 	}
 
+	if (creatingNewFile) {
+		return;
+	}
+	ImGui::Separator();
 	//Choose Animation
 	if (ImGui::Combo("animation", &i, animationNames.data(), static_cast<int>(animationNames.size())) || changeAnimation)
 	{
@@ -393,7 +399,6 @@ void ImguiWindows::animationEditor()
 	ImGui::Separator();
 	if (currentAnimationCollection->animations.size() == 0)
 	{
-		ImGui::End();
 		return;
 	}
 	static const char* modes[] = { "loop", "one time", "ping pong" };
@@ -438,6 +443,9 @@ void ImguiWindows::animationEditor()
 			for (int ii = 0; ii < difference; ++ii)
 			{
 				frames.emplace_back(); 
+				frames[(frames.size() - 1)].duration = 100;
+				frames[(frames.size() - 1)].sprite.scale = 1;
+				frames[(frames.size() - 1)].sprite.texRect = { 0,0,50,50 };
 				l.emplace_back(0);
 			}
 		}
@@ -451,6 +459,33 @@ void ImguiWindows::animationEditor()
 		}
 		numFrames = newNumFrames;
 	}
+	ImGui::Separator();
+
+	/*static float shared_scale = 0;
+	static float shared_duration = 0;
+	if (ImGui::TreeNode("change duration/scale for all frames"))
+	{
+		if (ImGui::InputFloat("scale", &shared_scale))
+		{
+			for (int n = 0; n < numFrames; n++)
+			{
+				AnimationFrame& currFrame = currentAnimationCollection->animations[currentAnimation]->frames[n];
+				Sprite& currSprite = currFrame.sprite;
+				currSprite.scale = shared_scale;
+			}
+		}
+
+		if (ImGui::InputFloat("duration", &shared_duration))
+		{
+			for (int n = 0; n < numFrames; n++)
+			{
+				AnimationFrame& currFrame = currentAnimationCollection->animations[currentAnimation]->frames[n];
+				currFrame.duration = shared_duration;
+			}
+		}
+		ImGui::TreePop();
+	}
+	*/
 	ImGui::Separator();
 
 	l.resize(numFrames);
@@ -492,7 +527,7 @@ void ImguiWindows::animationEditor()
 
 	//Save Changes 
 
-	if (ImGui::Button("Save?"))
+	if (ImGui::Button("Save"))
 	{
 		json jout;
 		jout = *currentAnimationCollection;
@@ -500,38 +535,36 @@ void ImguiWindows::animationEditor()
 
 		std::cout << jout.dump(4) << std::endl;
 
-		json js;
-		std::ifstream is("../res/data/tableofcontents.json");
-		is >> js;
+		json jtoc;
+		std::ifstream is(toc_filepath);
+		is >> jtoc;
 
-		js["animations"][spLittleMario->animation_collection_id] = imgui_animation.filePaths[k];
+		jtoc["animations"][spLittleMario->animation_collection_id] = imgui_animation.filePaths[k];
 
-		std::cout << js.dump(4) << std::endl;
-
-		/*
+		std::cout << jtoc.dump(4) << std::endl;
+		
 		std::ofstream o;
 		o.open(imgui_animation.filePaths[k]);
 		o << std::setw(4) << jout << std::endl;
-		o.close()
+		o.close();
 
-		o.open(../res/data/tableofcontents.json);
-		o << std::setw(4) << js << std::endl;
-		o.close()
-		*/
+		std::ofstream otoc;
+		otoc.open(toc_filepath);
+		otoc << std::setw(4) << jtoc << std::endl;
+		otoc.close();
 	}
 
-	//ImGui::End();
 }
 
 //----------------------------------------------------------------------------------------------
 
-void ImguiWindows::entityInit()
+void ImguiWindows::levelInit()
 {
 	for (auto& tc : Game::assets->table_of_contents)
 	{
 		if (tc.second.find("entity.assets.json") != -1)
 		{
-			imgui_entity.prefabs.emplace_back(tc.first.c_str());
+			imgui_level.prefabs.emplace_back(tc.first.c_str());
 		}
 
 		if (tc.second.find("level.json") != -1)
@@ -540,9 +573,9 @@ void ImguiWindows::entityInit()
 			std::ifstream i(tc.second);
 			i >> js;
 
-			//imgui_entity.entityfilepaths.emplace_back(js.at("entities_filepath").get<std::string>().c_str());
-			imgui_entity.filePaths.emplace_back(tc.second.c_str());
-			imgui_entity.levels.emplace_back(tc.first.c_str());
+			//imgui_level.entityfilepaths.emplace_back(js.at("entities_filepath").get<std::string>().c_str());
+			imgui_level.filePaths.emplace_back(tc.second.c_str());
+			imgui_level.levels.emplace_back(tc.first.c_str());
 		}
 
 	}
@@ -551,7 +584,7 @@ void ImguiWindows::entityInit()
 
 //----------------------------------------------------------------------------------------------
 
-void ImguiWindows::entityEditor()
+void ImguiWindows::levelEditor()
 {
 	imgui_animation.entity->m_Active = false;
 	imgui_sprite.entity->m_Active = false;
@@ -566,7 +599,7 @@ void ImguiWindows::entityEditor()
 	static bool selected_entity = false;
 
 	static int j = 0;
-	ImGui::Combo("level", &j, imgui_entity.filePaths.data(), static_cast<int>(imgui_entity.filePaths.size()));
+	ImGui::Combo("level", &j, imgui_level.filePaths.data(), static_cast<int>(imgui_level.filePaths.size()));
 
 	ImGui::NewLine();
 	ImGui::Separator();
@@ -579,9 +612,9 @@ void ImguiWindows::entityEditor()
 		selecting_entity = false;
 		selected_entity = false;
 
-		if (ImGui::Combo("prefabs", &i, imgui_entity.prefabs.data(), static_cast<int>(imgui_entity.prefabs.size())))
+		if (ImGui::Combo("prefabs", &i, imgui_level.prefabs.data(), static_cast<int>(imgui_level.prefabs.size())))
 		{
-			current_prefab = Game::assets->get<Prefab>(imgui_entity.prefabs[i]);
+			current_prefab = Game::assets->get<Prefab>(imgui_level.prefabs[i]);
 			if (!saved)
 			{
 				if (*current_entity) {
@@ -626,7 +659,7 @@ void ImguiWindows::entityEditor()
 			uint32_t entity_index = 0;
 			uint32_t it = 0;
 
-			Level* level = Game::assets->get<Level>(imgui_entity.levels[j]);
+			Level* level = Game::assets->get<Level>(imgui_level.levels[j]);
 			for (auto& entity : level->entity_registry.entities)
 			{
 				if (entity.m_Active)
@@ -748,10 +781,10 @@ void ImguiWindows::entityEditor()
 	{
 		//to_json currentEntity
 		json js;
-		std::ifstream is(imgui_entity.filePaths[j]);
+		std::ifstream is(imgui_level.filePaths[j]);
 		is >> js;
 
-		Level* level = Game::assets->get<Level>(imgui_entity.levels[j]);
+		Level* level = Game::assets->get<Level>(imgui_level.levels[j]);
 		json jlevel;
 
 		for (auto& entity : level->entity_registry.entities)

@@ -1,0 +1,41 @@
+{
+    "animationCollectionId": "testeranimations",
+    "animations": [
+        {
+            "animationId": "testty",
+            "mode": "loop",
+            "sprites": [
+                {
+                    "duration": 10.0,
+                    "scale": 1.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "marioluigi",
+                    "texRect": [
+                        0,
+                        0,
+                        200,
+                        200
+                    ]
+                },
+                {
+                    "duration": 10.0,
+                    "scale": 1.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "marioluigi",
+                    "texRect": [
+                        1,
+                        1,
+                        200,
+                        200
+                    ]
+                }
+            ]
+        }
+    ]
+}

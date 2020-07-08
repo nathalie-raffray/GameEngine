@@ -279,9 +279,6 @@
     <ClInclude Include="..\src\Camera.h">
       <Filter>systems</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ImguiEntityEditor.h">
-      <Filter>imgui_debug</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\PlayerController.h">
       <Filter>systems</Filter>
     </ClInclude>

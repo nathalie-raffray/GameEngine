@@ -31,7 +31,7 @@ struct ImguiAnimation
 	EntityHandle entity;
 };
 
-struct ImguiEntity
+struct ImguiLevel
 {
 	std::vector<const char*> prefabs;
 	std::vector<const char*> filePaths;
@@ -45,7 +45,7 @@ public:
 
 	ImguiSprite imgui_sprite;
 	ImguiAnimation imgui_animation;
-	ImguiEntity imgui_entity;
+	ImguiLevel imgui_level;
 
 public:
 
@@ -55,7 +55,7 @@ public:
 	{
 		spriteInit();
 		animationInit();
-		entityInit();
+		levelInit();
 	}
 
 	void update();
@@ -68,8 +68,8 @@ private:
 	void animationInit();
 	void animationEditor();
 
-	void entityInit();
-	void entityEditor();
+	void levelInit();
+	void levelEditor();
 
 };
 

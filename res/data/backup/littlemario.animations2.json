@@ -1,4 +1,6 @@
 {
+    "loadType" : "animations",
+
     "animationCollectionId": "littlemario",
     "animations": [
         {
@@ -6,7 +8,7 @@
             "mode": "loop",
             "sprites": [
                 {
-                    "duration": 500.0,
+                    "duration": 100.0,
                     "scale": 15.0,
                     "screenOffset": [
                         0,
@@ -54,6 +56,7 @@
         },
         {
             "animationId": "littlemario_swim",
+            "layer" : 1,
             "mode": "ping pong",
             "sprites": [
                 {
@@ -65,23 +68,8 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        217,
-                        16,
-                        16,
-                        16
-                    ]
-                },
-                {
-                    "duration": 100.0,
-                    "scale": 5.0,
-                    "screenOffset": [
-                        20,
-                        20
-                    ],
-                    "texId": "marioluigi",
-                    "texRect": [
-                        235,
-                        16,
+                        216,
+                        15,
                         16,
                         16
                     ]
@@ -95,8 +83,8 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        253,
-                        16,
+                        234,
+                        15,
                         16,
                         16
                     ]
@@ -110,97 +98,25 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        271,
-                        16,
+                        252,
+                        15,
                         16,
                         16
                     ]
-                }
-            ]
-        },
-        {
-            "animationId": "littlemario_test",
-            "mode": "loop",
-            "sprites": [
-                {
-                    "duration": 100.0,
-                    "scale": 1.0,
-                    "screenOffset": [
-                        0,
-                        0
-                    ],
-                    "texId": "stagetiles",
-                    "texRect": [
-                        2,
-                        2,
-                        200,
-                        200
-                    ]
                 },
                 {
                     "duration": 100.0,
-                    "scale": 1.0,
-                    "screenOffset": [
-                        0,
-                        0
-                    ],
-                    "texId": "stagetiles",
-                    "texRect": [
-                        3,
-                        3,
-                        200,
-                        200
-                    ]
-                }
-            ]
-        },
-        {
-            "animationId": "littlemario_test2",
-            "mode": "loop",
-            "sprites": [
-                {
-                    "duration": 200.0,
                     "scale": 5.0,
                     "screenOffset": [
-                        0,
-                        0
+                        20,
+                        20
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        80,
-                        80,
-                        50,
-                        50
-                    ]
-                },
-                {
-                    "duration": 200.0,
-                    "scale": 5.0,
-                    "screenOffset": [
-                        0,
-                        0
-                    ],
-                    "texId": "marioluigi",
-                    "texRect": [
-                        0,
-                        0,
-                        50,
-                        50
-                    ]
-                },
-                {
-                    "duration": 200.0,
-                    "scale": 5.0,
-                    "screenOffset": [
-                        0,
-                        0
-                    ],
-                    "texId": "marioluigi",
-                    "texRect": [
-                        0,
-                        0,
-                        50,
-                        50
+                        270,
+                        15,
+                        16,
+                        16
                     ]
                 }
             ]

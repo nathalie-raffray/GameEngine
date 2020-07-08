@@ -8,14 +8,10 @@ struct EntityHandle;
 class EntityRegistry
 {
 public:
-	//friend struct EntityHandle;
-	//friend class Level;
 
 	~EntityRegistry();
 	  
 	EntityHandle create();
-
-	//void remove(EntityHandle h);
 
 	void update();
 

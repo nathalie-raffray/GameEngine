@@ -54,13 +54,15 @@ bool AnimationCollection::load(const std::string& filePath)
 	//}
 }*/
 
+//----------------------------------------------------------------------------------------------
+
 void to_json(json& j, const AnimationCollection& ac)
 {
-	j["loadType"] = "animations";
+	//j["loadType"] = "animations";
 	int i = 0;
 	for (auto& animation : ac.animations)
 	{
-		j["animations"][i] = *animation.second;
+		j["animations"][i] = *animation.second.get();
 		j["animations"][i]["animationId"] = animation.first;
 		i++;
 	}
