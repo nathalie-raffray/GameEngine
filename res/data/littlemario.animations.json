@@ -7,47 +7,78 @@
             "sprites": [
                 {
                     "duration": 500.0,
-                    "scale": 15.0,
                     "screenOffset": [
                         0,
                         0
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        1,
+                        17,
                         16,
-                        16,
+                        -16,
                         16
                     ]
                 },
                 {
                     "duration": 100.0,
-                    "scale": 15.0,
                     "screenOffset": [
                         0,
                         0
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        19,
+                        35,
                         16,
-                        16,
+                        -16,
                         16
                     ]
                 },
                 {
                     "duration": 200.0,
-                    "scale": 15.0,
                     "screenOffset": [
                         0,
                         0
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        19,
+                        35,
                         16,
-                        16,
+                        -16,
                         16
+                    ]
+                }
+            ]
+        },
+        {
+            "animationId": "littlemario_test",
+            "mode": "loop",
+            "sprites": [
+                {
+                    "duration": 100.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        2,
+                        2,
+                        200,
+                        200
+                    ]
+                },
+                {
+                    "duration": 100.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        3,
+                        3,
+                        200,
+                        200
                     ]
                 }
             ]
@@ -58,7 +89,6 @@
             "sprites": [
                 {
                     "duration": 100.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         20,
                         20
@@ -73,7 +103,6 @@
                 },
                 {
                     "duration": 100.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         20,
                         20
@@ -88,7 +117,6 @@
                 },
                 {
                     "duration": 100.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         20,
                         20
@@ -103,7 +131,6 @@
                 },
                 {
                     "duration": 100.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         20,
                         20
@@ -119,48 +146,11 @@
             ]
         },
         {
-            "animationId": "littlemario_test",
-            "mode": "loop",
-            "sprites": [
-                {
-                    "duration": 100.0,
-                    "scale": 1.0,
-                    "screenOffset": [
-                        0,
-                        0
-                    ],
-                    "texId": "stagetiles",
-                    "texRect": [
-                        2,
-                        2,
-                        200,
-                        200
-                    ]
-                },
-                {
-                    "duration": 100.0,
-                    "scale": 1.0,
-                    "screenOffset": [
-                        0,
-                        0
-                    ],
-                    "texId": "stagetiles",
-                    "texRect": [
-                        3,
-                        3,
-                        200,
-                        200
-                    ]
-                }
-            ]
-        },
-        {
             "animationId": "littlemario_test2",
             "mode": "loop",
             "sprites": [
                 {
                     "duration": 200.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         0,
                         0
@@ -175,7 +165,6 @@
                 },
                 {
                     "duration": 200.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         0,
                         0
@@ -190,7 +179,6 @@
                 },
                 {
                     "duration": 200.0,
-                    "scale": 5.0,
                     "screenOffset": [
                         0,
                         0

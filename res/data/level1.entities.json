@@ -7,12 +7,12 @@
                     640
                 ],
                 "screenCoord0": [
-                    -5,
-                    -1
+                    -1,
+                    -2
                 ],
                 "screenCoord1": [
-                    2495,
-                    2499
+                    2499,
+                    2498
                 ],
                 "zoom": 1.0
             }
@@ -22,17 +22,30 @@
                 "animation_collection_id": "littlemario",
                 "currentAnimation": "littlemario_swim"
             },
+            "ColliderComponent": {
+                "is_trigger": false
+            },
             "PlayerComponent": {
                 "speed": 5.0
             },
             "PrefabComponent": {
                 "prefab_id": "marioPrefab"
             },
+            "RigidBodyComponent": {
+                "direction": true,
+                "fall_type": "discrete",
+                "is_kinematic": false,
+                "velocity": [
+                    0.0,
+                    0.0
+                ]
+            },
             "TransformComponent": {
                 "pos": [
-                    270,
-                    205
-                ]
+                    109,
+                    113
+                ],
+                "scale": 5.0
             }
         },
         {
@@ -40,17 +53,33 @@
                 "animation_collection_id": "littlemario",
                 "currentAnimation": "littlemario_walk"
             },
+            "ColliderComponent": {
+                "is_trigger": true
+            },
             "PrefabComponent": {
                 "prefab_id": "marioPrefab"
             },
+            "RigidBodyComponent": {
+                "direction": true,
+                "fall_type": "discrete",
+                "is_kinematic": false,
+                "velocity": [
+                    0.0,
+                    0.0
+                ]
+            },
             "TransformComponent": {
                 "pos": [
-                    328,
-                    377
-                ]
+                    332,
+                    5263766
+                ],
+                "scale": 1.0
             }
         },
         {
+            "ColliderComponent": {
+                "is_trigger": false
+            },
             "PrefabComponent": {
                 "prefab_id": "staticSpritePrefab"
             },
@@ -60,9 +89,29 @@
             },
             "TransformComponent": {
                 "pos": [
-                    206,
-                    23
-                ]
+                    210,
+                    22
+                ],
+                "scale": 1.0
+            }
+        },
+        {
+            "ColliderComponent": {
+                "is_trigger": false
+            },
+            "PrefabComponent": {
+                "prefab_id": "staticSpritePrefab"
+            },
+            "RenderComponent": null,
+            "SpriteComponent": {
+                "spriteId": "test2"
+            },
+            "TransformComponent": {
+                "pos": [
+                    103,
+                    214
+                ],
+                "scale": 1.0
             }
         },
         {
@@ -72,21 +121,10 @@
             },
             "TransformComponent": {
                 "pos": [
-                    99,
-                    215
-                ]
-            }
-        },
-        {
-            "RenderComponent": null,
-            "SpriteComponent": {
-                "spriteId": "test2"
-            },
-            "TransformComponent": {
-                "pos": [
-                    389,
-                    50
-                ]
+                    393,
+                    49
+                ],
+                "scale": 1.0
             }
         },
         {
@@ -99,9 +137,57 @@
             },
             "TransformComponent": {
                 "pos": [
-                    50,
-                    378
+                    54,
+                    377
+                ],
+                "scale": 1.0
+            }
+        },
+        {
+            "AnimationComponent": {
+                "animation_collection_id": "littlemario",
+                "currentAnimation": "littlemario_walk"
+            },
+            "ColliderComponent": {
+                "is_trigger": true
+            },
+            "PrefabComponent": {
+                "prefab_id": "marioPrefab"
+            },
+            "RigidBodyComponent": {
+                "direction": true,
+                "fall_type": "discrete",
+                "is_kinematic": false,
+                "velocity": [
+                    0.0,
+                    0.0
                 ]
+            },
+            "TransformComponent": {
+                "pos": [
+                    4,
+                    -1
+                ],
+                "scale": 5.0
+            }
+        },
+        {
+            "ColliderComponent": {
+                "is_trigger": false
+            },
+            "PrefabComponent": {
+                "prefab_id": "staticSpritePrefab"
+            },
+            "RenderComponent": null,
+            "SpriteComponent": {
+                "spriteId": "tree"
+            },
+            "TransformComponent": {
+                "pos": [
+                    4,
+                    -1
+                ],
+                "scale": 1.0
             }
         }
     ]

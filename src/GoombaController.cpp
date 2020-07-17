@@ -11,8 +11,8 @@ void GoombaController::update(float dt)
 
 }
 
-void GoombaController::handle(const ColliderEvent& event) 
-{
+//void GoombaController::handle(const ColliderEvent& event) 
+//{
 	//if(event.collider1 belong to m_entites && event.collider2.is_active())
 	//else if(event.collider2 belong to m_entities && event.collider1.is_active())
 	
@@ -33,6 +33,6 @@ void GoombaController::handle(const ColliderEvent& event)
 
 	//else if one or two entities is goomba 
 	//then change direction goomba was walking in
-}
+//}
 
 

@@ -1,0 +1,57 @@
+{
+	"entities": [
+		{
+			"CameraComponent": {
+				"aspectRatio": [720, 640],
+				"screenCoord0": [0, 0],
+				"screenCoord1": [2500, 2500],
+				"zoom" : 1
+			}
+		},
+		{
+			"PrefabComponent": {
+				"prefab_id": "marioPrefab"
+			},
+			"AnimationComponent": {
+				"animation_collection_id": "littlemario",
+				"currentAnimation": "littlemario_swim"
+			},
+			"TransformComponent": {
+				"pos": [20, 20]
+			},
+			"PlayerComponent": {
+				"speed": 5
+			}, 
+			"RenderComponent":{
+				"layer": 4
+			},
+			"ColliderComponent":{
+				"is_trigger" : true
+			},
+			"RigidBodyComponent":{
+				"direction":true,
+				"fall_type":"continuous"
+			}
+		}, 
+		{
+			"PrefabComponent": {
+				"prefab_id": "marioPrefab"
+			},
+			"TransformComponent": {
+				"pos": [0, 0]
+			}
+		},
+		{
+			"PrefabComponent": {
+				"prefab_id": "staticSpritePrefab"
+			},
+			"TransformComponent": {
+				"pos": [0, 0]
+			},
+			"SpriteComponent": {
+				"spriteId": "test"
+			},
+			"RenderComponent": null
+		}
+	]
+}

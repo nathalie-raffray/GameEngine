@@ -3,13 +3,13 @@
 #include "AnimationCollection.h"
 #include "Game.h"
 #include "AssetStorage.h"
+#include "Level.h"
 
 #include <iostream>
 
 bool Camera::isValid(EntityHandle eh) const
 {
-	return (((eh->has<SpriteComponent>() || eh->has<AnimationComponent>()) && eh->has<TransformComponent>()) 
-		|| eh->has<CameraComponent>());
+	return ((eh->has<SpriteComponent>() || eh->has<AnimationComponent>()) && eh->has<TransformComponent>());
 }
 
 void Camera::init(EntityHandle eh)
@@ -18,23 +18,19 @@ void Camera::init(EntityHandle eh)
 	{
 		player = eh;
 	}
-	if (eh->has<CameraComponent>()) {
-		camera = eh;
-		m_entities.pop_back();
-	}
 }
 
 void Camera::update(float)
 {
 	//static_assert(player and camera is not INVALID)
-	auto camera_component = camera->get<CameraComponent>();
+	auto camera_component = Game::current_level->camera->get<CameraComponent>();
 	const Vector2<int> aspectRatio = static_cast<Vector2<int>>(camera_component->aspectRatio);
 	
 	auto animation_component = player->get<AnimationComponent>();
 	const auto& sprite = Game::assets->get<AnimationCollection>(animation_component->animation_collection_id)->getAnimation(animation_component->currentAnimation)->frames[animation_component->currentFrame].sprite.m_sprite;
 	const Vector2<int> playerBounds = static_cast<Vector2<int>>(sprite.getGlobalBounds().getSize());
 
-	Vector2<int>& playerPos = player->get<TransformComponent>()->pos;
+	Vector2<int>& playerPos = player->get<TransformComponent>()->new_pos;
 
 	const Vector2<int> displacement = (playerPos + playerBounds / 2) - aspectRatio / 2;
 
@@ -50,7 +46,7 @@ void Camera::update(float)
 		for (auto e : m_entities)
 		{
 			auto transform = e->get<TransformComponent>();
-			transform->pos.x -= displacement.x;
+			transform->new_pos.x -= displacement.x;
 		}
 	}
 	//player must stay within the x bounds of the camera
@@ -73,7 +69,7 @@ void Camera::update(float)
 		for (auto e : m_entities)
 		{
 			auto transform = e->get<TransformComponent>();
-			transform->pos.y -= displacement.y;
+			transform->new_pos.y -= displacement.y;
 		}
 
 	}
@@ -85,6 +81,13 @@ void Camera::update(float)
 	else if (playerPos.y + playerBounds.y > camera_component->screenCoord1.y)
 	{
 		playerPos.y = camera_component->screenCoord1.y - playerBounds.y;
+	}
+
+	for (auto e : m_entities)
+	{
+		auto transform = e->get<TransformComponent>();
+		//now collision detection and resolution on newpos has been performed in previous iteration, so just had to adjust to fit the camera, and can now update all positions. 
+		transform->pos = transform->new_pos;
 	}
 
 }

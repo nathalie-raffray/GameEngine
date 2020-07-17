@@ -21,13 +21,15 @@ bool Level::load(const std::string& filePath)
 	Game::current_level = { id };
 	//*Game::current_level = js;
 
-	//register systems
-	ADD_SYSTEM(AnimationSystem);
+	//register systems, the order determines the order of execution in game loop
+	ADD_SYSTEM(Camera); //camera changes new_pos in relation to camera to center the player in middle of screen. makes pos=new_pos for each entity rendered. 
+	ADD_SYSTEM(AnimationSystem); 
 	ADD_SYSTEM(GoombaController);
-	ADD_SYSTEM(CollisionSystem);
-	ADD_SYSTEM(PlayerController);
-	ADD_SYSTEM(Camera);
-	ADD_SYSTEM(RenderingSystem);
+	ADD_SYSTEM(PlayerController); //velocity may be changed. 
+	ADD_SYSTEM(RigidbodyPhysics); //new_pos is calculated for all rigidbodies according to velocity. 
+	ADD_SYSTEM(CollisionSystem); //checks if new_pos of each entity causes collision, and throws collision events. 
+	ADD_SYSTEM(RenderingSystem); //renders each sprite according to pos.
+								//next step in game loop is event handling. new_pos of each entity is resolved according to collisions. 
 
 	//add entities
 	std::ifstream i2(js.at("entities_filepath").get<std::string>());

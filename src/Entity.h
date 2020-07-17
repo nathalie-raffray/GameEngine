@@ -9,12 +9,13 @@
 #include "PlayerComponent.h"
 #include "RenderComponent.h"
 #include "PrefabComponent.h"
+#include "RigidBodyComponent.h"
 
 /* TENTITY */
 #include "TEntity.h"
 
 using Entity = TEntity<AnimationComponent, SpriteComponent, ColliderComponent, TransformComponent, CameraComponent,
-	PlayerComponent, RenderComponent, PrefabComponent>;
+	PlayerComponent, RenderComponent, PrefabComponent, RigidBodyComponent>;
 
 /* ENTITY REGISTRY */
 #include "EntityRegistry.h"

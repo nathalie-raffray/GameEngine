@@ -4,30 +4,48 @@
 
 bool PlayerController::isValid(EntityHandle h) const
 {
-	return (h->has<PlayerComponent>() && h->has<TransformComponent>());
+	return (h->has<PlayerComponent>() && h->has<TransformComponent>() && h->has<RigidBodyComponent>());
 }
 
 void PlayerController::update(float dt)
 {
 	for (auto& entity : m_entities)
 	{
-		auto transform = entity->get<TransformComponent>();
+		auto rigidbody = entity->get<RigidBodyComponent>();
 
+		//FRICTION
+		if (rigidbody->velocity.x > 0)
+		{
+			rigidbody->velocity.x = std::max<float>(rigidbody->velocity.x - 4, 0);
+		}
+		else {
+			rigidbody->velocity.x = std::min<float>(rigidbody->velocity.x + 4, 0);
+		}
+		if (rigidbody->velocity.y > 0)
+		{
+			rigidbody->velocity.y = std::max<float>(rigidbody->velocity.y - 4, 0);
+		}
+		else {
+			rigidbody->velocity.y = std::min<float>(rigidbody->velocity.y + 4, 0);
+		}
+
+		//MOVE MARIO
 		if (ActionSystem::getActionValue(Right))
 		{
-			transform->pos.x += 5;
+			rigidbody->velocity.x += 5;
 		}
 		if (ActionSystem::getActionValue(Left))
 		{
-			transform->pos.x -= 5;
+			rigidbody->velocity.x -= 5;
 		}
 		if (ActionSystem::getActionValue(Up))
 		{
-			transform->pos.y -= 5;
+			rigidbody->velocity.y -= 5;
 		}
 		if (ActionSystem::getActionValue(Down))
 		{
-			transform->pos.y += 5;
+			rigidbody->velocity.y += 5;
 		}
+		
 	}
 }

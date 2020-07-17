@@ -5,6 +5,8 @@
 #include "AssetStorage.h"
 #include "Level.h"
 
+//----------------------------------------------------------------------------------------------
+
 void SystemRegistry::addEntityToSystems(EntityHandle e)
 {
 	for (auto& s : systems)
@@ -12,6 +14,8 @@ void SystemRegistry::addEntityToSystems(EntityHandle e)
 		s->add(e);
 	}
 }
+
+//----------------------------------------------------------------------------------------------
 
 void SystemRegistry::update(float dt)
 {
@@ -25,7 +29,11 @@ void SystemRegistry::update(float dt)
 	}
 }
 
+//----------------------------------------------------------------------------------------------
+
 SystemRegistry* SystemRegistryHandle::operator->() const
 {
 	return &Game::assets->get<Level>(Game::current_level.level_id)->system_registry;
 }
+
+//----------------------------------------------------------------------------------------------

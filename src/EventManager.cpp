@@ -12,14 +12,11 @@ events<event_type>.clear();
 
 void EventManager::process_events()
 {
-	HANDLE(ColliderEvent);
-	HANDLE(PauseEvent);
-	/*for (auto event : events<ColliderEvent>)
-	{
-		for (auto& listener : listeners<ColliderEvent>)
-		{
-			listener->handle(event);
-		}
-	}
-	events<ColliderEvent>.clear();*/
+	HANDLE(static_dynamic_collision);
+	HANDLE(static_triggerdynamic_collision);
+	HANDLE(triggerstatic_dynamic_collision);
+	HANDLE(kinematic_collision);
+	HANDLE(dynamic_dynamic_collision);
+
+	HANDLE(pause);
 }

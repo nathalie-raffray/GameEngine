@@ -14,6 +14,7 @@ class AssetStorage
 {
 public:
 	AssetMap assets;
+	std::unordered_map<AssetId, std::string> table_of_contents;
 
 public:
 	friend class ImguiWindows;
@@ -24,9 +25,6 @@ public:
 	template<typename T> T* get(const AssetId& id);
 
 	void remove(const AssetId& id);
-
-private:
-	std::unordered_map<AssetId, std::string> table_of_contents;
 
 };
 

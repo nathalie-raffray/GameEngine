@@ -13,19 +13,31 @@
 				},
 				"TransformComponent": {
 					"pos": [0, 0],
-					"rotationz": 0
+					"rotationz": 0, 
+					"scale": 5
+				},
+	            "ColliderComponent":{
+					"is_trigger" : true
+				}, 
+				"RigidBodyComponent":{
+					"velocity" : [0,0],
+					"fall_type" : "discrete", 
+					"is_kinematic" : false,
+					"direction" : true
 				}
 			}
 		},
 		{
 			"prefabId": "staticSpritePrefab",
 			"immutable_components": {
-				"ColliderComponent": {}
 			},
 			"programmable_components": {
 				"TransformComponent": {},
 				"SpriteComponent": {
 					"spriteId" : "tree"
+				},
+				"ColliderComponent":{
+					"is_trigger" : false
 				},
 				"RenderComponent": {}
 			}

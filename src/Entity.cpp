@@ -12,6 +12,8 @@ void to_json(json& j, const Entity& entity)
 	TOJSON(RenderComponent);
 	TOJSON(PlayerComponent);
 	TOJSON(CameraComponent);
+	TOJSON(RigidBodyComponent);
+	TOJSON(ColliderComponent);
 
 }
 
@@ -24,6 +26,7 @@ void from_json(const json& j, Entity& entity)
 	FROMJSON(RenderComponent);
 	FROMJSON(PlayerComponent);
 	FROMJSON(CameraComponent);
-	
+	FROMJSON(RigidBodyComponent);
+	FROMJSON(ColliderComponent);
 
 }

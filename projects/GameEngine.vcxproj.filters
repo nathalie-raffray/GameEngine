@@ -38,9 +38,6 @@
     <Filter Include="components">
       <UniqueIdentifier>{a7e070ba-00cd-4b62-90a6-365d449eda9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="event_system\action_system">
-      <UniqueIdentifier>{473fffd8-55ab-45cb-a958-a6942dc56a74}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utilities">
       <UniqueIdentifier>{0c8bb54d-97d1-4b4b-9ab6-c6f2e7b2c145}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,12 @@
     </Filter>
     <Filter Include="assets\animation">
       <UniqueIdentifier>{e6f1668f-0681-4f11-89aa-97c99909cdd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="action_system">
+      <UniqueIdentifier>{d4e5c364-890f-44f2-a906-53a31ab705f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="systems\physics">
+      <UniqueIdentifier>{a7cb4c10-c146-4b59-9174-d8865baa08b2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,9 +109,6 @@
     <ClCompile Include="..\src\Listener.cpp">
       <Filter>event_system</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ColliderEvent.cpp">
-      <Filter>event_system\events</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\EventManager.cpp">
       <Filter>event_system</Filter>
     </ClCompile>
@@ -118,17 +118,8 @@
     <ClCompile Include="..\src\RenderingSystem.cpp">
       <Filter>systems</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ActionEnum.cpp">
-      <Filter>event_system\action_system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ActionSystem.cpp">
-      <Filter>event_system\action_system</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Camera.cpp">
       <Filter>systems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Input.cpp">
-      <Filter>event_system\action_system</Filter>
     </ClCompile>
     <ClCompile Include="..\src\PlayerController.cpp">
       <Filter>systems</Filter>
@@ -144,6 +135,18 @@
     </ClCompile>
     <ClCompile Include="..\src\Texture.cpp">
       <Filter>assets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ActionEnum.cpp">
+      <Filter>action_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ActionSystem.cpp">
+      <Filter>action_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Input.cpp">
+      <Filter>action_system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RigidbodyPhysics.cpp">
+      <Filter>systems\physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -234,9 +237,6 @@
     <ClInclude Include="..\src\PauseEvent.h">
       <Filter>event_system\events</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ColliderEvent.h">
-      <Filter>event_system\events</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\CustomEvent.h">
       <Filter>event_system\events</Filter>
     </ClInclude>
@@ -255,17 +255,8 @@
     <ClInclude Include="..\src\AnimationComponent.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Input.h">
-      <Filter>event_system\action_system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ActionSystem.h">
-      <Filter>event_system\action_system</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\EnumFactory.h">
       <Filter>utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ActionEnum.h">
-      <Filter>event_system\action_system</Filter>
     </ClInclude>
     <ClInclude Include="..\src\TransformComponent.h">
       <Filter>components</Filter>
@@ -308,6 +299,24 @@
     </ClInclude>
     <ClInclude Include="..\src\Texture.h">
       <Filter>assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ActionEnum.h">
+      <Filter>action_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ActionSystem.h">
+      <Filter>action_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Input.h">
+      <Filter>action_system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RigidBodyComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RigidbodyPhysics.h">
+      <Filter>systems\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CollisionEvents.h">
+      <Filter>event_system\events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

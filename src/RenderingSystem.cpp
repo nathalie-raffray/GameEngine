@@ -5,11 +5,19 @@
 #include "AnimationCollection.h"
 #include "Level.h"
 
+
+
 //----------------------------------------------------------------------------------------------
+
+/*RenderingSystem::RenderingSystem()
+	: m_entities(std::set<EntityHandle, EntityCompareByLayer>())
+{
+}*/
 
 bool RenderingSystem::isValid(EntityHandle h) const
 {
 	return ((h->has<AnimationComponent>() || h->has<SpriteComponent>()) && h->has<TransformComponent>() && h->has<RenderComponent>());
+
 }
 
 //----------------------------------------------------------------------------------------------
@@ -31,6 +39,7 @@ void RenderingSystem::update(float dt)
 			if (totalFrames == 0) continue; //for debug purposes
 
 			sprite = &animation->frames[animation_component->currentFrame].sprite.m_sprite;
+			sprite->setTextureRect(animation->frames[animation_component->currentFrame].sprite.texRect);
 		}
 		else if (entity->has<SpriteComponent>())
 		{
@@ -38,16 +47,44 @@ void RenderingSystem::update(float dt)
 			Sprite* s = Game::assets->get<Sprite>(sprite_component->spriteId);
 			ASSERT(s);
 			sprite = &s->m_sprite;
+			sprite->setTextureRect(s->texRect);
 		}
 
 		auto transform = entity->get<TransformComponent>();
+
 		sprite->setPosition((float)transform->pos.x, (float)transform->pos.y);
 		sprite->setRotation(transform->rotationz);
+
+		//transform->pos = transform->new_pos;
+		
+		float scale = entity->get<TransformComponent>()->scale;
+		//auto original_scale = sprite->getScale();
 		//sprite->scale({ Game::current_level->camera->get<CameraComponent>()->zoom, Game::current_level->camera->get<CameraComponent>()->zoom });
-		auto original_scale = sprite->getScale();
-		sprite->scale({ Game::current_level->camera->get<CameraComponent>()->zoom, Game::current_level->camera->get<CameraComponent>()->zoom });
+		sprite->setScale(scale, scale);
 		Game::window->draw(*sprite);
-		sprite->setScale(original_scale);
+		//sprite->setScale(original_scale);
+
+		//draw dynamic colliders if in debug mode. 
+		if (Game::debug_mode)
+		{
+			if (entity->has<ColliderComponent>())
+			{
+				auto bounds = Sprite::getBounds(entity);
+				sf::Vertex line[] =
+				{
+					sf::Vertex(sf::Vector2f(bounds.left, bounds.top)),
+					sf::Vertex(sf::Vector2f(bounds.left + bounds.width, bounds.top)),
+					sf::Vertex(sf::Vector2f(bounds.left + bounds.width, bounds.top)),
+					sf::Vertex(sf::Vector2f(bounds.left + bounds.width, bounds.top + bounds.height)),
+					sf::Vertex(sf::Vector2f(bounds.left + bounds.width, bounds.top + bounds.height)),
+					sf::Vertex(sf::Vector2f(bounds.left, bounds.top + bounds.height)),
+					sf::Vertex(sf::Vector2f(bounds.left, bounds.top + bounds.height)),
+					sf::Vertex(sf::Vector2f(bounds.left, bounds.top))
+				};
+
+				Game::window->draw(line, 8, sf::Lines);
+			}
+		}
 	}
 }
 

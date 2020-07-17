@@ -12,14 +12,18 @@ struct GoombaComponent
 struct RigidBody
 {
 	bool direction; //is it moving left or right in this frame 
+	//can change horizontal direction by manipulating texRect.
+	//change direction: (add texRect.width to texRect.x and then do texRect.width*-1)
+
 	//(can be used as starting direction for ai, or which way mario faces).
 	//note: even a paragoomba or koopa paratroopa which hops, moves only left or right essentially.
-	float speed;
-	enum FallType
+	Vector2<float> speed;
+	//rotation?
+	enum fall_type
 	{
 		discrete, continuous, disabled //goombas fall discretely, red shells fall with physics as does mario
 	};
-	FallType fall_type;
+	fall_type fall_type;
 };
 
 //koopa paratroopa can jump off platforms

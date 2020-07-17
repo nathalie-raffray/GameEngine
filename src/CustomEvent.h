@@ -1,16 +1,14 @@
 #pragma once
 
 template<const char* NAME>
-struct CustomEvent
+struct custom_event
 {
-	//for example CustomEvent<"BombFired">
+	//for example custom_event<"BombFired">
 };
 
 /*
-
-struct CustomEvent
+struct custom_event
 {
 	std::string = "BombFired";
 };
-
 */

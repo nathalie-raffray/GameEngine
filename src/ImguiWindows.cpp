@@ -29,6 +29,11 @@
 
 using IntRect = sf::IntRect;
 
+/*
+USER BEWARE:
+DONT LOOK AT THIS UGLY ASS IMGUI CODE. JUST KNOW THAT IT WORKS. 
+*/
+
 //----------------------------------------------------------------------------------------------
 
 void ImguiWindows::update()
@@ -125,7 +130,7 @@ void ImguiWindows::spriteEditor()
 			imgui_sprite.sprites[imgui_sprite.filePaths[i]].emplace_back(Game::assets->assets.find(newSpriteName)->first.c_str());
 			imgui_sprite.entity->get<SpriteComponent>()->spriteId = newSpriteName;
 			currSprite = Game::assets->get<Sprite>(newSpriteName);
-			currSprite->scale = 5;
+			//currSprite->scale = 5;
 			currSprite->texId = imgui_animation.textureNames[0];
 			currSprite->m_sprite.setTexture(Game::assets->get<Texture>(currSprite->texId)->texture);
 			currSprite->texRect = { 0, 0, 100, 100 };
@@ -144,10 +149,10 @@ void ImguiWindows::spriteEditor()
 	{
 		currSprite->m_sprite.setTextureRect(currSprite->texRect);
 	}
-	if (ImGui::InputFloat("scale", &currSprite->scale))
+	/*if (ImGui::InputFloat("scale", &currSprite->scale))
 	{
 		currSprite->m_sprite.setScale(currSprite->scale, currSprite->scale);
-	}
+	}*/
 
 	if (ImGui::Button("Save?"))
 	{
@@ -444,7 +449,7 @@ void ImguiWindows::animationEditor()
 			{
 				frames.emplace_back(); 
 				frames[(frames.size() - 1)].duration = 100;
-				frames[(frames.size() - 1)].sprite.scale = 1;
+				//frames[(frames.size() - 1)].sprite.scale = 1;
 				frames[(frames.size() - 1)].sprite.texRect = { 0,0,50,50 };
 				l.emplace_back(0);
 			}
@@ -515,10 +520,10 @@ void ImguiWindows::animationEditor()
 			{
 				currSprite.m_sprite.setPosition(static_cast<float>(currFrame.screenOffsetX), static_cast<float>(currFrame.screenOffsetY));
 			}
-			if (ImGui::InputFloat("scale", &currSprite.scale))
+			/*if (ImGui::InputFloat("scale", &currSprite.scale))
 			{
 				currSprite.m_sprite.setScale(currSprite.scale, currSprite.scale);
-			}
+			}*/
 			ImGui::InputFloat("duration", &currFrame.duration);
 
 			ImGui::TreePop();
@@ -612,6 +617,8 @@ void ImguiWindows::levelEditor()
 		selecting_entity = false;
 		selected_entity = false;
 
+		current_entity.m_index = INVALID;
+
 		if (ImGui::Combo("prefabs", &i, imgui_level.prefabs.data(), static_cast<int>(imgui_level.prefabs.size())))
 		{
 			current_prefab = Game::assets->get<Prefab>(imgui_level.prefabs[i]);
@@ -622,11 +629,14 @@ void ImguiWindows::levelEditor()
 				}
 			}
 			saved = false;
+			creating_entity = false;
 
 			current_entity = Game::entity_registry->create();
 			//remove from systems?
 			current_prefab->entity_immutable.clone(*current_entity);
 			current_prefab->entity_programmable.clone(*current_entity);
+			current_entity->add<PrefabComponent>();
+			current_entity->get<PrefabComponent>()->prefab_id = imgui_level.prefabs[i];
 			Game::system_registry->addEntityToSystems(current_entity);
 		}
 	}
@@ -717,6 +727,8 @@ void ImguiWindows::levelEditor()
 		}
 	}
 
+	static bool init_component_imgui = true;
+
 	if (selected_entity)
 	{
 		if (ImGui::Button("delete entity"))
@@ -727,6 +739,7 @@ void ImguiWindows::levelEditor()
 				current_entity = { INVALID };
 				current_prefab = nullptr;
 				selected_entity = false;
+				init_component_imgui = true;
 			}
 		}
 	}
@@ -772,6 +785,11 @@ void ImguiWindows::levelEditor()
 	IMGUI_COMPONENT(SpriteComponent);
 	IMGUI_COMPONENT(TransformComponent);
 	IMGUI_COMPONENT(RenderComponent);
+	IMGUI_COMPONENT(RigidBodyComponent);
+	IMGUI_COMPONENT(ColliderComponent);
+	IMGUI_COMPONENT(PrefabComponent);
+
+	init_component_imgui = false;
 	//IMGUI_COMPONENT(CameraComponent); //shouldn't be able to edit camera component from editor because theres no way to select it(invisible)
 
 	ImGui::NewLine();

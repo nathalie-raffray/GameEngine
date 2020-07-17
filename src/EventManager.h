@@ -6,8 +6,8 @@
 #include "Listener.h"
 
 /* EVENTS */
-#include "ColliderEvent.h"
 #include "PauseEvent.h"
+#include "CollisionEvents.h"
 
 class EventManager
 {

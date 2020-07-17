@@ -2,6 +2,8 @@
 
 #include "System.h"
 
+struct collision;
+
 class CollisionSystem : public System
 {
 public:
@@ -12,7 +14,7 @@ public:
 
 private:
 
-	bool AABBCollision(EntityHandle e1, EntityHandle e2);
+	bool AABBCollision(EntityHandle e1, EntityHandle e2, collision& base_event);
 };
 
 

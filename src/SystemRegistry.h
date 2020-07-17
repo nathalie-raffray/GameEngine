@@ -9,15 +9,16 @@
 #include "CollisionSystem.h"
 #include "Camera.h"
 #include "PlayerController.h"
+#include "RigidbodyPhysics.h"
 
 class System;
 class SystemRegistry;
 struct EntityHandle;
 
-struct SystemHandle
+/*struct SystemHandle
 {
 	std::size_t m_index;
-};
+};*/
 
 struct SystemRegistryHandle
 {
@@ -27,7 +28,6 @@ struct SystemRegistryHandle
 class SystemRegistry
 {
 public:
-	//friend struct SystemHandle;
 
 	template<typename SystemType>
 	void add();

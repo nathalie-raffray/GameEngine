@@ -12,5 +12,5 @@ class Camera : public System
 private:
 	//i think the data below should be in a camera component or some shit. systems shouldn't have data?
 	EntityHandle player; //= INVALID
-	EntityHandle camera;
+	//EntityHandle camera;
 };

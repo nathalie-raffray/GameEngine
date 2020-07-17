@@ -1,6 +1,7 @@
 #include "AnimationCollection.h"
 #include "Game.h"
 #include "AssetStorage.h"
+#include "Entity.h"
 
 #include <fstream>
 
@@ -58,7 +59,6 @@ bool AnimationCollection::load(const std::string& filePath)
 
 void to_json(json& j, const AnimationCollection& ac)
 {
-	//j["loadType"] = "animations";
 	int i = 0;
 	for (auto& animation : ac.animations)
 	{

@@ -117,7 +117,6 @@
     <ClCompile Include="..\src\AnimationSystem.cpp" />
     <ClCompile Include="..\src\AssetStorage.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
-    <ClCompile Include="..\src\ColliderEvent.cpp" />
     <ClCompile Include="..\src\CollisionSystem.cpp" />
     <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\EntityRegistry.cpp" />
@@ -133,6 +132,7 @@
     <ClCompile Include="..\src\PlayerController.cpp" />
     <ClCompile Include="..\src\Prefab.cpp" />
     <ClCompile Include="..\src\RenderingSystem.cpp" />
+    <ClCompile Include="..\src\RigidbodyPhysics.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\SystemRegistry.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="..\src\Camera.h" />
     <ClInclude Include="..\src\CameraComponent.h" />
     <ClInclude Include="..\src\ColliderComponent.h" />
-    <ClInclude Include="..\src\ColliderEvent.h" />
+    <ClInclude Include="..\src\CollisionEvents.h" />
     <ClInclude Include="..\src\CollisionSystem.h" />
     <ClInclude Include="..\src\ComponentRegistry.h" />
     <ClInclude Include="..\src\CustomEvent.h" />
@@ -185,6 +185,8 @@
     <ClInclude Include="..\src\PrefabComponent.h" />
     <ClInclude Include="..\src\RenderComponent.h" />
     <ClInclude Include="..\src\RenderingSystem.h" />
+    <ClInclude Include="..\src\RigidBodyComponent.h" />
+    <ClInclude Include="..\src\RigidbodyPhysics.h" />
     <ClInclude Include="..\src\Sprite.h" />
     <ClInclude Include="..\src\SpriteComponent.h" />
     <ClInclude Include="..\src\System.h" />

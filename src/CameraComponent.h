@@ -11,7 +11,7 @@ struct CameraComponent
 
 	float zoom;
 
-	static inline const char* name = "camera component"; //?
+	static inline const char* name = "camera component"; 
 
 };
 

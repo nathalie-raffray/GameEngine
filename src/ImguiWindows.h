@@ -49,7 +49,7 @@ public:
 
 public:
 
-	ImguiWindows(std::string fp) : toc_filepath(fp) {}
+	ImguiWindows(std::string&& fp) : toc_filepath(fp) {}
 
 	void init()
 	{

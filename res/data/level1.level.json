@@ -8,8 +8,9 @@
 	"systems" : {
 		"AnimationSystem":"",
 		"GoombaController":"",
-		"CollisionSystem":"",
 		"PlayerController":"",
+		"RigidbodyPhysics":"",
+		"CollisionSystem":"",
 		"Camera":"",
 		"RenderingSystem":""
 	}

@@ -10,6 +10,8 @@
 using AnimationId = std::string;
 using AssetId = std::string;
 
+struct EntityHandle;
+
 struct AnimationCollection : Asset
 {
 	std::unordered_map<AnimationId, std::unique_ptr<Animation>> animations;

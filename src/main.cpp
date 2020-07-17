@@ -48,6 +48,8 @@ int main()
 
 	char windowTitle[255] = "ImGui + SFML = <3";
 
+	//std::set<EntityHandle> s(std::set<EntityHandle, EntityCompareByLayer>());
+
 	Game::window->setTitle(windowTitle);
 	Game::window->resetGLStates(); // call it if you only draw ImGui. Otherwise not needed.
 	sf::Clock deltaClock;

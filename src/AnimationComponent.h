@@ -18,7 +18,7 @@ struct AnimationComponent
 	bool isEnabled = true; //for animation editor / debugging
 
 	//if debug 
-	static inline const char* name = "AnimationComponent"; //?
+	static inline const char* name = "animation component"; 
 };
 
 /***************** JSON SERIALIZATION **********************/

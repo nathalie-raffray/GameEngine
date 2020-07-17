@@ -31,10 +31,6 @@ struct EntityHandle
 		{
 			return nullptr;
 		}
-		/*if (!Game::entity_registry->entities[m_index].is_active())
-		{
-			return nullptr;
-		}*/
 		else {
 			return &Game::entity_registry->entities[m_index];
 		}
@@ -46,15 +42,15 @@ struct EntityHandle
 		{
 			return nullptr;
 		}
-		/*else if (!Game::entity_registry->entities[m_index].is_active())
-		{
-			return nullptr;
-		}*/
 		else {
 			return &Game::entity_registry->entities[m_index];
 		}
 	}
 
+	bool operator<(const EntityHandle& rhs) const
+	{
+		return (m_index < rhs.m_index);
+	}
+
 	uint32_t m_index = INVALID;
-	//instead of size_t
 };

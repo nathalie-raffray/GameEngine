@@ -4,61 +4,142 @@
 #include "AssetStorage.h"
 #include "EventManager.h"
 
+//----------------------------------------------------------------------------------------------
+
 bool CollisionSystem::isValid(EntityHandle eh) const
 {
-	//return eh->has<ColliderComponent>() && eh->has<AnimationComponent>();
-	return eh->has<ColliderComponent>();
-
+	return eh->has<ColliderComponent>() && eh->has<TransformComponent>() && (eh->has<AnimationComponent>() || eh->has<SpriteComponent>());
 }
+
+//----------------------------------------------------------------------------------------------
 
 void CollisionSystem::update(float dt)
 {
-	for (auto it = m_entities.begin(); it < m_entities.end(); it++ )
+	for (auto it = m_entities.begin(); it != m_entities.end(); ++it)
 	{
-		for (auto it2 = it+1; it2 < m_entities.end(); it2++)
+		for (auto it2 = it+1; it2 != m_entities.end(); ++it2)
 		{
-			//if (AABBCollision(*it, *it2))
-			//{
-				ColliderEvent event;
-				//could have specific event like StaticDynamicCollision for AABB collisions between static&dynamic colliders
-				//KinematicCollision if a collider is kinematic. 
-				//DynamicDynamicCollision for collision between a goomba and a goomba or goomba and player for example.
-				event.collider1 = *it;
-				event.collider2 = *it2;
+			EntityHandle entity1 = *it;
+			EntityHandle entity2 = *it2;
+			
+			collision base_event;
+			if (AABBCollision(entity1, entity2, base_event))
+			{
+				auto collider1 = entity1->get<ColliderComponent>();
+				auto collider2 = entity2->get<ColliderComponent>();
 
-				EventManager::events<ColliderEvent>.insert(event);
-			//}
+				if (entity1->has<RigidBodyComponent>() || entity2->has<RigidBodyComponent>())
+				{
+					if (entity1->has<RigidBodyComponent>() && entity2->has<RigidBodyComponent>())
+					{
+						if (!(entity1->get<RigidBodyComponent>()->is_kinematic&& entity2->get<RigidBodyComponent>()->is_kinematic))
+						{
+							dynamic_dynamic_collision event = { entity1, entity2, base_event.collision_side1, base_event.collision_side2};
+							EventManager::events<dynamic_dynamic_collision>.insert(event);
+						}
+					}
+					else
+					{
+						if (entity1->has<RigidBodyComponent>())
+						{
+							if (collider1->is_trigger || collider2->is_trigger)
+							{
+								if (collider2->is_trigger)
+								{
+									triggerstatic_dynamic_collision event = { entity2, entity1, base_event.collision_side2, base_event.collision_side1};
+									EventManager::events<triggerstatic_dynamic_collision>.insert(event);
+								}
+								if (collider1->is_trigger)
+								{
+									static_triggerdynamic_collision event = { entity2, entity1, base_event.collision_side2, base_event.collision_side1};
+									EventManager::events<static_triggerdynamic_collision>.insert(event);
+								}
+							}
+							else if (!entity1->get<RigidBodyComponent>()->is_kinematic)
+							{
+								static_dynamic_collision event = { entity2, entity1, base_event.collision_side2, base_event.collision_side1};
+								EventManager::events<static_dynamic_collision>.insert(event);
+							}
+						}
+						else if (entity2->has<RigidBodyComponent>())
+						{
+							if (collider1->is_trigger || collider2->is_trigger)
+							{
+								if (collider1->is_trigger)
+								{
+									triggerstatic_dynamic_collision event = { entity1, entity2, base_event.collision_side1, base_event.collision_side2 };
+									EventManager::events<triggerstatic_dynamic_collision>.insert(event);
+								}
+								if (collider2->is_trigger)
+								{
+									static_triggerdynamic_collision event = { entity1, entity2, base_event.collision_side1, base_event.collision_side2 };
+									EventManager::events<static_triggerdynamic_collision>.insert(event);
+								}
+							}
+							else if (!entity2->get<RigidBodyComponent>()->is_kinematic)
+							{
+								static_dynamic_collision event = { entity1, entity2, base_event.collision_side1, base_event.collision_side2 };
+								EventManager::events<static_dynamic_collision>.insert(event);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
 
-bool CollisionSystem::AABBCollision(EntityHandle e1, EntityHandle e2)
+//----------------------------------------------------------------------------------------------
+
+bool CollisionSystem::AABBCollision(EntityHandle e1, EntityHandle e2, collision& base_event)
 {
-	//holy crap need to make transform component
+	double eps = 1e-3;
 	
-	auto c1 = e1->get<AnimationComponent>();
-	Animation* animation1 = Game::assets->get<AnimationCollection>(c1->animation_collection_id)->getAnimation(c1->currentAnimation);
-	auto sprite1 = animation1->frames[c1->currentFrame].sprite.m_sprite;
+	auto screenRect1 = Sprite::getBounds(e1);
+	auto screenRect2 = Sprite::getBounds(e2);
+	
+	auto& pos1 = e1->get<TransformComponent>()->new_pos;
+	auto& pos2 = e2->get<TransformComponent>()->new_pos;
 
-	auto screenRect1 = sprite1.getGlobalBounds();
-	auto pos1 = screenRect1.getPosition();
+	bool collisionX = (pos1.x <= pos2.x && pos1.x + screenRect1.width >= pos2.x) || (pos2.x <= pos1.x && pos2.x + screenRect2.width >= pos1.x);
+	bool collisionY = (pos1.y <= pos2.y && pos1.y + screenRect1.height >= pos2.y) || (pos2.y <= pos1.y && pos2.y + screenRect2.height >= pos1.y);
 
-	auto c2 = e1->get<AnimationComponent>();
-	Animation* animation2 = Game::assets->get<AnimationCollection>(c2->animation_collection_id)->getAnimation(c2->currentAnimation);
-	auto sprite2 = animation2->frames[c2->currentFrame].sprite.m_sprite;
+	if (!(collisionX && collisionY)) return false;
 
-	auto screenRect2 = sprite2.getGlobalBounds();
-	auto pos2 = screenRect2.getPosition();
+	bool bias_X = pos1.x < pos2.x;
+	bool bias_Y = pos1.y < pos2.y;
 
-	if ( (pos1.x <= pos2.x && pos1.x + screenRect1.width >= pos2.x)
-					|| (pos2.x <= pos1.x && pos2.x + screenRect2.width >= pos1.x))
+	// calculate penetration depths in each direction
+	int pen_X = static_cast<int>(bias_X ? (pos1.x + screenRect1.width - pos2.x)
+		: (pos2.x + screenRect2.width - pos1.x));
+	int pen_Y = static_cast<int>(bias_Y ? (pos1.y + screenRect1.height - pos2.y)
+		: (pos2.y + screenRect2.height - pos1.y));
+	int diff = pen_X - pen_Y;
+
+	// X penetration greater
+	if (diff > eps)
 	{
-		if ((pos1.y <= pos2.y && pos1.y + screenRect1.height >= pos2.y)
-					|| (pos2.y <= pos1.y && pos2.y + screenRect2.height >= pos1.y))
-		{
-			return true;
-		}
+		//resolve vertical collision
+		base_event.collision_side1 = (bias_Y ? collision::side::bottom : collision::side::top);
+		base_event.collision_side2 = (bias_Y ? collision::side::top : collision::side::bottom);
 	}
 
-	return false;
+	// Y pentration greater
+	else if (diff < -eps)
+	{
+		//resolve horizontal collision
+		base_event.collision_side1 = (bias_X ? collision::side::right : collision::side::left);
+		base_event.collision_side2 = (bias_X ? collision::side::left : collision::side::right);
+	}
+
+	// both penetrations are approximately equal -> treat as corner collision
+	else 
+	{
+		base_event.collision_side1 = (bias_X ? collision::side::right : collision::side::left);
+		base_event.collision_side2 = (bias_Y ? collision::side::top : collision::side::bottom);
+	}
+
+	return true;
 }
+
+//----------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #pragma once
 
-struct PauseEvent
+struct pause
 {
-
+	bool paused;
 };
