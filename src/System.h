@@ -2,11 +2,13 @@
 #include "Entity.h"
 #include "EventManager.h"
 
+/*
 struct EntityCompareDefault {
 	static bool cmp(const EntityHandle& lhs, const EntityHandle& rhs) {
 		return lhs.m_index < rhs.m_index;
 	}
 };
+*/
 
 //template<class Comparator>
 class System

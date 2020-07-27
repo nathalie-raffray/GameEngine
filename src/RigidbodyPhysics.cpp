@@ -31,20 +31,10 @@ void RigidbodyPhysics::update(float dt)
 		if (!rigidbody->is_kinematic)
 		{
 			//then apply gravity
-			//transform->new_pos.y += .15f * rigidbody->gravity; //* 250 * dt * dt;
-			//transform->new_pos.y += 0.5f * rigidbody->gravity * 50.0f * dt * dt;
 			rigidbody->velocity.x /= rigidbody->friction;
 			rigidbody->velocity.y += rigidbody->gravity * dt;
 		}
-		if (entity->has<PlayerComponent>())
-		{
-			//if(!entity->get<PlayerComponent>()->is_jumping) rigidbody->velocity.x /= 1.5f;
-		}
-		//std::cout << "dt: " << dt << std::endl;
-		//std::cout << "velocity x: " << (rigidbody->velocity * 50.0f * dt).x << std::endl;
-		//std::cout << "velocity y: " << (rigidbody->velocity * 50.0f * dt).y << std::endl;
-		//transform->new_pos.x = 0.5f * rigidbody->gravity * 50.0f * dt * dt;
-	//	transform->new_pos += rigidbody->velocity * 50.0f * dt; //* 250.0f * dt;
+
 		transform->new_pos += rigidbody->velocity * 50.0f * dt;
 
 		bool flip_sprite = false;
@@ -105,48 +95,44 @@ void RigidbodyPhysics::handle(const static_dynamic_collision& event)
 
 	auto rigidbody = event.collider2->get<RigidBodyComponent>();
 
-	auto static_bounds = static_cast<sf::IntRect>(Sprite::getBounds(event.collider1));
-	auto dynamic_bounds = static_cast<sf::IntRect>(Sprite::getBounds(event.collider2));
+	//auto static_bounds = static_cast<sf::IntRect>(Sprite::getBounds(event.collider1));
+	//auto dynamic_bounds = static_cast<sf::IntRect>(Sprite::getBounds(event.collider2));
+
+	auto static_bounds = Sprite::getBounds(event.collider1);
+	auto dynamic_bounds = Sprite::getBounds(event.collider2);
 
 	auto& new_pos = dynamic_transform->new_pos;
 
 	switch (event.collision_side2)
 	{
 	case side::left:
-		
-		if(new_pos.x < static_transform->pos.x +static_bounds.width) new_pos.x = static_transform->pos.x + static_bounds.width;
-		//if (rigidbody->velocity.x < 0) rigidbody->velocity.x = 0;
+		if (new_pos.x < static_transform->pos.x + static_bounds.width) {
+			new_pos.x = static_transform->pos.x + static_bounds.width;
+		}
 		break;
 
 	case side::right:
-		if (new_pos.x + dynamic_bounds.width > static_transform->pos.x) new_pos.x = static_transform->pos.x - dynamic_bounds.width;
-		//if (rigidbody->velocity.x > 0) rigidbody->velocity.x = 0;
+		if (new_pos.x + dynamic_bounds.width > static_transform->pos.x) {
+			new_pos.x = static_transform->pos.x - dynamic_bounds.width;
+		}
 		break;
 
 	case side::top:
-		if (new_pos.y < static_transform->pos.y + static_bounds.height) 
-		{
+		if (new_pos.y < static_transform->pos.y + static_bounds.height) {
 			new_pos.y = static_transform->pos.y + static_bounds.height;
 		}
-		//new_pos.y = static_transform->pos.y - dynamic_bounds.height;
-		//if (rigidbody->velocity.y < 0) rigidbody->velocity.y = 0;
 		break;
 
 	case side::bottom:
-		if (new_pos.y + dynamic_bounds.height > static_transform->pos.y)
-		{
+		if (new_pos.y + dynamic_bounds.height > static_transform->pos.y){
 			new_pos.y = static_transform->pos.y - dynamic_bounds.height;
-			if (event.collider2->has<PlayerComponent>())
-			{
+			if (event.collider2->has<PlayerComponent>()){
 				event.collider2->get<PlayerComponent>()->curr_jumps = 0;
 			}
 		}
-		//if (rigidbody->velocity.y > 0) rigidbody->velocity.y = 0;
-		//rigidbody->gravity = 0;
 		break;
 	}
 
-	//return;
 	//this is for corner case. 
 	switch (event.collision_side1)
 	{

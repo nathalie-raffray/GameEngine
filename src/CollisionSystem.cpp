@@ -31,7 +31,7 @@ void CollisionSystem::update(float dt)
 				{
 					if (entity1->has<RigidBodyComponent>() && entity2->has<RigidBodyComponent>())
 					{
-						if (!(entity1->get<RigidBodyComponent>()->is_kinematic&& entity2->get<RigidBodyComponent>()->is_kinematic))
+						if (!(entity1->get<RigidBodyComponent>()->is_kinematic && entity2->get<RigidBodyComponent>()->is_kinematic))
 						{
 							dynamic_dynamic_collision event = { entity1, entity2, base_event.collision_side1, base_event.collision_side2};
 							EventManager::events<dynamic_dynamic_collision>.insert(event);

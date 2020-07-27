@@ -5,6 +5,8 @@
 #include "AssetStorage.h"
 #include "Game.h"
 
+//----------------------------------------------------------------------------------------------
+
 #define ADD_SYSTEM(system) if(has_field<std::string>(js["systems"], #system)){ Game::system_registry->add<system>(); }
 
 bool Level::load(const std::string& filePath)
@@ -50,6 +52,8 @@ bool Level::load(const std::string& filePath)
 	return true;
 }
 
+//----------------------------------------------------------------------------------------------
+
 void Level::pushLevel(LevelHandle level)
 {
 	if (!level->stackable)
@@ -65,36 +69,7 @@ void Level::pushLevel(LevelHandle level)
 	Game::current_level = level;
 }
 
-void from_json(const json& js, Level& l)
-{
-	//l.system_registry.add<AnimationSystem>();
-	
-	//register systems
-	/*ADD_SYSTEM(AnimationSystem);
-	ADD_SYSTEM(GoombaController);
-	ADD_SYSTEM(CollisionSystem);
-	ADD_SYSTEM(PlayerController);
-	ADD_SYSTEM(Camera);
-	ADD_SYSTEM(RenderingSystem);
-
-	//add entities
-	std::ifstream i2(js.at("entities_filepath").get<std::string>());
-	json jEntities;
-	i2 >> jEntities;
-
-	for (json& jEntity : jEntities["entities"])
-	{
-		auto entity = l.entity_registry.create();
-		//Entity& entity = newLevel->entity_registry.entities[handle.m_index];
-		**entity = jEntity;
-		l.system_registry.addEntityToSystems(entity);
-	}*/
-}
-
-void to_json(json& j, const Level& l)
-{
-	
-}
+//----------------------------------------------------------------------------------------------
 
 Level* LevelHandle::operator->() const
 {

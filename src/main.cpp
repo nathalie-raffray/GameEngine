@@ -20,8 +20,6 @@
 #include <memory>
 #include <vector>
 
-using IntRect = sf::IntRect;
-
 /* declare and initialize static Game variables*/
 bool Game::paused = false;
 bool Game::debug_mode = false;
@@ -42,8 +40,6 @@ int main()
 
 	sf::Color bgColor;
 
-	float color[3] = { 0.f, 0.f, 0.f };
-
 	Game::init("level1", true);
 
 	char windowTitle[255] = "ImGui + SFML = <3";
@@ -53,7 +49,6 @@ int main()
 	sf::Clock deltaClock;
 	while (Game::window->isOpen()) {
 		sf::Event event;
-		//Game::window->setKeyRepeatEnabled(false);
 		while (Game::window->pollEvent(event)) {
 			ImGui::SFML::ProcessEvent(event);
 			
@@ -65,9 +60,7 @@ int main()
 
 		Game::window->clear(bgColor); // fill background with color
 		
-		//Game::imguiWin->entityEditor();
 		Game::update(deltaClock.restart().asSeconds());
-		//Game::imguiWin->animationEditor();
 		
 		ImGui::SFML::Render(*Game::window);
 		Game::window->display();

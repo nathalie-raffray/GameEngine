@@ -9,6 +9,7 @@
 
 using TextureId = std::string;
 using IntRect = sf::IntRect;
+using FloatRect = sf::FloatRect;
 
 struct EntityHandle;
 
@@ -16,11 +17,10 @@ struct Sprite : Asset
 {
 	TextureId texId;
 	IntRect texRect;
-	//float scale; //this can eventually be stored in a transform
 
 	sf::Sprite m_sprite;
 
-	static sf::FloatRect getBounds(EntityHandle eh);
+	static FloatRect getBounds(EntityHandle eh);
 
 	~Sprite() override = default;
 

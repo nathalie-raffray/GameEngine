@@ -3,8 +3,6 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Asset.h"
 
-#include "json_serialization.h"
-
 struct Texture : Asset
 {
 	sf::Texture texture;
@@ -13,6 +11,3 @@ struct Texture : Asset
 
 	static bool load(const std::string& filePath);
 };
-
-void from_json(const json& j, Texture& t);
-void to_json(json& j, const Texture& t);

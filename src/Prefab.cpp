@@ -3,7 +3,7 @@
 #include "AssetStorage.h"
 #include <fstream>
 
-#include "ImguiWindows.h"
+//----------------------------------------------------------------------------------------------
 
 bool Prefab::load(const std::string& filePath)
 {
@@ -22,6 +22,8 @@ bool Prefab::load(const std::string& filePath)
 	return true;
 }
 
+//----------------------------------------------------------------------------------------------
+
 EntityHandle Prefab::get_clone(const std::string& prefabId)
 {
 	EntityHandle eh = Game::entity_registry->create();
@@ -31,6 +33,7 @@ EntityHandle Prefab::get_clone(const std::string& prefabId)
 	return eh;
 }
 
+//----------------------------------------------------------------------------------------------
 
 void to_json(json& j, const Prefab& p)
 {
@@ -39,10 +42,13 @@ void to_json(json& j, const Prefab& p)
 	j["programmable_components"] = p.entity_programmable; 
 }
 
+//----------------------------------------------------------------------------------------------
+
 void from_json(const json& j, Prefab& p)
 {
 	p.id = j.at("prefabId").get<std::string>();
 	p.entity_immutable = j.at("immutable_components");
 	p.entity_programmable = j.at("programmable_components");
-
 }
+
+//----------------------------------------------------------------------------------------------

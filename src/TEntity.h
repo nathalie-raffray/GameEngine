@@ -31,11 +31,6 @@ class TEntity : public component_handle<ComponentTypes>...
 {
 public:
 
-	/*bool operator=(TEntity entity) const 
-	{
-		return ((component_handle<ComponentTypes>::m_index == entity.component_handle<ComponentTypes>::m_index) && ...); //giving me problems but i don't know why
-	}*/
-
 	void clone(TEntity* eh) const
 	{
 		(clone<ComponentTypes>(eh), ...);

@@ -1,18 +1,11 @@
 #include "Texture.h"
 #include "Game.h"
 #include "AssetStorage.h"
+#include "json_serialization.h"
+
 #include <fstream>
 
-/*
-void from_json(const json& j, Texture& t)
-{
-
-}
-
-void to_json(json& j, const Texture& t)
-{
-}
-*/
+//----------------------------------------------------------------------------------------------
 
 bool Texture::load(const std::string& filePath)
 {
@@ -31,3 +24,5 @@ bool Texture::load(const std::string& filePath)
 	
 	return true;
 }
+
+//----------------------------------------------------------------------------------------------

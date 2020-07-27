@@ -3,8 +3,6 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/Window/Joystick.hpp>
 
-#include "json_serialization.h"
-
 struct Input
 {
 	enum tag {
@@ -32,8 +30,9 @@ struct Input
 		unsigned int button;
 	} joystickinput;
 
-	//static bool load(const std::string& filePath);
 };
+
+#include "json_serialization.h"
 
 void from_json(const json& j, Input& ac);
 void to_json(json& j, const Input& ac);

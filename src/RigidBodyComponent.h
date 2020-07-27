@@ -22,7 +22,6 @@ struct RigidBodyComponent
 	float gravity;
 	float friction;
 
-	//    float speed;
 	//rotation?
 	enum fall_type
 	{

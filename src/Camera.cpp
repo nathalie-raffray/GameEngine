@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+//----------------------------------------------------------------------------------------------
+
 bool Camera::isValid(EntityHandle eh) const
 {
 	if (eh->has<RenderComponent>())
@@ -19,6 +21,8 @@ bool Camera::isValid(EntityHandle eh) const
 	return ((eh->has<SpriteComponent>() || eh->has<AnimationComponent>()) && eh->has<TransformComponent>());
 }
 
+//----------------------------------------------------------------------------------------------
+
 void Camera::init(EntityHandle eh)
 {
 	if (eh->has<PlayerComponent>())
@@ -26,6 +30,8 @@ void Camera::init(EntityHandle eh)
 		player = eh;
 	}
 }
+
+//----------------------------------------------------------------------------------------------
 
 void Camera::update(float)
 {
@@ -99,3 +105,4 @@ void Camera::update(float)
 
 }
 
+//----------------------------------------------------------------------------------------------

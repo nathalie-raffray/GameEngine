@@ -7,6 +7,9 @@
 #include <string>
 #include <stack>
 
+//----------------------------------------------------------------------------------------------
+
+using AssetId = std::string;
 class Level;
 
 struct LevelHandle
@@ -15,8 +18,10 @@ struct LevelHandle
 
 	Level& operator*() const;
 
-	std::string level_id;
+	AssetId level_id;
 };
+
+//----------------------------------------------------------------------------------------------
 
 class Level : public Asset
 {
@@ -40,6 +45,4 @@ public:
 	EntityHandle camera;
 };
 
-#include "json_serialization.h"
-void from_json(const json& j, Level& l);
-void to_json(json& j, const Level& l);
+//----------------------------------------------------------------------------------------------

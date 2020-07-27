@@ -1,5 +1,7 @@
 #include "Input.h"
 
+//----------------------------------------------------------------------------------------------
+
 void from_json(const json& j, Input& ac)
 {
 	json jPC = j["PC"];
@@ -40,6 +42,8 @@ void from_json(const json& j, Input& ac)
 	}
 }
 
+//----------------------------------------------------------------------------------------------
+
 void to_json(json& j, const Input& ac)
 {
 	switch (ac.pctag)
@@ -78,8 +82,10 @@ void to_json(json& j, const Input& ac)
 		break;
 	case  Input::joystickbutton:
 		j["XBOX"]["input"] = "button";
-
 		//j["XBOX"]["input"]["button"] = static_cast<int>(ac.joystickinput.button);
 		break;
 	}
 }
+
+//----------------------------------------------------------------------------------------------
+

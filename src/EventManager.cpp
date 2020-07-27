@@ -10,6 +10,8 @@ for(auto& event : events<event_type>)\
 }\
 events<event_type>.clear();
 
+//----------------------------------------------------------------------------------------------
+
 void EventManager::process_events()
 {
 	HANDLE(static_dynamic_collision);
@@ -20,3 +22,5 @@ void EventManager::process_events()
 
 	HANDLE(pause);
 }
+
+//----------------------------------------------------------------------------------------------
