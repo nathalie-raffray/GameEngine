@@ -165,12 +165,17 @@ void ImguiWindows::spriteEditor()
 
 		bool added = false;
 
+		std::string spriteId = static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId);
+		std::string spritefilePath = static_cast<std::string>(imgui_sprite.filePaths[i]);
+
+		Game::assets->table_of_contents[spriteId] = spritefilePath;
+
 		for (auto& jel : jin["sprites"])
 		{
-			if (jel.at("spriteId").get<std::string>() == imgui_sprite.entity->get<SpriteComponent>()->spriteId)
+			if (jel.at("spriteId").get<std::string>() == spriteId)
 			{
 				json el = *currSprite;
-				el["spriteId"] = static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId);
+				el["spriteId"] = spriteId;
 				jout["sprites"].push_back(el);
 				added = true;
 			}
@@ -182,14 +187,14 @@ void ImguiWindows::spriteEditor()
 		if (!added)
 		{
 			json el = *currSprite;
-			el["spriteId"] = static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId);
+			el["spriteId"] = spriteId;
 			jout["sprites"].push_back(el);
 
 			//add to table of contents as well.
 			json toc;
 			std::ifstream stoc(toc_filepath);
 			stoc >> toc;
-			toc["sprites"][static_cast<std::string>(imgui_sprite.entity->get<SpriteComponent>()->spriteId)] = imgui_sprite.filePaths[i];
+			toc["sprites"][spriteId] = spritefilePath;
 
 			std::ofstream otoc;
 			otoc.open(toc_filepath);
@@ -202,7 +207,7 @@ void ImguiWindows::spriteEditor()
 		//if remove sprite then must remove from table of contents too...
 
 		std::ofstream o;
-		o.open(imgui_sprite.filePaths[i]);
+		o.open(spritefilePath);
 		o << std::setw(4) << jout << std::endl;
 		o.close();
 	}
@@ -512,18 +517,8 @@ void ImguiWindows::animationEditor()
 			{
 				currSprite.m_sprite.setTextureRect(currSprite.texRect);
 			}
-			if (ImGui::InputInt("screenOffsetX", &currFrame.screenOffsetX))// || ImGui::InputInt("screenOffsetY", &currFrame.screenOffsetY))
-			{
-				currSprite.m_sprite.setPosition(static_cast<float>(currFrame.screenOffsetX), static_cast<float>(currFrame.screenOffsetY));
-			}
-			if (ImGui::InputInt("screenOffsetY", &currFrame.screenOffsetY))
-			{
-				currSprite.m_sprite.setPosition(static_cast<float>(currFrame.screenOffsetX), static_cast<float>(currFrame.screenOffsetY));
-			}
-			/*if (ImGui::InputFloat("scale", &currSprite.scale))
-			{
-				currSprite.m_sprite.setScale(currSprite.scale, currSprite.scale);
-			}*/
+			ImGui::InputInt("screenOffsetX", &currFrame.screenOffsetX);
+			ImGui::InputInt("screenOffsetY", &currFrame.screenOffsetY);
 			ImGui::InputFloat("duration", &currFrame.duration);
 
 			ImGui::TreePop();
@@ -603,6 +598,8 @@ void ImguiWindows::levelEditor()
 	static bool selecting_entity = false;
 	static bool selected_entity = false;
 
+	static bool init_component_imgui = false;
+
 	static int j = 0;
 	ImGui::Combo("level", &j, imgui_level.filePaths.data(), static_cast<int>(imgui_level.filePaths.size()));
 
@@ -638,6 +635,7 @@ void ImguiWindows::levelEditor()
 			current_entity->add<PrefabComponent>();
 			current_entity->get<PrefabComponent>()->prefab_id = imgui_level.prefabs[i];
 			Game::system_registry->addEntityToSystems(current_entity);
+			init_component_imgui = false;
 		}
 	}
 
@@ -670,6 +668,8 @@ void ImguiWindows::levelEditor()
 			uint32_t it = 0;
 
 			Level* level = Game::assets->get<Level>(imgui_level.levels[j]);
+
+			//int index = 0;
 			for (auto& entity : level->entity_registry.entities)
 			{
 				if (entity.m_Active)
@@ -677,22 +677,11 @@ void ImguiWindows::levelEditor()
 					if (entity.has<TransformComponent>() && entity.has<RenderComponent>()
 						&& (entity.has<AnimationComponent>() || entity.has<SpriteComponent>()))
 					{
-						const auto& pos = entity.get<TransformComponent>()->pos;
-						Vector2<int> bounds;
+						const auto& pos = entity.get<TransformComponent>()->new_pos;
+						auto bounds = static_cast<sf::IntRect>(Sprite::getBounds({ it }));
 
-						if (entity.has<AnimationComponent>())
-						{
-							auto animation_component = entity.get<AnimationComponent>();
-							const auto& sprite = Game::assets->get<AnimationCollection>(animation_component->animation_collection_id)->getAnimation(animation_component->currentAnimation)->frames[animation_component->currentFrame].sprite.m_sprite;
-							bounds = static_cast<Vector2<int>>(sprite.getGlobalBounds().getSize());
-						}
-						else if (entity.has<SpriteComponent>())
-						{
-							const auto& sprite = Game::assets->get<Sprite>(entity.get<SpriteComponent>()->spriteId)->m_sprite;
-							bounds = static_cast<Vector2<int>>(sprite.getGlobalBounds().getSize());
-						}
 						//wonder how this changes if i flip sprite
-						if (mousex > pos.x && mousex < pos.x + bounds.x && mousey > pos.y && mousey < pos.y + bounds.y)
+						if (mousex > pos.x&& mousex < (pos.x + bounds.width) && mousey > pos.y&& mousey < (pos.y + bounds.height)) 
 						{
 							if (!entity_clickon)
 							{
@@ -714,6 +703,7 @@ void ImguiWindows::levelEditor()
 			if (entity_clickon)
 			{
 				current_entity = { entity_index };
+				init_component_imgui = false;
 				if(entity_clickon->has<PrefabComponent>())
 				{
 					current_prefab = Game::assets->get<Prefab>(entity_clickon->get<PrefabComponent>()->prefab_id);
@@ -726,8 +716,6 @@ void ImguiWindows::levelEditor()
 			selecting_entity = false;
 		}
 	}
-
-	static bool init_component_imgui = true;
 
 	if (selected_entity)
 	{
@@ -761,18 +749,30 @@ void ImguiWindows::levelEditor()
 	{
 		if (current_entity->has<TransformComponent>())
 		{
-			int mousex = static_cast<int>(ImGui::GetMousePos().x);
-			int mousey = static_cast<int>(ImGui::GetMousePos().y);
-			
-			if (ImGui::Button("move") || ismoving)
+			//int mousex = static_cast<int>(ImGui::GetMousePos().x);
+			//int mousey = static_cast<int>(ImGui::GetMousePos().y);
+			auto mousex = ImGui::GetMousePos().x;
+			auto mousey = ImGui::GetMousePos().y;
+
+			if (ismoving)
 			{
-				ismoving = true;
 				current_entity->get<TransformComponent>()->pos = { mousex, mousey };
 
 				if (ImGui::IsMouseClicked(ImGui::GetMouseCursor()))
 				{
 					ismoving = false;
 				}
+			}
+			
+			if (ImGui::Button("move"))
+			{
+				ismoving = true;
+				/*current_entity->get<TransformComponent>()->pos = { mousex, mousey };
+
+				if (ImGui::IsMouseClicked(ImGui::GetMouseCursor()))
+				{
+					ismoving = false;
+				}*/
 			}
 			static std::string mousepos;
 			mousepos = std::string("mouse position: (") + std::to_string(mousex) + std::string(", ") + std::to_string(mousey) + ")";
@@ -788,8 +788,10 @@ void ImguiWindows::levelEditor()
 	IMGUI_COMPONENT(RigidBodyComponent);
 	IMGUI_COMPONENT(ColliderComponent);
 	IMGUI_COMPONENT(PrefabComponent);
+	IMGUI_COMPONENT(HealthComponent);
 
-	init_component_imgui = false;
+
+	init_component_imgui = true;
 	//IMGUI_COMPONENT(CameraComponent); //shouldn't be able to edit camera component from editor because theres no way to select it(invisible)
 
 	ImGui::NewLine();

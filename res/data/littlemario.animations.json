@@ -2,20 +2,40 @@
     "animationCollectionId": "littlemario",
     "animations": [
         {
-            "animationId": "littlemario_walk",
+            "animationId": "littlemario_changedirection",
             "mode": "loop",
             "sprites": [
                 {
-                    "duration": 500.0,
+                    "duration": 100.0,
                     "screenOffset": [
                         0,
                         0
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        17,
+                        110,
                         16,
-                        -16,
+                        15,
+                        16
+                    ]
+                }
+            ]
+        },
+        {
+            "animationId": "littlemario_walk",
+            "mode": "loop",
+            "sprites": [
+                {
+                    "duration": 100.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "marioluigi",
+                    "texRect": [
+                        1,
+                        16,
+                        16,
                         16
                     ]
                 },
@@ -27,23 +47,43 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        35,
+                        19,
                         16,
-                        -16,
+                        16,
                         16
                     ]
                 },
                 {
-                    "duration": 200.0,
+                    "duration": 100.0,
                     "screenOffset": [
                         0,
                         0
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        35,
+                        19,
                         16,
-                        -16,
+                        16,
+                        16
+                    ]
+                }
+            ]
+        },
+        {
+            "animationId": "littlemario_jump",
+            "mode": "loop",
+            "sprites": [
+                {
+                    "duration": 100.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "marioluigi",
+                    "texRect": [
+                        37,
+                        16,
+                        16,
                         16
                     ]
                 }
@@ -95,9 +135,9 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        217,
+                        233,
                         16,
-                        16,
+                        -16,
                         16
                     ]
                 },
@@ -109,9 +149,9 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        235,
+                        251,
                         16,
-                        16,
+                        -16,
                         16
                     ]
                 },
@@ -123,9 +163,9 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        253,
+                        269,
                         16,
-                        16,
+                        -16,
                         16
                     ]
                 },
@@ -137,9 +177,9 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        271,
+                        287,
                         16,
-                        16,
+                        -16,
                         16
                     ]
                 }
@@ -157,9 +197,9 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
+                        130,
                         80,
-                        80,
-                        50,
+                        -50,
                         50
                     ]
                 },
@@ -171,9 +211,9 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        0,
-                        0,
                         50,
+                        0,
+                        -50,
                         50
                     ]
                 },
@@ -185,10 +225,30 @@
                     ],
                     "texId": "marioluigi",
                     "texRect": [
-                        0,
-                        0,
                         50,
+                        0,
+                        -50,
                         50
+                    ]
+                }
+            ]
+        },
+        {
+            "animationId": "littlemario_die",
+            "mode": "loop",
+            "sprites": [
+                {
+                    "duration": 100.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "marioluigi",
+                    "texRect": [
+                        307,
+                        16,
+                        16,
+                        16
                     ]
                 }
             ]

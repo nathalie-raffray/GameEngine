@@ -9,6 +9,13 @@
 
 bool Camera::isValid(EntityHandle eh) const
 {
+	if (eh->has<RenderComponent>())
+	{
+		if (!eh->get<RenderComponent>()->worldspace)
+		{
+			return false;
+		}
+	}
 	return ((eh->has<SpriteComponent>() || eh->has<AnimationComponent>()) && eh->has<TransformComponent>());
 }
 
@@ -25,14 +32,14 @@ void Camera::update(float)
 	//static_assert(player and camera is not INVALID)
 	auto camera_component = Game::current_level->camera->get<CameraComponent>();
 	const Vector2<int> aspectRatio = static_cast<Vector2<int>>(camera_component->aspectRatio);
-	
+
 	auto animation_component = player->get<AnimationComponent>();
 	const auto& sprite = Game::assets->get<AnimationCollection>(animation_component->animation_collection_id)->getAnimation(animation_component->currentAnimation)->frames[animation_component->currentFrame].sprite.m_sprite;
 	const Vector2<int> playerBounds = static_cast<Vector2<int>>(sprite.getGlobalBounds().getSize());
 
-	Vector2<int>& playerPos = player->get<TransformComponent>()->new_pos;
+	Vector2<float>& playerPos = player->get<TransformComponent>()->new_pos;
 
-	const Vector2<int> displacement = (playerPos + playerBounds / 2) - aspectRatio / 2;
+	const Vector2<int> displacement = (static_cast<Vector2<int>>(playerPos) + playerBounds / 2) - aspectRatio / 2;
 
 	const Vector2<int> newScreenCoord0 = camera_component->screenCoord0 - displacement;
 	const Vector2<int> newScreenCoord1 = camera_component->screenCoord1 - displacement;
@@ -50,13 +57,13 @@ void Camera::update(float)
 		}
 	}
 	//player must stay within the x bounds of the camera
-	else if(playerPos.x < camera_component->screenCoord0.x)
+	else if (playerPos.x < camera_component->screenCoord0.x)
 	{
-		playerPos.x = camera_component->screenCoord0.x;
+		playerPos.x = static_cast<float>(camera_component->screenCoord0.x);
 	}
 	else if (playerPos.x + playerBounds.x > camera_component->screenCoord1.x)
 	{
-		playerPos.x = camera_component->screenCoord1.x - playerBounds.x;
+		playerPos.x = static_cast<float>(camera_component->screenCoord1.x) - playerBounds.x;
 	}
 
 
@@ -76,11 +83,11 @@ void Camera::update(float)
 	//player must stay within the y bounds of the camera
 	else if (playerPos.y < camera_component->screenCoord0.y)
 	{
-		playerPos.y = camera_component->screenCoord0.y;
+		playerPos.y = static_cast<float>(camera_component->screenCoord0.y);
 	}
 	else if (playerPos.y + playerBounds.y > camera_component->screenCoord1.y)
 	{
-		playerPos.y = camera_component->screenCoord1.y - playerBounds.y;
+		playerPos.y = static_cast<float>(camera_component->screenCoord1.y) - playerBounds.y;
 	}
 
 	for (auto e : m_entities)

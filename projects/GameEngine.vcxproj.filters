@@ -38,9 +38,6 @@
     <Filter Include="components">
       <UniqueIdentifier>{a7e070ba-00cd-4b62-90a6-365d449eda9c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utilities">
-      <UniqueIdentifier>{0c8bb54d-97d1-4b4b-9ab6-c6f2e7b2c145}</UniqueIdentifier>
-    </Filter>
     <Filter Include="assets">
       <UniqueIdentifier>{862bc017-b667-4d08-aea5-0a33e20a938f}</UniqueIdentifier>
     </Filter>
@@ -52,6 +49,12 @@
     </Filter>
     <Filter Include="systems\physics">
       <UniqueIdentifier>{a7cb4c10-c146-4b59-9174-d8865baa08b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="enum_factory">
+      <UniqueIdentifier>{ab83957c-1fc9-4e4f-954b-27d75716b516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="enum_factory\enums">
+      <UniqueIdentifier>{f132513a-3144-42b4-9732-b6b642cc6d87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +139,6 @@
     <ClCompile Include="..\src\Texture.cpp">
       <Filter>assets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ActionEnum.cpp">
-      <Filter>action_system</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ActionSystem.cpp">
       <Filter>action_system</Filter>
     </ClCompile>
@@ -147,6 +147,18 @@
     </ClCompile>
     <ClCompile Include="..\src\RigidbodyPhysics.cpp">
       <Filter>systems\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ActionEnum.cpp">
+      <Filter>enum_factory\enums</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SideEnum.cpp">
+      <Filter>enum_factory\enums</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AISystem.cpp">
+      <Filter>systems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PlayerStateEnum.cpp">
+      <Filter>enum_factory\enums</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -255,9 +267,6 @@
     <ClInclude Include="..\src\AnimationComponent.h">
       <Filter>components</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\EnumFactory.h">
-      <Filter>utilities</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\TransformComponent.h">
       <Filter>components</Filter>
     </ClInclude>
@@ -300,9 +309,6 @@
     <ClInclude Include="..\src\Texture.h">
       <Filter>assets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ActionEnum.h">
-      <Filter>action_system</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\ActionSystem.h">
       <Filter>action_system</Filter>
     </ClInclude>
@@ -317,6 +323,36 @@
     </ClInclude>
     <ClInclude Include="..\src\CollisionEvents.h">
       <Filter>event_system\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HealthComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ActionEnum.h">
+      <Filter>enum_factory\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SideEnum.h">
+      <Filter>enum_factory\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EnumFactory.h">
+      <Filter>enum_factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AISystem.h">
+      <Filter>systems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PlayerStateEnum.h">
+      <Filter>enum_factory\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\AIComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HitboxComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\HopComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ShellComponent.h">
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

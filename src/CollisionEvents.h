@@ -1,14 +1,9 @@
 #pragma once
-
 #include "Entity.h"
+#include "SideEnum.h"
 
 struct collision
 {
-	enum class side
-	{
-		left, right, bottom, top
-	};
-	
 	EntityHandle collider1;
 	EntityHandle collider2;
 

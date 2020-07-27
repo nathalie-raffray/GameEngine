@@ -3,11 +3,13 @@
 			"prefabId": "imguiSpitePrefab",
 			"immutable_components": {
 				"RenderComponent": {
-					"layer": 10
+					"layer": 10,
+					"worldspace" : false
 				},
 				"TransformComponent": {
-					"pos": [0, 0],
-					"rotationz": 0
+					"pos": [50, 50],
+					"rotationz": 0,
+					"scale" : 7
 				},
 				"SpriteComponent": {
 					"spriteId":"tree"
@@ -20,11 +22,13 @@
 			"prefabId": "imguiAnimationPrefab",
 			"immutable_components": {
 				"RenderComponent": {
-					"layer": 10
+					"layer": 10,
+					"worldspace" : false
 				},
 				"TransformComponent": {
-					"pos": [0, 0],
-					"rotationz": 0
+					"pos": [50, 50],
+					"rotationz": 0,
+					"scale" : 7
 				},
 				"AnimationComponent": {
 					"animation_collection_id": "littlemario",

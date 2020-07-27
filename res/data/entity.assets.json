@@ -41,7 +41,24 @@
 				},
 				"RenderComponent": {}
 			}
+		},
+		{
+			"prefabId": "animatedSpritePrefab",
+			"immutable_components": {
+			},
+			"programmable_components": {
+				"TransformComponent": {},
+				"AnimationComponent": {
+					"animation_collection_id": "questionblock",
+					"currentAnimation": "question_idle"
+				},
+				"ColliderComponent":{
+					"is_trigger" : true
+				},
+				"RenderComponent": {}
+			}
 		}
+
 
 	]
 }

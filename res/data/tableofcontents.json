@@ -2,6 +2,7 @@
     "animations": {
         "littlemario": "../res/data/littlemario.animations.json",
         "mushroommario": "../res/data/mushroommario.animations.json",
+        "questionblock": "../res/data/blocks.animations.json",
         "testeranimations": "../res/data/test.animations.json"
     },
     "input": {
@@ -17,12 +18,19 @@
         "staticSpritePrefab": "../res/data/entity.assets.json"
     },
     "sprites": {
+        "level1background_sprite": "../res/data/level1.sprites.json",
+        "level1colorblock1": "../res/data/level1.sprites.json",
+        "level1colorblock2": "../res/data/level1.sprites.json",
+        "level1floor1": "../res/data/level1.sprites.json",
+        "level1floor2": "../res/data/level1.sprites.json",
         "test": "../res/data/level1.sprites.json",
         "test2": "../res/data/level1.sprites.json",
         "test3": "../res/data/level1.sprites.json",
         "tree": "../res/data/level1.sprites.json"
     },
     "textures": {
+        "level1background": "../res/data/textures.json",
+        "level1miscellaneous": "../res/data/textures.json",
         "marioluigi": "../res/data/textures.json",
         "stagetiles": "../res/data/textures.json"
     }

@@ -14,7 +14,8 @@ void to_json(json& j, const Entity& entity)
 	TOJSON(CameraComponent);
 	TOJSON(RigidBodyComponent);
 	TOJSON(ColliderComponent);
-
+	TOJSON(HealthComponent);
+	TOJSON(HitboxComponent);
 }
 
 void from_json(const json& j, Entity& entity)
@@ -28,5 +29,6 @@ void from_json(const json& j, Entity& entity)
 	FROMJSON(CameraComponent);
 	FROMJSON(RigidBodyComponent);
 	FROMJSON(ColliderComponent);
-
+	FROMJSON(HealthComponent);
+	FROMJSON(HitboxComponent);
 }

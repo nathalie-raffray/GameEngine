@@ -2,7 +2,6 @@
 
 #include "AnimationCollection.h"
 #include "AssetStorage.h"
-#include "EventManager.h"
 
 //----------------------------------------------------------------------------------------------
 
@@ -21,7 +20,7 @@ void CollisionSystem::update(float dt)
 		{
 			EntityHandle entity1 = *it;
 			EntityHandle entity2 = *it2;
-			
+			    
 			collision base_event;
 			if (AABBCollision(entity1, entity2, base_event))
 			{
@@ -101,42 +100,56 @@ bool CollisionSystem::AABBCollision(EntityHandle e1, EntityHandle e2, collision&
 	auto& pos1 = e1->get<TransformComponent>()->new_pos;
 	auto& pos2 = e2->get<TransformComponent>()->new_pos;
 
+	auto& prevpos1 = e1->get<TransformComponent>()->pos;
+	auto& prevpos2 = e2->get<TransformComponent>()->pos;
+
+	//collision within bounds of rects.
 	bool collisionX = (pos1.x <= pos2.x && pos1.x + screenRect1.width >= pos2.x) || (pos2.x <= pos1.x && pos2.x + screenRect2.width >= pos1.x);
 	bool collisionY = (pos1.y <= pos2.y && pos1.y + screenRect1.height >= pos2.y) || (pos2.y <= pos1.y && pos2.y + screenRect2.height >= pos1.y);
 
-	if (!(collisionX && collisionY)) return false;
+	bool collisionX_BetweenFrames = (prevpos1.x <= prevpos2.x && pos1.x + screenRect1.width >= pos2.x) || (prevpos2.x <= prevpos1.x && pos2.x + screenRect2.width >= pos1.x);
+	bool collisionY_BetweenFrames = (prevpos1.y <= prevpos2.y && pos1.y + screenRect1.height >= pos2.y) || (prevpos2.y <= prevpos1.y && pos2.y + screenRect2.height >= pos1.y);
+
+	if (!(collisionX && collisionY) && !(collisionX_BetweenFrames && collisionY_BetweenFrames)) return false;
+
+	//if (collisionX_BetweenFrames && collisionY_BetweenFrames) std::cout << "collision between frames detected" << std::endl;
+	//if (!(collisionX && collisionY)) std::cout << "collision between frames detected" << std::endl;
 
 	bool bias_X = pos1.x < pos2.x;
 	bool bias_Y = pos1.y < pos2.y;
 
 	// calculate penetration depths in each direction
-	int pen_X = static_cast<int>(bias_X ? (pos1.x + screenRect1.width - pos2.x)
+	float pen_X = (bias_X ? (pos1.x + screenRect1.width - pos2.x)
 		: (pos2.x + screenRect2.width - pos1.x));
-	int pen_Y = static_cast<int>(bias_Y ? (pos1.y + screenRect1.height - pos2.y)
+	float pen_Y = (bias_Y ? (pos1.y + screenRect1.height - pos2.y)
 		: (pos2.y + screenRect2.height - pos1.y));
-	int diff = pen_X - pen_Y;
+	float diff = pen_X - pen_Y;
+
+	bool bias_prevX = prevpos1.x < prevpos2.x;
+	bool bias_prevY = prevpos1.y < prevpos2.y;
 
 	// X penetration greater
 	if (diff > eps)
 	{
 		//resolve vertical collision
-		base_event.collision_side1 = (bias_Y ? collision::side::bottom : collision::side::top);
-		base_event.collision_side2 = (bias_Y ? collision::side::top : collision::side::bottom);
+		//base_event.collision_side1 = ((bias_Y && collisionY) || (bias_prevY && !collisionY) ? side::bottom : side::top);
+		base_event.collision_side1 = (bias_prevY ? side::bottom : side::top);
+		base_event.collision_side2 = (bias_prevY ? side::top : side::bottom);
 	}
 
 	// Y pentration greater
 	else if (diff < -eps)
 	{
 		//resolve horizontal collision
-		base_event.collision_side1 = (bias_X ? collision::side::right : collision::side::left);
-		base_event.collision_side2 = (bias_X ? collision::side::left : collision::side::right);
+		base_event.collision_side1 = (bias_prevX ? side::right : side::left);
+		base_event.collision_side2 = (bias_prevX ? side::left : side::right);
 	}
 
 	// both penetrations are approximately equal -> treat as corner collision
 	else 
 	{
-		base_event.collision_side1 = (bias_X ? collision::side::right : collision::side::left);
-		base_event.collision_side2 = (bias_Y ? collision::side::top : collision::side::bottom);
+		base_event.collision_side1 = (bias_prevX ? side::right : side::left);
+		base_event.collision_side2 = (bias_prevY ? side::top : side::bottom);
 	}
 
 	return true;

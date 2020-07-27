@@ -19,7 +19,10 @@ struct RigidBodyComponent
 	Vector2<float> velocity;
 	bool is_kinematic;
 
-	float speed;
+	float gravity;
+	float friction;
+
+	//    float speed;
 	//rotation?
 	enum fall_type
 	{
@@ -36,6 +39,8 @@ struct RigidBodyComponent
 inline void to_json(json& j, const RigidBodyComponent& p)
 {
 	j["velocity"] = p.velocity;
+	j["gravity"] = p.gravity;
+	j["friction"] = p.friction;
 	j["direction"] = static_cast<bool>(p.direction);
 	j["is_kinematic"] = p.is_kinematic;
 	switch (p.fall_type)
@@ -54,6 +59,8 @@ inline void to_json(json& j, const RigidBodyComponent& p)
 inline void from_json(const json& j, RigidBodyComponent& p)
 {
 	TRY_PARSE_ELSE(p.velocity = j.at("velocity"), p.velocity = {});
+	TRY_PARSE_ELSE(p.friction = j.at("friction"), p.friction = 1.5f);
+	TRY_PARSE_ELSE(p.gravity = j.at("gravity").get<float>(), p.gravity = 0);
 	TRY_PARSE_ELSE(p.is_kinematic = j.at("is_kinematic"), p.is_kinematic = false);
 	TRY_PARSE_ELSE(
 	if (j.at("direction").get<bool>() == true) { 
@@ -62,7 +69,7 @@ inline void from_json(const json& j, RigidBodyComponent& p)
 	else {
 		p.direction = RigidBodyComponent::direction::right;
 	}, 
-		p.direction = RigidBodyComponent::direction::right);
+		p.direction = RigidBodyComponent::direction::left);
 	
 	TRY_PARSE_ELSE(
 	if (j.at("fall_type").get<std::string>() == "discrete")

@@ -112,6 +112,7 @@
     <ClCompile Include="..\external\imgui-sfml\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\src\ActionEnum.cpp" />
     <ClCompile Include="..\src\ActionSystem.cpp" />
+    <ClCompile Include="..\src\AISystem.cpp" />
     <ClCompile Include="..\src\Animation.cpp" />
     <ClCompile Include="..\src\AnimationCollection.cpp" />
     <ClCompile Include="..\src\AnimationSystem.cpp" />
@@ -130,9 +131,11 @@
     <ClCompile Include="..\src\Listener.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\PlayerController.cpp" />
+    <ClCompile Include="..\src\PlayerStateEnum.cpp" />
     <ClCompile Include="..\src\Prefab.cpp" />
     <ClCompile Include="..\src\RenderingSystem.cpp" />
     <ClCompile Include="..\src\RigidbodyPhysics.cpp" />
+    <ClCompile Include="..\src\SideEnum.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\SystemRegistry.cpp" />
     <ClCompile Include="..\src\Texture.cpp" />
@@ -149,6 +152,8 @@
     <ClInclude Include="..\external\imgui-sfml\imgui\imstb_truetype.h" />
     <ClInclude Include="..\src\ActionEnum.h" />
     <ClInclude Include="..\src\ActionSystem.h" />
+    <ClInclude Include="..\src\AIComponent.h" />
+    <ClInclude Include="..\src\AISystem.h" />
     <ClInclude Include="..\src\Animation.h" />
     <ClInclude Include="..\src\AnimationCollection.h" />
     <ClInclude Include="..\src\AnimationComponent.h" />
@@ -170,6 +175,9 @@
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\GoombaComponent.h" />
     <ClInclude Include="..\src\GoombaController.h" />
+    <ClInclude Include="..\src\HealthComponent.h" />
+    <ClInclude Include="..\src\HitboxComponent.h" />
+    <ClInclude Include="..\src\HopComponent.h" />
     <ClInclude Include="..\src\ImGuiComponents.h" />
     <ClInclude Include="..\src\ImguiWindows.h" />
     <ClInclude Include="..\src\Input.h" />
@@ -181,12 +189,15 @@
     <ClInclude Include="..\src\PauseEvent.h" />
     <ClInclude Include="..\src\PlayerComponent.h" />
     <ClInclude Include="..\src\PlayerController.h" />
+    <ClInclude Include="..\src\PlayerStateEnum.h" />
     <ClInclude Include="..\src\Prefab.h" />
     <ClInclude Include="..\src\PrefabComponent.h" />
     <ClInclude Include="..\src\RenderComponent.h" />
     <ClInclude Include="..\src\RenderingSystem.h" />
     <ClInclude Include="..\src\RigidBodyComponent.h" />
     <ClInclude Include="..\src\RigidbodyPhysics.h" />
+    <ClInclude Include="..\src\ShellComponent.h" />
+    <ClInclude Include="..\src\SideEnum.h" />
     <ClInclude Include="..\src\Sprite.h" />
     <ClInclude Include="..\src\SpriteComponent.h" />
     <ClInclude Include="..\src\System.h" />

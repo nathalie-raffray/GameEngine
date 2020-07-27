@@ -6,12 +6,12 @@
 	"entities_filepath" : "../res/data/level1.entities.json",
 	
 	"systems" : {
+		"Camera":"",
 		"AnimationSystem":"",
 		"GoombaController":"",
 		"PlayerController":"",
 		"RigidbodyPhysics":"",
 		"CollisionSystem":"",
-		"Camera":"",
 		"RenderingSystem":""
 	}
 }

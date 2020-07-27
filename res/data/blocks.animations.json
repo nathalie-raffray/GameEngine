@@ -1,0 +1,115 @@
+{
+    "animationCollectionId": "questionblock",
+    "animations": [
+        {
+            "animationId": "question_idle",
+            "mode": "loop",
+            "sprites": [
+                {
+                    "duration": 150.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1140,
+                        1,
+                        16,
+                        16
+                    ]
+                },
+                {
+                    "duration": 150.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1157,
+                        1,
+                        16,
+                        16
+                    ]
+                },
+                {
+                    "duration": 150.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1174,
+                        1,
+                        16,
+                        16
+                    ]
+                },
+                {
+                    "duration": 150.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1191,
+                        1,
+                        16,
+                        16
+                    ]
+                }
+            ]
+        },
+        {
+            "animationId": "question_hit",
+            "mode": "one time",
+            "sprites": [
+                {
+                    "duration": 150.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1208,
+                        1,
+                        16,
+                        16
+                    ]
+                },
+                {
+                    "duration": 100.0,
+                    "screenOffset": [
+                        0,
+                        -40
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1208,
+                        1,
+                        16,
+                        16
+                    ]
+                },
+                {
+                    "duration": 150.0,
+                    "screenOffset": [
+                        0,
+                        0
+                    ],
+                    "texId": "stagetiles",
+                    "texRect": [
+                        1208,
+                        1,
+                        16,
+                        16
+                    ]
+                }
+            ]
+        }
+    ]
+}

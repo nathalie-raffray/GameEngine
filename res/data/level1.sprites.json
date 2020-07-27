@@ -1,7 +1,6 @@
 {
     "sprites": [
         {
-            "scale": 3.4000000953674316,
             "spriteId": "tree",
             "texId": "stagetiles",
             "texRect": [
@@ -12,7 +11,6 @@
             ]
         },
         {
-            "scale": 1,
             "spriteId": "test",
             "texId": "marioluigi",
             "texRect": [
@@ -23,7 +21,6 @@
             ]
         },
         {
-            "scale": 1.5,
             "spriteId": "test2",
             "texId": "stagetiles",
             "texRect": [
@@ -34,7 +31,6 @@
             ]
         },
         {
-            "scale": 5.0,
             "spriteId": "test3",
             "texId": "stagetiles",
             "texRect": [
@@ -42,6 +38,56 @@
                 22,
                 100,
                 100
+            ]
+        },
+        {
+            "spriteId": "level1background_sprite",
+            "texId": "level1background",
+            "texRect": [
+                0,
+                0,
+                2816,
+                656
+            ]
+        },
+        {
+            "spriteId": "level1floor1",
+            "texId": "level1miscellaneous",
+            "texRect": [
+                1,
+                10,
+                624,
+                16
+            ]
+        },
+        {
+            "spriteId": "level1floor2",
+            "texId": "level1miscellaneous",
+            "texRect": [
+                0,
+                29,
+                463,
+                32
+            ]
+        },
+        {
+            "spriteId": "level1colorblock1",
+            "texId": "level1miscellaneous",
+            "texRect": [
+                0,
+                155,
+                48,
+                49
+            ]
+        },
+        {
+            "spriteId": "level1colorblock2",
+            "texId": "level1miscellaneous",
+            "texRect": [
+                54,
+                154,
+                48,
+                81
             ]
         }
     ]

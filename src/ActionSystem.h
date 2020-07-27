@@ -5,6 +5,8 @@
 #include "ActionEnum.h"
 #include "Input.h"
 
+#include <SFML/Window/Event.hpp>
+
 #include "json_serialization.h"
 
 struct InputComponent
@@ -24,10 +26,14 @@ public:
 
 	static void init(const std::string& filePath);
 
+	//static void processEvent(sf::Event& event);
+
 	static bool getActionValue(ActionName actionName);
 
 	//float getActionValueFloat(const ActionName& actionName);
 	static inline std::unordered_map<ActionName, Input> actionMap;
+	//static inline std::unordered_map<Input, bool> actionValues;
+
 };
 
 void from_json(const json& j, ActionSystem& ac);

@@ -6,8 +6,8 @@ using Vector2 = sf::Vector2<T>;
 
 struct TransformComponent
 {
-	Vector2<int> pos;
-	Vector2<int> new_pos;
+	Vector2<float> pos;
+	Vector2<float> new_pos;
 	
 	float rotationz;
 

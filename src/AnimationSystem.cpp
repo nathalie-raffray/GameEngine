@@ -10,7 +10,7 @@
 
 bool AnimationSystem::isValid(EntityHandle h) const
 {
-	return (h->has<AnimationComponent>());
+	return (h->has<AnimationComponent>() && h->has<TransformComponent>());
 }
 
 //----------------------------------------------------------------------------------------------
@@ -37,6 +37,9 @@ void AnimationSystem::update(float dt)
 		if (frame.duration <= animComp->clock.getElapsedTime().asMilliseconds())
 		{
 			animComp->clock.restart();
+
+			e->get<TransformComponent>()->pos -= {(float)frame.screenOffsetX, (float)frame.screenOffsetY};
+
 			switch (animation->mode)
 			{
 			case animation_mode::loop:
@@ -65,6 +68,10 @@ void AnimationSystem::update(float dt)
 				else animComp->currentFrame = (currFrame - 1) % totalFrames;
 				break;
 			}
+			AnimationFrame& newFrame = animation->frames[animComp->currentFrame];
+
+			e->get<TransformComponent>()->pos += {(float)newFrame.screenOffsetX, (float)newFrame.screenOffsetY};
+
 		}
 	}
 }

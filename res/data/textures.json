@@ -8,6 +8,14 @@
 				{
 					"texId" : "stagetiles", 
 					"filepath" : "../res/stagetiles.png"
+				},
+				{
+					"texId" : "level1background", 
+					"filepath" : "../res/level1background.png"
+				},
+				{
+					"texId" : "level1miscellaneous", 
+					"filepath" : "../res/level1miscellaneous.png"
 				}
 			]
 }

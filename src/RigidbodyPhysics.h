@@ -1,6 +1,5 @@
 #pragma once
 #include "System.h"
-#include "EventManager.h"
 
 class RigidbodyPhysics : public System, 
 						 public Listener<static_dynamic_collision>

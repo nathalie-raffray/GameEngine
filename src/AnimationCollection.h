@@ -15,6 +15,8 @@ struct EntityHandle;
 struct AnimationCollection : Asset
 {
 	std::unordered_map<AnimationId, std::unique_ptr<Animation>> animations;
+	//AnimationId death_animation;
+	//AnimationId hit_animation;
 
 	Animation* getAnimation(const AnimationId& id);
 

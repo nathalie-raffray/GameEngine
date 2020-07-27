@@ -1,5 +1,23 @@
 #include "Animation.h"
 
+#include "Entity.h"
+#include "Game.h"
+#include "AnimationCollection.h"
+#include "AssetStorage.h"
+
+void Animation::set(EntityHandle h, AnimationId new_animation)
+{
+	auto animcomp = h->get<AnimationComponent>();
+	if (Game::debug_mode)
+	{
+		auto& animations = Game::assets->get<AnimationCollection>(animcomp->animation_collection_id)->animations;
+		ASSERT(animations.find(new_animation) != animations.end());
+	}
+	animcomp->currentAnimation = new_animation;
+	animcomp->currentFrame = 0;
+	animcomp->clock.restart();
+}
+
 void to_json(json& j, const Animation& p)
 {
 	switch (p.mode)

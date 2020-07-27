@@ -16,6 +16,7 @@ void ActionSystem::init(const std::string& filePath)
 	}
 }
 
+
 bool ActionSystem::getActionValue(ActionName actionName)
 {
 	Input& input = actionMap[actionName];
@@ -28,6 +29,9 @@ bool ActionSystem::getActionValue(ActionName actionName)
 		{
 		case Input::keyboard:
 			return sf::Keyboard::isKeyPressed(input.keyboardmouseinput.key);
+			
+			//return sf::Keyboard::(input.keyboardmouseinput.key);
+
 		case Input::mousebutton:
 			return sf::Mouse::isButtonPressed(input.keyboardmouseinput.mouseButton);
 		}

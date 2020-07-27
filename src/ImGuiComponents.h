@@ -151,7 +151,7 @@ void ImGuiComponent<SpriteComponent>(EntityHandle eh, bool init)
 template<>
 void ImGuiComponent<TransformComponent>(EntityHandle eh, bool init)
 {
-	ImGui::InputInt2("position", &eh->get<TransformComponent>()->pos.x);
+	ImGui::InputFloat2("position", &eh->get<TransformComponent>()->new_pos.x);
 	ImGui::InputFloat("rotation z", &eh->get<TransformComponent>()->rotationz);
 	ImGui::InputFloat("scale", &eh->get<TransformComponent>()->scale);
 };
@@ -178,6 +178,8 @@ template<>
 void ImGuiComponent<RigidBodyComponent>(EntityHandle eh, bool init)
 {
 	ImGui::Checkbox("is kinematic", &eh->get<RigidBodyComponent>()->is_kinematic);
+	ImGui::InputFloat2("velocity", &eh->get<RigidBodyComponent>()->velocity.x);
+	ImGui::InputFloat("gravity", &eh->get<RigidBodyComponent>()->gravity);
 };
 
 //----------------------------------------------------------------------------------------------
@@ -221,4 +223,19 @@ void ImGuiComponent<PrefabComponent>(EntityHandle eh, bool init)
 {
 	ImGui::Text("prefab name: ");
 	ImGui::Text(eh->get<PrefabComponent>()->prefab_id.c_str());
+};
+
+//----------------------------------------------------------------------------------------------
+
+template<>
+void ImGuiComponent<HealthComponent>(EntityHandle eh, bool init)
+{
+	auto health = eh->get<HealthComponent>();
+	ImGui::InputInt("max health", &health->max_health);
+	/*ImGui::InputInt("damage to other", &health->damage_to_other);
+	if (eh->has<AnimationComponent>())
+	{
+		ImGui::Text("hit animation", &health->hit_animation);
+		ImGui::Text("death animation", &health->death_animation);
+	}*/
 };

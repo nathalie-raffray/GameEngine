@@ -27,7 +27,7 @@ bool Game::paused = false;
 bool Game::debug_mode = false;
 std::unique_ptr<ImguiWindows> Game::imguiWin = std::make_unique<ImguiWindows>("../res/data/tableofcontents.json");
 std::unique_ptr<AssetStorage> Game::assets = std::make_unique<AssetStorage>("../res/data/tableofcontents.json");
-std::unique_ptr<sf::RenderWindow> Game::window = std::make_unique<sf::RenderWindow>(sf::VideoMode(720, 640), "");
+std::unique_ptr<sf::RenderWindow> Game::window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 700), "");
 EntityRegistryHandle Game::entity_registry{};
 SystemRegistryHandle Game::system_registry{};
 LevelHandle Game::current_level{};
@@ -47,22 +47,21 @@ int main()
 	Game::init("level1", true);
 
 	char windowTitle[255] = "ImGui + SFML = <3";
-
-	//std::set<EntityHandle> s(std::set<EntityHandle, EntityCompareByLayer>());
-
+	
 	Game::window->setTitle(windowTitle);
 	Game::window->resetGLStates(); // call it if you only draw ImGui. Otherwise not needed.
 	sf::Clock deltaClock;
 	while (Game::window->isOpen()) {
 		sf::Event event;
+		//Game::window->setKeyRepeatEnabled(false);
 		while (Game::window->pollEvent(event)) {
 			ImGui::SFML::ProcessEvent(event);
-
+			
 			if (event.type == sf::Event::Closed) {
 				Game::window->close();
 			}
 		}
-		ImGui::SFML::Update(*Game::window, deltaClock.restart());
+		ImGui::SFML::Update(*Game::window, deltaClock.getElapsedTime());
 
 		Game::window->clear(bgColor); // fill background with color
 		

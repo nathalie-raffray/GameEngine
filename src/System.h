@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
-
-#include <set>
+#include "EventManager.h"
 
 struct EntityCompareDefault {
 	static bool cmp(const EntityHandle& lhs, const EntityHandle& rhs) {
